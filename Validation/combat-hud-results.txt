@@ -1,0 +1,20 @@
+PASS Godot-style 3D HUD is installed in existing scenes
+PASS Chrupiaca uses the original weapon image
+PASS One Chrupiaca trigger emits exactly three projectiles
+PASS All three projectiles retain original damage and speed
+PASS Triple shot uses separate spread directions
+PASS Volley does not deal damage before contact
+PASS Three actual contacts deal 60 total damage
+PASS Floating damage counter combines simultaneous hits correctly
+PASS Original graphic health bar follows current health
+PASS Jetpack image shows remaining fuel
+PASS Weapon image changes to original Schabowy artwork
+PASS Pan has its own image rendered from original model
+PASS Pan impact uses mesh fragments
+PASS Pan fragments retain original amount and fade out
+PASS Enemy death happens once
+PASS Death particles use original BUM artwork
+PASS Jetpack emits both coloured exhaust effects
+PASS Jetpack stops emitting after release
+PASS One-shot effects clean themselves up
+PASS No runtime errors in shooting, damage counters, HUD or effects

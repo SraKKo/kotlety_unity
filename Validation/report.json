@@ -1,0 +1,224 @@
+{
+  "colliders": 112,
+  "actors": 9,
+  "spawners": 6,
+  "models": [
+    {
+      "name": "Chrupiaca",
+      "meshes": 1,
+      "nodes": 2,
+      "images": 1,
+      "animations": 0,
+      "skins": 0
+    },
+    {
+      "name": "ChrupiacaPickup",
+      "meshes": 1,
+      "nodes": 3,
+      "images": 1,
+      "animations": 0,
+      "skins": 0
+    },
+    {
+      "name": "ChrupiacaProjectile",
+      "meshes": 1,
+      "nodes": 3,
+      "images": 1,
+      "animations": 0,
+      "skins": 0
+    },
+    {
+      "name": "Hand",
+      "meshes": 18,
+      "nodes": 38,
+      "images": 0,
+      "animations": 2,
+      "skins": 1
+    },
+    {
+      "name": "Jetpack",
+      "meshes": 5,
+      "nodes": 6,
+      "images": 4,
+      "animations": 0,
+      "skins": 0
+    },
+    {
+      "name": "JetpackPickup",
+      "meshes": 5,
+      "nodes": 8,
+      "images": 4,
+      "animations": 2,
+      "skins": 0
+    },
+    {
+      "name": "LeftHandRig",
+      "meshes": 18,
+      "nodes": 44,
+      "images": 0,
+      "animations": 2,
+      "skins": 0
+    },
+    {
+      "name": "Level001",
+      "meshes": 131,
+      "nodes": 427,
+      "images": 28,
+      "animations": 0,
+      "skins": 0
+    },
+    {
+      "name": "MeleeEnemy",
+      "meshes": 1,
+      "nodes": 61,
+      "images": 1,
+      "animations": 4,
+      "skins": 1
+    },
+    {
+      "name": "MeleeEnemyRig",
+      "meshes": 1,
+      "nodes": 66,
+      "images": 1,
+      "animations": 4,
+      "skins": 1
+    },
+    {
+      "name": "Pan",
+      "meshes": 2,
+      "nodes": 3,
+      "images": 2,
+      "animations": 0,
+      "skins": 0
+    },
+    {
+      "name": "Pierog",
+      "meshes": 1,
+      "nodes": 2,
+      "images": 1,
+      "animations": 0,
+      "skins": 0
+    },
+    {
+      "name": "PierogPickup",
+      "meshes": 1,
+      "nodes": 4,
+      "images": 1,
+      "animations": 2,
+      "skins": 0
+    },
+    {
+      "name": "RightHandRig",
+      "meshes": 24,
+      "nodes": 58,
+      "images": 4,
+      "animations": 7,
+      "skins": 1
+    },
+    {
+      "name": "Sausage",
+      "meshes": 1,
+      "nodes": 2,
+      "images": 1,
+      "animations": 0,
+      "skins": 0
+    },
+    {
+      "name": "SausageLink",
+      "meshes": 1,
+      "nodes": 3,
+      "images": 1,
+      "animations": 0,
+      "skins": 0
+    },
+    {
+      "name": "Schabowy",
+      "meshes": 1,
+      "nodes": 2,
+      "images": 1,
+      "animations": 0,
+      "skins": 0
+    },
+    {
+      "name": "SchabowyPickup",
+      "meshes": 1,
+      "nodes": 5,
+      "images": 1,
+      "animations": 0,
+      "skins": 0
+    },
+    {
+      "name": "SchabowyProjectile",
+      "meshes": 1,
+      "nodes": 3,
+      "images": 1,
+      "animations": 0,
+      "skins": 0
+    },
+    {
+      "name": "ShootingEnemy",
+      "meshes": 30,
+      "nodes": 52,
+      "images": 0,
+      "animations": 0,
+      "skins": 1
+    },
+    {
+      "name": "ShootingEnemyRig",
+      "meshes": 31,
+      "nodes": 59,
+      "images": 0,
+      "animations": 0,
+      "skins": 1
+    },
+    {
+      "name": "TestLevel",
+      "meshes": 89,
+      "nodes": 373,
+      "images": 5,
+      "animations": 0,
+      "skins": 0
+    },
+    {
+      "name": "TestObject00",
+      "meshes": 1,
+      "nodes": 3,
+      "images": 0,
+      "animations": 0,
+      "skins": 0
+    },
+    {
+      "name": "TestObject01",
+      "meshes": 4,
+      "nodes": 8,
+      "images": 3,
+      "animations": 0,
+      "skins": 0
+    },
+    {
+      "name": "TestObject02",
+      "meshes": 1,
+      "nodes": 4,
+      "images": 0,
+      "animations": 0,
+      "skins": 0
+    },
+    {
+      "name": "TestObject03",
+      "meshes": 1,
+      "nodes": 4,
+      "images": 0,
+      "animations": 0,
+      "skins": 0
+    }
+  ],
+  "runtimeCompilation": "passed against installed Unity assemblies",
+  "editorCompilation": "passed against installed Unity assemblies",
+  "playMode": "passed in Unity 6000.3.13f1",
+  "movementRegression": "10 checks passed",
+  "playModeChecks": 31,
+  "testLevelPlayMode": "passed in Unity 6000.3.13f1",
+  "testLevelChecks": 23,
+  "combatHudPlayMode": "passed in Unity 6000.3.13f1",
+  "combatHudChecks": 20
+}

@@ -1,0 +1,31 @@
+PASS Player spawned
+PASS Player settles on map collision
+PASS Original player radius retained
+PASS Original eye height retained
+PASS Dedicated weapon camera has original FOV and layer
+PASS Authored clip exists: melee_idle2
+PASS Authored clip exists: melee_attack2
+PASS Authored clip exists: melee_block
+PASS Authored clip exists: throw_schabowy
+PASS Authored clip exists: throw_chrupiaca
+PASS Original hook anchor is connected
+PASS Melee animation starts
+PASS Melee damage waits for authored impact frame
+PASS Authored animation drives the pan transform
+PASS Melee damage event fires exactly once
+PASS Melee returns to idle
+PASS Hook attaches after launch animation
+PASS Hook rope renders authored sausage mesh segments
+PASS Rope no longer uses a substitute line
+PASS First wave spawns its original enemy count
+PASS Enemy has a valid navigation position
+PASS Enemy locomotion clip is present
+PASS Enemy has a valid navigation position
+PASS Enemy locomotion clip is present
+PASS Enemy has a valid navigation position
+PASS Enemy locomotion clip is present
+PASS Authored enemy is human-sized without bounds fitting
+PASS Airborne wall-jump test starts without stale ground contact
+PASS Wall jump lands on real Unity collision
+PASS Real CharacterController wall jump travels less than 9 metres
+PASS No runtime errors during scene, animation, hook and wave checks

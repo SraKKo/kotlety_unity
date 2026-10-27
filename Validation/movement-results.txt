@@ -1,0 +1,12 @@
+﻿PASS Wall jump uses 6 m/s outward and caps tangential momentum at 8 m/s
+PASS No 49.875 m/s launch survives in wall jump
+PASS Fresh wall contact can jump
+PASS Expired wall contact cannot jump
+PASS Wall jump respects cooldown
+PASS Floor normal cannot be used as wall
+PASS Diagonal ground movement is limited to 20 m/s
+PASS Ground friction decelerates with time
+PASS Unsteered wall jump lands within 9 metres
+PASS Wall jump travel remains consistent at 30, 60 and 120 physics steps
+Wall jump travel (m): 30 Hz=7,933, 60 Hz=7,922, 120 Hz=7,967
+10 movement regression checks passed.

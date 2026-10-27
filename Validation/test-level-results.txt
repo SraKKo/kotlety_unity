@@ -1,0 +1,23 @@
+PASS Existing main menu loads
+PASS Test level is in build settings
+PASS Menu entry loads the test level
+PASS Original test spawn stands on collision
+PASS All four original pickups are present
+PASS Pickup: Schabowy
+PASS Pickup: Chrupiaca
+PASS Pickup: Jetpack
+PASS Pickup: Pierog
+PASS Two melee enemies, shooter and dummy are present
+PASS Shooter and training dummy retain their roles
+PASS Enemy is placed on the test NavMesh
+PASS Enemy is placed on the test NavMesh
+PASS Enemy is placed on the test NavMesh
+PASS Training dummy takes weapon damage
+PASS Original ball uses rigid-body gravity
+PASS City arena walls are absent from the test map
+PASS Both original rotating platforms are present
+PASS Platform rotation advances in physics time
+PASS Platform rotation advances in physics time
+PASS Death reloads the test map instead of the city
+PASS Player respawns after death
+PASS No runtime errors during test-level checks
