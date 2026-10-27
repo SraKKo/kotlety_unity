@@ -1,0 +1,22 @@
+PASS Shared profile loads for already saved scenes
+PASS Ground movement reaches full speed in 0.1 seconds
+PASS Ground release brakes within 0.2 seconds
+PASS Airborne momentum survives without input
+PASS Air steering redirects momentum without deleting speed
+PASS Three dashes consume three charges
+PASS Fourth dash is rejected without negative stamina
+PASS Stamina recovers over time
+PASS Coyote time accepts jump just after a ledge
+PASS Buffered jump triggers on landing
+PASS Slide starts immediately at 24 m/s
+PASS Slide jump keeps horizontal momentum
+PASS Repeated slide presses cannot multiply speed
+PASS Dash jump carries boost and costs an extra charge
+PASS Wall jump 1 succeeds
+PASS Wall jump 2 succeeds
+PASS Wall jump 3 succeeds
+PASS Airborne wall jump budget is capped at three
+PASS Landing replenishes wall jumps
+PASS Air crouch starts controlled downward slam
+PASS Buffered slam bounce is strong but capped
+PASS Jump has a short responsive arc, not floaty gravity

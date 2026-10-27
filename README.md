@@ -14,8 +14,8 @@ Sceny są już przygotowane z pełną hierarchią obiektów. Narzędzie **Rety K
 - Lewa ręka korzysta z oryginalnej animacji haka. Przy zatrzymaniu animacje zachowują końcową pozę (ClampForever), zamiast wracać do pozy bazowej. Zaczepienie następuje po fazie wyrzutu, a zwolnienie haka cofa animację.
 - Linka składa się z siatek **`kielba.tscn`** z oryginalną orientacją i skalą. Segmenty wyrastają od oryginalnego `pento_point`; nie jest to LineRenderer.
 - Znajdźki i pociski zachowują wewnętrzną skalę swoich scen. Surowy model schabowego nie zastępuje już jego mniejszej wersji do podnoszenia/rzucania.
-- Ruch ma stały krok 60 Hz, przyspieszenie na ziemi 20 m/s², w powietrzu 5 m/s², tarcie 15/1 m/s² i limit zwykłego biegu 20 m/s.
-- Wall jump ma impuls **6 m/s od ściany**, zamiast 49,875 m/s, oraz limit pędu wzdłuż ściany 8 m/s. Kontakt wygasa po 0,08 s, cooldown wynosi 0,3 s, a pierwsze 0,15 s po odbiciu chroni impuls przed natychmiastowym anulowaniem przez sterowanie. Sama obecność ściany we wcześniejszej klatce nie wystarcza do kolejnego odbicia.
+- Ruch ma stały krok 60 Hz i wspólny profil `Assets/Resources/Movement/ArenaMovement.asset`; aktualne parametry opisuje sekcja ruchu arenowego poniżej.
+- Wall jump ma kontrolowany impuls od ściany i trzy użycia w powietrzu. Fizyczne sprawdzenie ściany zapobiega odbijaniu się od kontaktów zapamiętanych dawno temu.
 - Ślizg zmienia kapsułę z zachowaniem punktu podparcia i sprawdza prześwit przed wyprostowaniem. Kamera wraca do poziomego horyzontu.
 
 ## Poziom testowy z Godota
@@ -36,6 +36,20 @@ HUD ponownie używa układu przestrzennego Godota (15° obrotu panelu, 0,01 jedn
 
 Testy strzelania, sumowania obrażeń, obrazków broni, paliwa i efektów: `Validation/combat-hud-results.txt` (20 sprawdzeń). Podglądy z Unity: `Validation/hud-chrupiaca.png` i `Validation/hud-schabowy.png`.
 
+## Ruch arenowy
+
+Sterowanie: **Shift — dash**, **Ctrl/C — ślizg**, **Ctrl/C w powietrzu — slam**, **Spacja — skok**, także przy ścianie. Dash ma trzy odnawiające się ładunki, widoczne pod paskiem życia. Zwykły dash kosztuje jeden ładunek; dash połączony ze skokiem z ziemi zużywa kolejny i zachowuje prędkość. Podczas ślizgu regeneracja ładunków jest wstrzymana.
+
+Bieg osiąga 16,5 m/s w około 0,1 s. Grawitacja 40 m/s² i impuls skoku 12,5 m/s dają krótki łuk skoku. Kontrola w powietrzu przekierowuje pęd, a brak wciśniętego kierunku nie hamuje automatycznie postaci. Skok przy lądowaniu i slide-jump zachowują nabraną prędkość. Ponowne wciskanie ślizgu nie mnoży jej bez końca.
+
+Ślizg zaczyna się od 24 m/s i zachowuje wyższy pęd, stopniowo wracając do tej prędkości. Dash osiąga 42 m/s przez 0,15 s. Cały ruch ma limit pędu poziomego 72 m/s; kolizja ze ścianą usuwa zablokowaną część prędkości. Wall jump ma do trzech użyć przed lądowaniem, z impulsem 8 m/s od ściany i ograniczonym pędem wzdłuż niej.
+
+Wciśnięcie skoku do 0,12 s przed lądowaniem zostaje zapamiętane. Po opuszczeniu krawędzi dostępne jest dodatkowe 0,1 s na skok. Slam przyspiesza w dół do 80 m/s; skok przy jego lądowaniu daje ograniczone odbicie do góry. Kamera interpoluje ruch między krokami fizyki i delikatnie poszerza FOV przy większej prędkości.
+
+Parametry, klawisze, limit wall jumpów i reakcję kamery edytuje się w **`Assets/Resources/Movement/ArenaMovement.asset`** w Inspectorze. Profil ładuje się również w już zapisanych scenach — regenerowanie poziomów nie jest potrzebne. Po zmianie skryptów uruchom ponownie Play, aby odświeżyć cały HUD i stan ruchu.
+
+Sprawdzenia nowego motoru i fizycznego CharacterControllera: `Validation/arena-movement-results.txt`. Raport zawiera 35 zakończonych powodzeniem sprawdzeń. Podczas testu Unity 6000.3 zgłosiło osobny błąd indeksowania wyszukiwarki edytora; pełny stos zapisano w `Validation/arena-movement-editor-issues.txt`. Testy można uruchomić w osobnej instancji Unity przez `-executeMethod RetyKotlety.Editor.ArenaMovementChecks.Run`.
+
 ## Sterowanie
 
 | Klawisz | Działanie |
@@ -43,7 +57,8 @@ Testy strzelania, sumowania obrażeń, obrazków broni, paliwa i efektów: `Vali
 | WASD / strzałki | Ruch |
 | Mysz | Rozglądanie |
 | Spacja | Skok / wall jump |
-| Lewy Shift | Ślizg |
+| Lewy Shift | Dash |
+| Lewy Ctrl / C | Ślizg na ziemi, slam w powietrzu |
 | F | Podniesienie przedmiotu |
 | E | Zjedzenie pieroga (+20 HP) |
 | Q | Wyrzucenie / zwolnienie haka |
@@ -67,7 +82,7 @@ Statyczna kontrola: `./Validation/Verify-Migration.ps1`. Test w Unity można uru
 
 Eksport źródłowy znajduje się w `../MigrationTools/export_unity.gd` oraz `export_presentation.gd`; drugi plik przenosi kompletne sceny rąk, broni, znajdziek i przeciwników. Podczas zwykłej pracy w Unity Godot nie jest potrzebny.
 
-Ostatnia kontrola: 31 sprawdzeń w Play Mode i 10 testów matematyki ruchu przeszło bez błędów. Odbicie od ściany bez dalszego sterowania miało w CharacterController około 8,0 m zasięgu. Proporcje rąk porównano również z obrazem wyrenderowanym bezpośrednio w Godot (`Validation/godot-weapons-reference.png`).
+Wcześniejsze sprawdzenia map, animacji i walki są zapisane w katalogu `Validation`. Aktualny motor ruchu ma osobny raport `arena-movement-results.txt`. Proporcje rąk porównano z obrazem `Validation/godot-weapons-reference.png`.
 
 ## Pozostałe różnice
 
@@ -83,4 +98,3 @@ Importer: [oficjalny Unity glTFast](https://docs.unity3d.com/Packages/com.unity.
 ## Repozytorium Git
 
 Duże modele GLB są przechowywane przez Git LFS. Klonowanie przez GitHub Desktop pobiera je automatycznie. Przy użyciu zwykłego Gita należy mieć zainstalowany Git LFS i po sklonowaniu wykonać git lfs pull. Otwórz sklonowany folder projektu bezpośrednio w Unity Hub; foldery Library, Temp i Logs są generowane lokalnie i nie należą do repozytorium.
-

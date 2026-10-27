@@ -8,31 +8,51 @@ public class PlayerController : MonoBehaviour {
  public WeaponPresentation weapons; public HookHand hookHand; public SausageRope rope;
  public float health=100,fuel; public int pierogi; public bool canFly,hasSchabowy,hasChrupiaca;
  public FoodKind weapon=FoodKind.Pan; public string pickupHint="";
- [Header("Ruch — metry i sekundy")]
+ [Header("Profil ruchu arenowego")]
+ public MovementTuning movement;
+ [HideInInspector]
  public float speed=20,jumpForce=7.265f,gravity=9.8f;
- public float groundAcceleration=20,airAcceleration=5,groundFriction=15,airFriction=1;
- [Min(0)] public float wallJumpOutwardSpeed=6,wallJumpTangentSpeed=8,wallJumpCooldown=.3f;
+ [HideInInspector] public float groundAcceleration=20,airAcceleration=5,groundFriction=15,airFriction=1;
+ [HideInInspector] public float wallJumpOutwardSpeed=6,wallJumpTangentSpeed=8,wallJumpCooldown=.3f;
  public float standingHeight=2,crouchingHeight=1;
  public Vector3 cameraRest=new Vector3(0,1.091f,-.294f);
  public Vector3 velocity;
  CharacterController controller; Vector3 moveInput,wallNormal,groundNormal=Vector3.up,hookPoint;
- Quaternion cameraRotation; Enemy hookedEnemy; float pitch,slideTimer,hookCooldown,wallTimer,wallSteerLock,ropeLength;
+ Quaternion cameraRotation; Enemy hookedEnemy; float pitch,hookCooldown,ropeLength;
  float lastWallContact=float.NegativeInfinity; bool sliding,hooked,jumpQueued,slideHeld,flightHeld;
+ ArenaMovementMotor motor;bool dashQueued,slidePressedQueued;float eyeHeight,roll,baseFov,landingKick;Vector3 previousPosition,currentPosition;
+ public float DashStamina=>motor!=null?motor.stamina:3;
+ public bool IsDashing=>motor!=null&&motor.Dashing;
+ public bool IsSlamming=>motor!=null&&motor.Slamming;
+ public int WallJumpsRemaining=>motor!=null?motor.WallJumpsRemaining:3;
  const int WorldMask=~((1<<8)|(1<<11));
- public bool IsFlying=>canFly&&fuel>0&&flightHeld&&GameSession.Instance&&!GameSession.Instance.paused;
+ public bool IsFlying=>canFly&&fuel>0&&flightHeld&&!IsDashing&&!IsSlamming&&GameSession.Instance&&!GameSession.Instance.paused;
  public bool Blocking=>weapon==FoodKind.Pan && weapons && weapons.Blocking;
- void Awake(){controller=GetComponent<CharacterController>();}
- void Start(){cameraRotation=Quaternion.Euler(0,view.transform.localEulerAngles.y,0);var game=GameSession.Instance;if(game)game.player=this;Equip(FoodKind.Pan);}
+ void Awake(){
+  controller=GetComponent<CharacterController>();if(!movement)movement=Resources.Load<MovementTuning>("Movement/ArenaMovement");if(!movement)movement=ScriptableObject.CreateInstance<MovementTuning>();motor=new ArenaMovementMotor(movement);
+ }
+ void OnEnable(){
+  // Script reloads in the open editor can recreate non-serialized motor state.
+  if(!controller)controller=GetComponent<CharacterController>();
+  if(!movement)movement=Resources.Load<MovementTuning>("Movement/ArenaMovement");
+  if(!movement)movement=ScriptableObject.CreateInstance<MovementTuning>();
+  if(motor==null){motor=new ArenaMovementMotor(movement);motor.velocity=velocity;}
+  previousPosition=currentPosition=transform.position;
+  if(view&&baseFov<=0){baseFov=view.fieldOfView;eyeHeight=cameraRest.y;cameraRotation=Quaternion.Euler(0,view.transform.localEulerAngles.y,0);}
+ }
+ void Start(){speed=movement.runSpeed;jumpForce=movement.jumpSpeed;gravity=movement.gravity;groundAcceleration=movement.groundAcceleration;airAcceleration=movement.airAcceleration;groundFriction=movement.groundBraking;airFriction=movement.airFriction;wallJumpOutwardSpeed=movement.wallOutwardSpeed;wallJumpTangentSpeed=movement.wallTangentSpeed;wallJumpCooldown=movement.wallCooldown;eyeHeight=cameraRest.y;baseFov=view.fieldOfView;previousPosition=currentPosition=transform.position;cameraRotation=Quaternion.Euler(0,view.transform.localEulerAngles.y,0);var game=GameSession.Instance;if(game)game.player=this;Equip(FoodKind.Pan);}
  void Update(){
-  var game=GameSession.Instance;if(!game||game.paused)return;
+  var game=GameSession.Instance;if(!game||game.paused){jumpQueued=dashQueued=slidePressedQueued=false;motor?.ClearJumpBuffer();return;}
   transform.Rotate(0,Input.GetAxisRaw("Mouse X")*game.sensitivity*10,0);
   pitch=Mathf.Clamp(pitch-Input.GetAxisRaw("Mouse Y")*game.sensitivity*10,-89,89);
   moveInput=Vector3.ClampMagnitude(new Vector3(Input.GetAxisRaw("Horizontal"),0,Input.GetAxisRaw("Vertical")),1);
-  view.transform.localRotation=cameraRotation*Quaternion.Euler(pitch,0,-moveInput.x*2);
-  var cameraTarget=cameraRest;cameraTarget.y=sliding?cameraRest.y*.5f:cameraRest.y;
-  view.transform.localPosition=Vector3.Lerp(view.transform.localPosition,cameraTarget,1-Mathf.Exp(-15*Time.deltaTime));
+  roll=Mathf.LerpAngle(roll,-moveInput.x*2,1-Mathf.Exp(-movement.cameraResponse*Time.deltaTime));
+  view.transform.localRotation=cameraRotation*Quaternion.Euler(pitch,0,roll);
   if(Input.GetKeyDown(KeyCode.Space))jumpQueued=true;
-  slideHeld=Input.GetKey(KeyCode.LeftShift);flightHeld=Input.GetKey(KeyCode.Tab);
+  if(Input.GetKeyDown(movement.dashKey))dashQueued=true;
+  slideHeld=Input.GetKey(movement.slideKey)||Input.GetKey(KeyCode.RightControl)||Input.GetKey(movement.alternateSlideKey);
+  if(Input.GetKeyDown(movement.slideKey)||Input.GetKeyDown(KeyCode.RightControl)||Input.GetKeyDown(movement.alternateSlideKey))slidePressedQueued=true;
+  flightHeld=Input.GetKey(KeyCode.Tab);
   if(Input.GetKeyDown(KeyCode.V))Equip(FoodKind.Pan);
   if(Input.GetKeyDown(KeyCode.Alpha1)&&hasSchabowy)Equip(FoodKind.Schabowy);
   if(Input.GetKeyDown(KeyCode.Alpha2)&&hasChrupiaca)Equip(FoodKind.Chrupiaca);
@@ -53,36 +73,51 @@ public class PlayerController : MonoBehaviour {
  }
  void FixedUpdate(){
   var game=GameSession.Instance;if(!game||game.paused)return;
-  float dt=Time.fixedDeltaTime;wallTimer=Mathf.Max(0,wallTimer-dt);wallSteerLock=Mathf.Max(0,wallSteerLock-dt);slideTimer=Mathf.Max(0,slideTimer-dt);hookCooldown=Mathf.Max(0,hookCooldown-dt);
-  bool grounded=controller.isGrounded;
-  if(grounded&&velocity.y<0)velocity.y=-2;
-  var direction=transform.TransformDirection(moveInput);
-  if(!sliding&&slideHeld&&grounded&&slideTimer<=0){sliding=true;var h=new Vector3(velocity.x,0,velocity.z);if(h.sqrMagnitude<.01f)h=transform.forward;h*=1.5f;velocity.x=h.x;velocity.z=h.z;}
-  if(sliding&&!slideHeld&&TryHeight(standingHeight)){sliding=false;slideTimer=.2f;}
-  if(sliding)TryHeight(crouchingHeight);
-  bool wallJump=false;
-  if(jumpQueued){
-   if(grounded){if(sliding&&TryHeight(standingHeight))sliding=false;velocity.y=jumpForce;game.Sound(game.jumpSound,transform.position);}
-   else if(MovementMath.CanWallJump(Time.fixedTime,lastWallContact,wallTimer,wallNormal)){
-    velocity=MovementMath.WallJump(velocity,wallNormal,wallJumpOutwardSpeed,jumpForce,wallJumpTangentSpeed);
-    wallTimer=wallJumpCooldown;wallSteerLock=.15f;lastWallContact=float.NegativeInfinity;wallNormal=Vector3.zero;wallJump=true;
-   }
-   jumpQueued=false;
-  }
-  if(!sliding&&!wallJump&&wallSteerLock<=0){var h=MovementMath.Horizontal(velocity,direction,speed,grounded?groundAcceleration:airAcceleration,grounded?groundFriction:airFriction,dt);velocity.x=h.x;velocity.z=h.z;}
-  else if(sliding&&grounded){var h=Vector3.ProjectOnPlane(new Vector3(velocity.x,0,velocity.z),groundNormal);h+=Vector3.ProjectOnPlane(Vector3.down*gravity,groundNormal)*dt;velocity.x=h.x;velocity.z=h.z;if(h.y<0)velocity.y=h.y-2;}
-  velocity.y-=gravity*dt;
-  if(canFly&&fuel>0&&flightHeld){velocity.y=Mathf.MoveTowards(velocity.y,6,48*dt);fuel=Mathf.Max(0,fuel-30*dt);}
+  float dt=Time.fixedDeltaTime;hookCooldown=Mathf.Max(0,hookCooldown-dt);
+  previousPosition=transform.position;
+  bool freshWall=Time.fixedTime-lastWallContact<=.08f;
+  if(!freshWall&&(jumpQueued||motor.HasBufferedJump)){ProbeWall();freshWall=Time.fixedTime-lastWallContact<=.08f;}
+  bool jump=jumpQueued;
+  if(jump&&(hooked||hookedEnemy)){ReleaseHook();velocity.y=Mathf.Max(velocity.y,movement.jumpSpeed*.5f);jump=false;}
+  motor.velocity=velocity;
+  var input=new ArenaMoveInput{wish=transform.TransformDirection(moveInput),forward=transform.forward,jump=jump,dash=dashQueued,slidePressed=slidePressedQueued,slideHeld=slideHeld};
+  motor.Step(input,new ArenaMoveContact{grounded=controller.isGrounded,wall=freshWall,wallNormal=wallNormal,groundNormal=groundNormal,height=transform.position.y},dt);
+  jumpQueued=dashQueued=slidePressedQueued=false;
+  velocity=motor.velocity;sliding=motor.Sliding;
+  if(motor.DashStarted||motor.Slamming){if(hooked||hookedEnemy)ReleaseHook();}
+  if(motor.Jumped){game.Sound(game.jumpSound,transform.position);lastWallContact=float.NegativeInfinity;}
+  if(motor.SlamLanded){landingKick=.1f;Effect.Emit(transform.position-Vector3.up*controller.height*.5f,Vector3.up,ImpactEffect.Bounce);}
+  TryHeight(sliding?crouchingHeight:standingHeight);
+  if(IsFlying){velocity.y=Mathf.MoveTowards(velocity.y,6,48*dt);fuel=Mathf.Max(0,fuel-30*dt);}
   if(hooked){
    if(Input.GetKey(KeyCode.R))ropeLength=Mathf.Max(2,ropeLength-15*dt);
    var offset=transform.position-hookPoint;float distance=offset.magnitude;
    if(distance>ropeLength){var normal=offset/distance;float outward=Vector3.Dot(velocity,normal);if(outward>0)velocity-=normal*outward;velocity-=normal*Mathf.Min((distance-ropeLength)/dt,15);}
-   velocity+=direction*10*dt;
+   velocity+=input.wish*10*dt;
   }
   if(hookedEnemy){hookedEnemy.Pull(transform.position,25*dt);if(Vector3.Distance(transform.position,hookPoint)<2)ReleaseHook();}
-  var flags=controller.Move(velocity*dt);
+  motor.velocity=velocity;
+  var flags=controller.Move(velocity*dt);velocity=motor.velocity;
   if((flags&CollisionFlags.Above)!=0&&velocity.y>0)velocity.y=0;
+  if((flags&CollisionFlags.Below)!=0&&velocity.y<0)velocity.y=-2;
+  currentPosition=transform.position;
   if(transform.position.y < -50)Damage(1000);
+ }
+ void LateUpdate(){
+  if(!view||!GameSession.Instance||GameSession.Instance.paused)return;
+  float dt=Time.deltaTime;float response=1-Mathf.Exp(-movement.cameraResponse*dt);
+  bool low=controller.height<standingHeight-.1f;
+  eyeHeight=Mathf.Lerp(eyeHeight,cameraRest.y*(low?.5f:1),response);landingKick=Mathf.Lerp(landingKick,0,response);
+  var target=cameraRest;target.y=eyeHeight-landingKick;
+  if((currentPosition-transform.position).sqrMagnitude>4)previousPosition=currentPosition=transform.position;
+  if(movement.interpolateCamera){float alpha=Mathf.Clamp01((Time.time-Time.fixedTime)/Time.fixedDeltaTime);target+=transform.InverseTransformVector(Vector3.Lerp(previousPosition,currentPosition,alpha)-transform.position);}
+  view.transform.localPosition=target;
+  float fast=Mathf.Clamp01((new Vector3(velocity.x,0,velocity.z).magnitude-movement.runSpeed)/Mathf.Max(1,movement.dashSpeed-movement.runSpeed));
+  view.fieldOfView=Mathf.Lerp(view.fieldOfView,baseFov+movement.speedFov*fast,response);
+ }
+ void ProbeWall(){
+  var directions=new[]{transform.forward,-transform.forward,transform.right,-transform.right};float nearest=.16f;
+  foreach(var direction in directions)if(Physics.SphereCast(transform.position+controller.center,controller.radius*.9f,direction,out var hit,nearest,WorldMask&~(1<<9),QueryTriggerInteraction.Ignore)&&Mathf.Abs(hit.normal.y)<.2f){nearest=hit.distance;wallNormal=hit.normal;lastWallContact=Time.fixedTime;}
  }
  bool TryHeight(float height){
   if(Mathf.Abs(controller.height-height)<.001f)return true;
@@ -92,7 +127,7 @@ public class PlayerController : MonoBehaviour {
  }
  void OnControllerColliderHit(ControllerColliderHit hit){
   if(hit.normal.y>.5f)groundNormal=hit.normal;
-  else if(Mathf.Abs(hit.normal.y)<.2f&&Vector3.Dot(hit.moveDirection,hit.normal)<-.01f){wallNormal=hit.normal;lastWallContact=Time.fixedTime;}
+  else if(Mathf.Abs(hit.normal.y)<.2f&&Vector3.Dot(hit.moveDirection,hit.normal)<-.001f){wallNormal=hit.normal;lastWallContact=Time.fixedTime;motor?.HitWall(hit.normal);}
  }
  void AttachHook(RaycastHit hit){if(!hit.collider){ReleaseHook();return;}hookPoint=hit.point;ropeLength=Vector3.Distance(transform.position,hookPoint);hookedEnemy=hit.collider.GetComponentInParent<Enemy>();hooked=!hookedEnemy;}
  public void ReleaseHook(){hooked=false;hookedEnemy=null;hookCooldown=1;if(rope)rope.Hide();if(hookHand)hookHand.Release();}
@@ -102,7 +137,7 @@ public class PlayerController : MonoBehaviour {
  public void Heal(){if(pierogi<=0||health>=100)return;pierogi--;health=Mathf.Min(100,health+20);var g=GameSession.Instance;if(g)g.Sound(g.healSound,transform.position);}
  public void Damage(float amount){health=Mathf.Max(0,health-amount);if(health<=0)SceneManager.LoadScene(SceneManager.GetActiveScene().name);}
  void AttackImpact(){
-  var game=GameSession.Instance;if(!game||game.paused)return;
+  var game=GameSession.Instance;if(!game||game.paused){jumpQueued=dashQueued=slidePressedQueued=false;motor?.ClearJumpBuffer();return;}
   if(weapon==FoodKind.Pan){var hits=Physics.OverlapSphere(view.transform.position+view.transform.forward*1.5f,1.5f,WorldMask,QueryTriggerInteraction.Ignore);var seen=new System.Collections.Generic.HashSet<Enemy>();foreach(var c in hits){var e=c.GetComponentInParent<Enemy>();if(e&&seen.Add(e)&&Vector3.Dot(view.transform.forward,(e.transform.position-transform.position).normalized)>0)e.Damage(100+5*velocity.magnitude,c.ClosestPoint(view.transform.position),-view.transform.forward,true);}return;}
   game.Sound(game.throwSound,transform.position);
   var origin=view.transform.position+view.transform.forward*.65f;
@@ -111,6 +146,3 @@ public class PlayerController : MonoBehaviour {
  }
 }
 }
-
-
-

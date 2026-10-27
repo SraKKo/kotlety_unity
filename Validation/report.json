@@ -220,5 +220,8 @@
   "testLevelPlayMode": "passed in Unity 6000.3.13f1",
   "testLevelChecks": 23,
   "combatHudPlayMode": "passed in Unity 6000.3.13f1",
-  "combatHudChecks": 20
+  "combatHudChecks": 20,
+  "arenaMovementPlayMode": "passed in Unity 6000.3.13f1",
+  "arenaMovementChecks": 35,
+  "arenaMovementEditorNote": "Unity Search startup exception; full evidence in arena-movement-editor-issues.txt"
 }

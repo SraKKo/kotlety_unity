@@ -95,14 +95,13 @@ if((Test-Path $combatErrors) -and (Test-Path $combatResults)){
  $combatChecks=@(Get-Content $combatResults)
  if((Get-Item $combatErrors).Length -eq 0 -and ($combatChecks -match 'No runtime errors').Count -gt 0){$report.combatHudPlayMode='passed in Unity 6000.3.13f1';$report.combatHudChecks=$combatChecks.Count}
 }
+$arenaErrors=Join-Path $PSScriptRoot 'arena-movement-errors.txt'
+$arenaResults=Join-Path $PSScriptRoot 'arena-movement-results.txt'
+if((Test-Path $arenaErrors) -and (Test-Path $arenaResults)){
+ $arenaChecks=@(Get-Content $arenaResults)
+ if((Get-Item $arenaErrors).Length -eq 0 -and ($arenaChecks -match 'No runtime movement errors').Count -gt 0){$report.arenaMovementPlayMode='passed in Unity 6000.3.13f1';$report.arenaMovementChecks=$arenaChecks.Count}
+ $arenaEditorIssues=Join-Path $PSScriptRoot 'arena-movement-editor-issues.txt'
+ if((Test-Path $arenaEditorIssues) -and (Get-Item $arenaEditorIssues).Length -gt 0){$report.arenaMovementEditorNote='Unity Search startup exception; full evidence in arena-movement-editor-issues.txt'}
+}
 $report | ConvertTo-Json -Depth 8 | Set-Content -Encoding utf8 (Join-Path $PSScriptRoot 'report.json')
 $report | ConvertTo-Json -Depth 8
-
-
-
-
-
-
-
-
-
