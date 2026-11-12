@@ -40,6 +40,7 @@ public static class ArenaPrototypeEditor {
   Action<bool,string> check=(ok,label)=>{if(!ok)throw new Exception(label);results.Add("PASS "+label);};
   var session=UnityEngine.Object.FindAnyObjectByType<GameSession>();check(session&&session.player,"Player and session are present");
   check(session.navigation,"Baked navigation is saved");
+  check(session.shootingPrefab&&session.shootingPrefab.transform.Find("Skeleton - ranged"),"Ranged enemy template uses the skeleton model");
   check(UnityEngine.Object.FindAnyObjectByType<ArenaPractice>(),"Optional enemy pressure controller exists");
   Physics.SyncTransforms();
   foreach(var point in ArenaLayout.SpawnPoints)check(Physics.Raycast(point+Vector3.up*2,Vector3.down,3),"Spawn has supporting geometry: "+point);

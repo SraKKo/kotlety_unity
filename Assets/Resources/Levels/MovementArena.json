@@ -19,13 +19,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.21,
-        "g": 0.25,
-        "b": 0.29,
+        "r": 0.8,
+        "g": 0.8,
+        "b": 0.8,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Ground"
     },
     {
       "group": "01 Podloze i granice",
@@ -46,13 +47,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "01 Podloze i granice",
@@ -73,13 +75,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "01 Podloze i granice",
@@ -100,13 +103,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "01 Podloze i granice",
@@ -127,13 +131,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "02 Srodek - walka i slam",
@@ -154,13 +159,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "02 Srodek - walka i slam",
@@ -181,13 +187,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "02 Srodek - walka i slam",
@@ -208,13 +215,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "02 Srodek - walka i slam",
@@ -235,13 +243,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "02 Srodek - walka i slam",
@@ -317,13 +326,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.12,
-        "g": 0.7,
-        "b": 0.68,
+        "r": 0.33999999999999997,
+        "g": 0.7749999999999999,
+        "b": 0.76,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "03 Podesty 4m i rampy",
@@ -344,13 +354,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.12,
-        "g": 0.7,
-        "b": 0.68,
+        "r": 0.33999999999999997,
+        "g": 0.7749999999999999,
+        "b": 0.76,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "03 Podesty 4m i rampy",
@@ -371,13 +382,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.12,
-        "g": 0.7,
-        "b": 0.68,
+        "r": 0.33999999999999997,
+        "g": 0.7749999999999999,
+        "b": 0.76,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "03 Podesty 4m i rampy",
@@ -398,13 +410,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "03 Podesty 4m i rampy",
@@ -425,13 +438,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.12,
-        "g": 0.7,
-        "b": 0.68,
+        "r": 0.33999999999999997,
+        "g": 0.7749999999999999,
+        "b": 0.76,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "03 Podesty 4m i rampy",
@@ -452,13 +466,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.12,
-        "g": 0.7,
-        "b": 0.68,
+        "r": 0.33999999999999997,
+        "g": 0.7749999999999999,
+        "b": 0.76,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "03 Podesty 4m i rampy",
@@ -479,13 +494,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.12,
-        "g": 0.7,
-        "b": 0.68,
+        "r": 0.33999999999999997,
+        "g": 0.7749999999999999,
+        "b": 0.76,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "03 Podesty 4m i rampy",
@@ -506,13 +522,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "04 Gorne trasy 8m - obejscia i zeskoki",
@@ -533,13 +550,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.12,
-        "g": 0.7,
-        "b": 0.68,
+        "r": 0.33999999999999997,
+        "g": 0.7749999999999999,
+        "b": 0.76,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "04 Gorne trasy 8m - obejscia i zeskoki",
@@ -560,13 +578,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.12,
-        "g": 0.7,
-        "b": 0.68,
+        "r": 0.33999999999999997,
+        "g": 0.7749999999999999,
+        "b": 0.76,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "04 Gorne trasy 8m - obejscia i zeskoki",
@@ -587,13 +606,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.12,
-        "g": 0.7,
-        "b": 0.68,
+        "r": 0.33999999999999997,
+        "g": 0.7749999999999999,
+        "b": 0.76,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "04 Gorne trasy 8m - obejscia i zeskoki",
@@ -614,13 +634,14 @@
         "z": 0
       },
       "color": {
-        "r": 1,
-        "g": 0.48,
-        "b": 0.12,
+        "r": 1.0,
+        "g": 0.61,
+        "b": 0.33999999999999997,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "04 Gorne trasy 8m - obejscia i zeskoki",
@@ -669,13 +690,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.12,
-        "g": 0.7,
-        "b": 0.68,
+        "r": 0.33999999999999997,
+        "g": 0.7749999999999999,
+        "b": 0.76,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "04 Gorne trasy 8m - obejscia i zeskoki",
@@ -696,13 +718,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.12,
-        "g": 0.7,
-        "b": 0.68,
+        "r": 0.33999999999999997,
+        "g": 0.7749999999999999,
+        "b": 0.76,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "04 Gorne trasy 8m - obejscia i zeskoki",
@@ -723,13 +746,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.12,
-        "g": 0.7,
-        "b": 0.68,
+        "r": 0.33999999999999997,
+        "g": 0.7749999999999999,
+        "b": 0.76,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "04 Gorne trasy 8m - obejscia i zeskoki",
@@ -750,13 +774,14 @@
         "z": 0
       },
       "color": {
-        "r": 1,
-        "g": 0.48,
-        "b": 0.12,
+        "r": 1.0,
+        "g": 0.61,
+        "b": 0.33999999999999997,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "04 Gorne trasy 8m - obejscia i zeskoki",
@@ -805,13 +830,14 @@
         "z": 0
       },
       "color": {
-        "r": 1,
-        "g": 0.48,
-        "b": 0.12,
+        "r": 1.0,
+        "g": 0.61,
+        "b": 0.33999999999999997,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "05 Slide - skroty z przeswitem 1.35m",
@@ -832,13 +858,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "05 Slide - skroty z przeswitem 1.35m",
@@ -859,13 +886,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "05 Slide - skroty z przeswitem 1.35m",
@@ -969,13 +997,14 @@
         "z": 0
       },
       "color": {
-        "r": 1,
-        "g": 0.48,
-        "b": 0.12,
+        "r": 1.0,
+        "g": 0.61,
+        "b": 0.33999999999999997,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "05 Slide - skroty z przeswitem 1.35m",
@@ -996,13 +1025,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "05 Slide - skroty z przeswitem 1.35m",
@@ -1023,13 +1053,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "05 Slide - skroty z przeswitem 1.35m",
@@ -1133,13 +1164,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "06 Wall jump - pary scian",
@@ -1160,13 +1192,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "06 Wall jump - pary scian",
@@ -1242,13 +1275,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "06 Wall jump - pary scian",
@@ -1269,13 +1303,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.8,
+        "g": 0.82,
+        "b": 0.85,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Concrete"
     },
     {
       "group": "06 Wall jump - pary scian",
@@ -1351,13 +1386,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.52,
+        "g": 0.55,
+        "b": 0.5725,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "07 Hak - zolte cele i punkty przelotu",
@@ -1433,13 +1469,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.52,
+        "g": 0.55,
+        "b": 0.5725,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "07 Hak - zolte cele i punkty przelotu",
@@ -1515,13 +1552,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.52,
+        "g": 0.55,
+        "b": 0.5725,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "07 Hak - zolte cele i punkty przelotu",
@@ -1597,13 +1635,14 @@
         "z": 0
       },
       "color": {
-        "r": 0.36,
-        "g": 0.4,
-        "b": 0.43,
+        "r": 0.52,
+        "g": 0.55,
+        "b": 0.5725,
         "a": 1
       },
       "collider": true,
-      "text": ""
+      "text": "",
+      "surface": "Metal"
     },
     {
       "group": "07 Hak - zolte cele i punkty przelotu",

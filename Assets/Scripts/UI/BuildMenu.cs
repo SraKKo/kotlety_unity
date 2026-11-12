@@ -35,7 +35,7 @@ public class BuildMenu : MonoBehaviour {
   Weapon(new Rect(120,460,340,70),mielony,"MIELONY",upgrades&&upgrades.MielonyGroundBounces>0?"Bounce x"+upgrades.MielonyGroundBounces+" / DoT + slow":"Luk / DoT + slow",player.hasMielony,player.weapon==FoodKind.Mielony);
   Panel(new Rect(120,542,340,88),new Color(.085f,.10f,.135f));
   GUI.Label(new Rect(136,550,300,25),"WYPOSAZENIE",heading);
-  GUI.Label(new Rect(136,581,310,44),"Jetpack: "+(player.canFly?"TAK (G)":"niezdobyty")+"\nPaliwo: "+Mathf.RoundToInt(player.fuel)+"  |  Pierogi: "+player.pierogi,body);
+  GUI.Label(new Rect(136,581,310,44),"Jetpack: "+(player.canFly?"TAK (SPACJA)":"niezdobyty")+"\nPaliwo: "+Mathf.RoundToInt(player.fuel)+"  |  Pierogi: "+player.pierogi,body);
   int count=upgrades?upgrades.Acquired.Count:0;
   GUI.Label(new Rect(490,181,650,32),"ULEPSZENIA  /  "+count,heading);
   Panel(new Rect(490,220,665,235),new Color(.075f,.085f,.115f));

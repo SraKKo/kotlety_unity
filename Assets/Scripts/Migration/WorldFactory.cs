@@ -95,11 +95,11 @@ public static class WorldFactory {
  static void Snap(GameObject enemy){if(NavMesh.SamplePosition(enemy.transform.position,out var hit,12,NavMesh.AllAreas))enemy.transform.position=hit.position;}
  static GameObject CreateEnemy(Transform parent,bool shooting){
   var g=Node(shooting?"Strzelający przeciwnik":"Przeciwnik wręcz",parent);g.layer=9;
-  var visual=Model(shooting?"ShootingEnemyRig":"MeleeEnemyRig",g.transform);SetLayer(visual,9);
+  if(!shooting){var visual=Model("MeleeEnemyRig",g.transform);SetLayer(visual,9);}
   // Dimensions and offsets from the authored CollisionShape3D, without normalizing the renderers.
   var agent=g.AddComponent<NavMeshAgent>();agent.radius=shooting?.5f:.3375f;agent.height=shooting?2.39978f:1.6534773f;agent.baseOffset=shooting?1.030855f:.0409386f;
   var capsule=g.AddComponent<CapsuleCollider>();capsule.height=agent.height;capsule.radius=agent.radius;capsule.center=shooting?new Vector3(0,.169035f,.0480754f):new Vector3(0,.785801f,0);
-  var enemy=g.AddComponent<Enemy>();enemy.shooting=shooting;enemy.health=shooting?120:200;return g;
+  var enemy=g.AddComponent<Enemy>();enemy.shooting=shooting;enemy.health=shooting?120:200;if(shooting)RangedSkeletonVisual.Install(enemy);return g;
  }
  static void SetLayer(GameObject go,int layer){go.layer=layer;foreach(Transform c in go.transform)SetLayer(c.gameObject,layer);}
  static void CreateCollider(ColliderData d,Transform parent,bool local=false){var g=Node("Collision "+d.kind,parent);if(local)d.pose.ApplyLocal(g.transform);else d.pose.Apply(g.transform);

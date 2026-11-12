@@ -32,9 +32,18 @@ def build():
     for item in layout:
         if item['text']:
             continue
-        c=item['color']; key=''.join(f'{round(c[k]*255):02X}' for k in 'rgba')
+        c=item['color']; key=''.join(f'{round(c[k]*255):02X}' for k in 'rgba'); surface=item.get('surface')
+        if surface: key=surface+'_'+key
         if key in materials:
             continue
+        texture_properties='    m_TexEnvs: []'
+        shader_reference='{fileID: 46, guid: 0000000000000000f000000000000000, type: 0}'
+        if surface:
+            texture_name={'Ground':'Ground.png','Concrete':'ConcreteTextureColor.png','Metal':'MetalicTextureColor.png'}[surface]
+            texture_guid=re.search(r'guid: (\w+)',(ROOT/'Assets/Resources/PSX/Textures/Albedo'/(texture_name+'.meta')).read_text())[1]
+            shader_guid=re.search(r'guid: (\w+)',(ROOT/'Assets/Resources/PSX/Materials/PSXWorld.shader.meta').read_text())[1]
+            shader_reference=f'{{fileID: 4800000, guid: {shader_guid}, type: 3}}'
+            texture_properties=f'    m_TexEnvs:\n    - _MainTex:\n        m_Texture: {{fileID: 2800000, guid: {texture_guid}, type: 3}}\n        m_Scale: {{x: 1, y: 1}}\n        m_Offset: {{x: 0, y: 0}}'
         path=generated/f'Arena_{key}.mat'
         guid=meta(path,'NativeFormatImporter')
         material_meta=Path(str(path)+'.meta')
@@ -50,7 +59,7 @@ Material:
   m_PrefabInstance: {{fileID: 0}}
   m_PrefabAsset: {{fileID: 0}}
   m_Name: Arena {key}
-  m_Shader: {{fileID: 46, guid: 0000000000000000f000000000000000, type: 0}}
+  m_Shader: {shader_reference}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -61,9 +70,10 @@ Material:
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+{texture_properties}
     m_Ints: []
     m_Floats:
+    - _WorldTiling: 0.35
     - _Glossiness: 0.12
     - _Metallic: 0
     m_Colors:
@@ -136,6 +146,7 @@ Transform:
 ''')
         if visual:
             c=item['color'];key=''.join(f'{round(c[k]*255):02X}' for k in 'rgba')
+            if item.get('surface'):key=item['surface']+'_'+key
             material='{fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}' if label else f'{{fileID: 2100000, guid: {materials[key]}, type: 2}}'
             chunks.append(f'''--- !u!23 &{i+2}
 MeshRenderer:

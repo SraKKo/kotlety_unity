@@ -192,7 +192,7 @@ Test integracyjny w Unity: `-executeMethod RetyKotlety.Editor.UpgradeChecks.Run`
 
 **Tab** otwiera i zamyka panel aktualnego podejścia. Panel pokazuje posiadane bronie, broń w dłoni, zdobyte ulepszenia z opisami, jetpack, paliwo, pierogi oraz parametry slamu. Lista ulepszeń korzysta z faktycznie zdobytych definicji i przewija się przy większej liczbie nagród. **Esc** lub przycisk **Zamknij** również wraca do gry. Otwarty panel zatrzymuje rozgrywkę; nie nakłada się na pauzę ani otwieranie skrzynki.
 
-Jetpack został przeniesiony z Tab na **G**. Build resetuje się razem z podejściem.
+Jetpack działa przez **przytrzymanie Spacji w powietrzu** po podniesieniu znajdźki. Na ziemi Spacja wykonuje zwykły skok; po skoku jest 0,18 s opóźnienia zapłonu, żeby jetpack nie przycinał początkowego impulsu. Puszczenie Spacji, lądowanie lub brak paliwa wyłącza ciąg. Tab pozostaje menu buildu. Build resetuje się razem z podejściem.
 
 ## Struktura projektu
 
@@ -234,8 +234,16 @@ Polecenia **Rety Kotlety → Przygotuj edytowalne sceny** i **Przygotuj poziom t
 | F / E | Podniesienie przedmiotu / zjedzenie pieroga |
 | Q / R | Wyrzucenie lub zwolnienie haka / skracanie linki |
 | Tab | Otworz / zamknij podglad buildu (pauza) |
-| G | Jetpack po podniesieniu |
+| Przytrzymana Spacja w powietrzu | Jetpack po podniesieniu |
 | Esc | Pauza |
+
+## Szkielet dystansowy i tekstury PSX
+
+Przeciwnik dystansowy używa teraz `Assets/Resources/Enemies/Skeleton/Models/Skeleton.fbx` z materiałem `Skeleton.mat` i atlasem `Textures/Base.png`. Model jest dopasowywany do istniejącej kapsuły i podłoża. Strzelanie, zasięg i nawigacja pozostają zachowaniem `Enemy`. Starsze zapisane sceny podmieniają dotychczasowy model przy uruchomieniu, a generator od razu tworzy szkieleta.
+
+Dostarczony FBX jest statycznym meshem, bez animacji. Chodzeniu towarzyszy lekki ruch modelu, a strzałowi krótki odrzut. Warianty tekstury zachowano w `Textures/Variant2` i `Textures/GameBoyColor`. Źródłowy plik Blender jest w `SourceAssets/Skeleton`, żeby projekt nie wymagał Blendera podczas importu.
+
+Tekstury PSX są w `Assets/Resources/PSX/Textures`: `Albedo`, `Normals/GL` i `Normals/DX`. Kolory mają filtrowanie Point i brak kompresji; normal mapy są oznaczone jako normal mapy. Arena używa albedo Ground, Concrete i Metal. Shader `PSXWorld` mapuje je w przestrzeni świata i powtarza co około 2,86 m, bez rozciągania na dużych bryłach. Normal mapy są uporządkowane do dalszego wykorzystania, ale nie są obecnie podpięte do materiałów areny. Kolory tras, znaki, cele haka i skrzynki zachowują swoje oznaczenia.
 
 ## Licznik FPS
 

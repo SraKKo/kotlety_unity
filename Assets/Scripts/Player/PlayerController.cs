@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour {
  public Vector3 velocity;
  CharacterController controller; Vector3 moveInput,wallNormal,groundNormal=Vector3.up,hookPoint;
  Quaternion cameraRotation; Enemy hookedEnemy; float pitch,hookCooldown,ropeLength;
+ float jetpackAvailableAt;
  float lastWallContact=float.NegativeInfinity; bool sliding,hooked,jumpQueued,slideHeld,flightHeld;
  ArenaMovementMotor motor;bool dashQueued,slidePressedQueued;float eyeHeight,roll,baseFov,landingKick;Vector3 previousPosition,currentPosition;
  public float DashStamina=>motor!=null?motor.stamina:3;
@@ -31,7 +32,7 @@ public class PlayerController : MonoBehaviour {
  public bool IsSlamming=>motor!=null&&motor.Slamming;
  public int WallJumpsRemaining=>motor!=null?motor.WallJumpsRemaining:3;
  const int WorldMask=~((1<<8)|(1<<11));
- public bool IsFlying=>canFly&&fuel>0&&flightHeld&&!IsDashing&&!IsSlamming&&GameSession.Instance&&!GameSession.Instance.paused;
+ public bool IsFlying=>canFly&&fuel>0&&flightHeld&&controller&&!controller.isGrounded&&Time.time>=jetpackAvailableAt&&!IsDashing&&!IsSlamming&&GameSession.Instance&&!GameSession.Instance.paused;
  public bool Blocking=>weapon==FoodKind.Pan && weapons && weapons.Blocking;
  void Awake(){
   ConfigureSlam();
@@ -50,7 +51,7 @@ public class PlayerController : MonoBehaviour {
  }
  void Start(){speed=movement.runSpeed;jumpForce=movement.jumpSpeed;gravity=movement.gravity;groundAcceleration=movement.groundAcceleration;airAcceleration=movement.airAcceleration;groundFriction=movement.groundBraking;airFriction=movement.airFriction;wallJumpOutwardSpeed=movement.wallOutwardSpeed;wallJumpTangentSpeed=movement.wallTangentSpeed;wallJumpCooldown=movement.wallCooldown;eyeHeight=cameraRest.y;baseFov=view.fieldOfView;previousPosition=currentPosition=transform.position;cameraRotation=Quaternion.Euler(0,view.transform.localEulerAngles.y,0);var game=GameSession.Instance;if(game)game.player=this;Equip(FoodKind.Pan);}
  void Update(){
-  var game=GameSession.Instance;if(!game||game.paused){jumpQueued=dashQueued=slidePressedQueued=false;motor?.ClearJumpBuffer();return;}
+  var game=GameSession.Instance;if(!game||game.paused){jumpQueued=dashQueued=slidePressedQueued=flightHeld=false;motor?.ClearJumpBuffer();return;}
   transform.Rotate(0,Input.GetAxisRaw("Mouse X")*game.sensitivity*10,0);
   pitch=Mathf.Clamp(pitch-Input.GetAxisRaw("Mouse Y")*game.sensitivity*10,-89,89);
   moveInput=Vector3.ClampMagnitude(new Vector3(Input.GetAxisRaw("Horizontal"),0,Input.GetAxisRaw("Vertical")),1);
@@ -60,7 +61,7 @@ public class PlayerController : MonoBehaviour {
   if(Input.GetKeyDown(movement.dashKey))dashQueued=true;
   slideHeld=Input.GetKey(movement.slideKey)||Input.GetKey(KeyCode.RightControl)||Input.GetKey(movement.alternateSlideKey);
   if(Input.GetKeyDown(movement.slideKey)||Input.GetKeyDown(KeyCode.RightControl)||Input.GetKeyDown(movement.alternateSlideKey))slidePressedQueued=true;
-  flightHeld=Input.GetKey(KeyCode.G);
+  flightHeld=Input.GetKey(KeyCode.Space);
   if(Input.GetKeyDown(KeyCode.V))Equip(FoodKind.Pan);
   if(Input.GetKeyDown(KeyCode.Alpha1)&&hasSchabowy)Equip(FoodKind.Schabowy);
   if(Input.GetKeyDown(KeyCode.Alpha2)&&hasChrupiaca)Equip(FoodKind.Chrupiaca);
@@ -94,7 +95,7 @@ public class PlayerController : MonoBehaviour {
   jumpQueued=dashQueued=slidePressedQueued=false;
   velocity=motor.velocity;sliding=motor.Sliding;
   if(motor.DashStarted||motor.Slamming){if(hooked||hookedEnemy)ReleaseHook();}
-  if(motor.Jumped){game.Sound(game.jumpSound,transform.position);lastWallContact=float.NegativeInfinity;}
+  if(motor.Jumped){jetpackAvailableAt=Time.time+.18f;game.Sound(game.jumpSound,transform.position);lastWallContact=float.NegativeInfinity;}
   if(motor.SlamLanded){
    var point=transform.position+controller.center-Vector3.up*controller.height*.5f;
    var normal=groundNormal.normalized;
@@ -155,7 +156,7 @@ public class PlayerController : MonoBehaviour {
  public void Heal(){if(pierogi<=0||health>=100)return;pierogi--;health=Mathf.Min(100,health+20);var g=GameSession.Instance;if(g)g.Sound(g.healSound,transform.position);}
  public void Damage(float amount){health=Mathf.Max(0,health-amount);if(health<=0)SceneManager.LoadScene(SceneManager.GetActiveScene().name);}
  void AttackImpact(){
-  var game=GameSession.Instance;if(!game||game.paused){jumpQueued=dashQueued=slidePressedQueued=false;motor?.ClearJumpBuffer();return;}
+  var game=GameSession.Instance;if(!game||game.paused){jumpQueued=dashQueued=slidePressedQueued=flightHeld=false;motor?.ClearJumpBuffer();return;}
   if(weapon==FoodKind.Pan){var hits=Physics.OverlapSphere(view.transform.position+view.transform.forward*1.5f,1.5f,WorldMask,QueryTriggerInteraction.Ignore);var seen=new System.Collections.Generic.HashSet<Enemy>();foreach(var c in hits){var e=c.GetComponentInParent<Enemy>();if(e&&seen.Add(e)&&Vector3.Dot(view.transform.forward,(e.transform.position-transform.position).normalized)>0)e.Damage(100+5*velocity.magnitude,c.ClosestPoint(view.transform.position),-view.transform.forward,true);}return;}
   game.Sound(game.throwSound,transform.position);
   if(weapon==FoodKind.Mielony){var shot=MielonyProjectile.Spawn(view.transform.position+view.transform.forward*.65f,view.transform.forward,gameObject);var upgrades=GetComponent<PlayerUpgrades>();if(upgrades)upgrades.ConfigureMielony(shot);return;}
