@@ -1,6 +1,7 @@
 param([string]$UnityData='C:\Program Files\Unity\Hub\Editor\6000.3.13f1\Editor\Data')
 $ErrorActionPreference='Stop'
 $project=Split-Path $PSScriptRoot -Parent
+New-Item -ItemType Directory -Force (Join-Path $PSScriptRoot 'Reports') | Out-Null
 function Assert-Migration($condition,[string]$message){if(-not $condition){throw $message}}
 $export=Join-Path $project 'Assets\Resources\Converted'
 $data=Get-Content (Join-Path $export 'level.json') -Raw | ConvertFrom-Json
@@ -12,9 +13,9 @@ foreach($scene in @('MainMenu','Level001','TestLevel')){
  $path=Join-Path $project ('Assets\Scenes\'+$scene+'.unity')
  Assert-Migration (Test-Path $path) "Missing Unity scene: $scene"
  $sceneText=Get-Content $path -Raw
- $meta=Get-Content (Join-Path $project 'Assets\Scripts\MigrationBootstrap.cs.meta') -Raw
+ $meta=Get-Content (Join-Path $project 'Assets\Scripts\Migration\MigrationBootstrap.cs.meta') -Raw
  $scriptGuid=[regex]::Match($meta,'guid: ([0-9a-f]{32})').Groups[1].Value
- $sessionMeta=Get-Content (Join-Path $project 'Assets\Scripts\GameSession.cs.meta') -Raw
+ $sessionMeta=Get-Content (Join-Path $project 'Assets\Scripts\World\GameSession.cs.meta') -Raw
  $sessionGuid=[regex]::Match($sessionMeta,'guid: ([0-9a-f]{32})').Groups[1].Value
  Assert-Migration ($sceneText.Contains($scriptGuid) -or $sceneText.Contains($sessionGuid)) 'Scene has neither bootstrap nor built game session'
 }
@@ -56,12 +57,12 @@ if(Test-Path (Join-Path $UnityData 'DotNetSdkRoslyn\csc.dll')){
  $refs+=Get-ChildItem (Join-Path $UnityData 'NetStandard\ref\2.1.0') -Filter '*.dll' | ForEach-Object {'-r:"'+$_.FullName+'"'}
  $refs+=Get-ChildItem (Join-Path $UnityData 'NetStandard\compat\2.1.0\shims\netfx') -Filter '*.dll' | ForEach-Object {'-r:"'+$_.FullName+'"'}
  $runtime=Join-Path $PSScriptRoot 'RetyKotlety.dll'
- $arguments=@('-nologo','-target:library','-nostdlib+','-langversion:9.0',('-out:"'+$runtime+'"'))+$refs+(Get-ChildItem (Join-Path $project 'Assets\Scripts') -Filter '*.cs' | ForEach-Object {'"'+$_.FullName+'"'})
+ $arguments=@('-nologo','-target:library','-nostdlib+','-langversion:9.0',('-out:"'+$runtime+'"'))+$refs+(Get-ChildItem (Join-Path $project 'Assets\Scripts') -Filter '*.cs' -Recurse | ForEach-Object {'"'+$_.FullName+'"'})
  $response=Join-Path $PSScriptRoot 'runtime.rsp';$arguments | Set-Content $response
  & (Join-Path $UnityData 'NetCoreRuntime\dotnet.exe') (Join-Path $UnityData 'DotNetSdkRoslyn\csc.dll') "@$response"
  Assert-Migration ($LASTEXITCODE -eq 0) 'Runtime C# compilation failed';$report.runtimeCompilation='passed against installed Unity assemblies'
  $editorRefs=@(Get-ChildItem (Join-Path $UnityData 'Managed') -Filter 'UnityEditor*.dll' -Recurse | ForEach-Object {'-r:"'+$_.FullName+'"'})
- $editorArguments=@('-nologo','-target:library','-nostdlib+','-langversion:9.0',('-out:"'+$PSScriptRoot+'\RetyKotlety.Editor.dll"'),('-r:"'+$runtime+'"'))+$refs+$editorRefs+(Get-ChildItem (Join-Path $project 'Assets\Editor') -Filter '*.cs' | ForEach-Object {'"'+$_.FullName+'"'})
+ $editorArguments=@('-nologo','-target:library','-nostdlib+','-langversion:9.0',('-out:"'+$PSScriptRoot+'\RetyKotlety.Editor.dll"'),('-r:"'+$runtime+'"'))+$refs+$editorRefs+(Get-ChildItem (Join-Path $project 'Assets\Editor') -Filter '*.cs' -Recurse | ForEach-Object {'"'+$_.FullName+'"'})
  $editorResponse=Join-Path $PSScriptRoot 'editor.rsp';$editorArguments | Set-Content $editorResponse
  & (Join-Path $UnityData 'NetCoreRuntime\dotnet.exe') (Join-Path $UnityData 'DotNetSdkRoslyn\csc.dll') "@$editorResponse"
  Assert-Migration ($LASTEXITCODE -eq 0) 'Editor C# compilation failed';$report.editorCompilation='passed against installed Unity assemblies'
@@ -72,36 +73,36 @@ if(Test-Path (Join-Path $UnityData 'DotNetSdkRoslyn\csc.dll')){
  $oldMonoPath=$env:MONO_PATH
  try {
   $env:MONO_PATH=Join-Path $UnityData 'Managed\UnityEngine'
-  & (Join-Path $UnityData 'MonoBleedingEdge\bin\mono.exe') (Join-Path $PSScriptRoot 'MovementTests.exe') | Tee-Object (Join-Path $PSScriptRoot 'movement-results.txt')
+  & (Join-Path $UnityData 'MonoBleedingEdge\bin\mono.exe') (Join-Path $PSScriptRoot 'MovementTests.exe') | Tee-Object (Join-Path $PSScriptRoot 'Reports\movement-results.txt')
   Assert-Migration ($LASTEXITCODE -eq 0) 'Movement regression checks failed'
   $report.movementRegression='10 checks passed'
  } finally {$env:MONO_PATH=$oldMonoPath}
 }
-$playErrors=Join-Path $PSScriptRoot 'playmode-errors.txt'
-$playResults=Join-Path $PSScriptRoot 'playmode-results.txt'
+$playErrors=Join-Path $PSScriptRoot 'Reports\playmode-errors.txt'
+$playResults=Join-Path $PSScriptRoot 'Reports\playmode-results.txt'
 if((Test-Path $playErrors) -and (Test-Path $playResults)){
  $checks=@(Get-Content $playResults)
  if((Get-Item $playErrors).Length -eq 0 -and ($checks -match 'No runtime errors').Count -gt 0){$report.playMode='passed in Unity 6000.3.13f1';$report.playModeChecks=$checks.Count}
 }
-$testErrors=Join-Path $PSScriptRoot 'test-level-errors.txt'
-$testResults=Join-Path $PSScriptRoot 'test-level-results.txt'
+$testErrors=Join-Path $PSScriptRoot 'Reports\test-level-errors.txt'
+$testResults=Join-Path $PSScriptRoot 'Reports\test-level-results.txt'
 if((Test-Path $testErrors) -and (Test-Path $testResults)){
  $testChecks=@(Get-Content $testResults)
  if((Get-Item $testErrors).Length -eq 0 -and ($testChecks -match 'No runtime errors').Count -gt 0){$report.testLevelPlayMode='passed in Unity 6000.3.13f1';$report.testLevelChecks=$testChecks.Count}
 }
-$combatErrors=Join-Path $PSScriptRoot 'combat-hud-errors.txt'
-$combatResults=Join-Path $PSScriptRoot 'combat-hud-results.txt'
+$combatErrors=Join-Path $PSScriptRoot 'Reports\combat-hud-errors.txt'
+$combatResults=Join-Path $PSScriptRoot 'Reports\combat-hud-results.txt'
 if((Test-Path $combatErrors) -and (Test-Path $combatResults)){
  $combatChecks=@(Get-Content $combatResults)
  if((Get-Item $combatErrors).Length -eq 0 -and ($combatChecks -match 'No runtime errors').Count -gt 0){$report.combatHudPlayMode='passed in Unity 6000.3.13f1';$report.combatHudChecks=$combatChecks.Count}
 }
-$arenaErrors=Join-Path $PSScriptRoot 'arena-movement-errors.txt'
-$arenaResults=Join-Path $PSScriptRoot 'arena-movement-results.txt'
+$arenaErrors=Join-Path $PSScriptRoot 'Reports\arena-movement-errors.txt'
+$arenaResults=Join-Path $PSScriptRoot 'Reports\arena-movement-results.txt'
 if((Test-Path $arenaErrors) -and (Test-Path $arenaResults)){
  $arenaChecks=@(Get-Content $arenaResults)
  if((Get-Item $arenaErrors).Length -eq 0 -and ($arenaChecks -match 'No runtime movement errors').Count -gt 0){$report.arenaMovementPlayMode='passed in Unity 6000.3.13f1';$report.arenaMovementChecks=$arenaChecks.Count}
- $arenaEditorIssues=Join-Path $PSScriptRoot 'arena-movement-editor-issues.txt'
+ $arenaEditorIssues=Join-Path $PSScriptRoot 'Reports\arena-movement-editor-issues.txt'
  if((Test-Path $arenaEditorIssues) -and (Get-Item $arenaEditorIssues).Length -gt 0){$report.arenaMovementEditorNote='Unity Search startup exception; full evidence in arena-movement-editor-issues.txt'}
 }
-$report | ConvertTo-Json -Depth 8 | Set-Content -Encoding utf8 (Join-Path $PSScriptRoot 'report.json')
+$report | ConvertTo-Json -Depth 8 | Set-Content -Encoding utf8 (Join-Path $PSScriptRoot 'Reports\report.json')
 $report | ConvertTo-Json -Depth 8

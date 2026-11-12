@@ -1,0 +1,1887 @@
+{
+  "items": [
+    {
+      "group": "01 Podloze i granice",
+      "name": "Podloze 112 x 112",
+      "position": {
+        "x": 0,
+        "y": -0.5,
+        "z": 0
+      },
+      "size": {
+        "x": 112,
+        "y": 1,
+        "z": 112
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.21,
+        "g": 0.25,
+        "b": 0.29,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "01 Podloze i granice",
+      "name": "Granica areny",
+      "position": {
+        "x": 0,
+        "y": 5,
+        "z": 56
+      },
+      "size": {
+        "x": 114,
+        "y": 10,
+        "z": 2
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "01 Podloze i granice",
+      "name": "Granica areny",
+      "position": {
+        "x": 0,
+        "y": 5,
+        "z": -56
+      },
+      "size": {
+        "x": 114,
+        "y": 10,
+        "z": 2
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "01 Podloze i granice",
+      "name": "Granica areny",
+      "position": {
+        "x": -56,
+        "y": 5,
+        "z": 0
+      },
+      "size": {
+        "x": 2,
+        "y": 10,
+        "z": 112
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "01 Podloze i granice",
+      "name": "Granica areny",
+      "position": {
+        "x": 56,
+        "y": 5,
+        "z": 0
+      },
+      "size": {
+        "x": 2,
+        "y": 10,
+        "z": 112
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "02 Srodek - walka i slam",
+      "name": "Niska oslona",
+      "position": {
+        "x": -13,
+        "y": 0.6,
+        "z": -13
+      },
+      "size": {
+        "x": 4,
+        "y": 1.2,
+        "z": 4
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "02 Srodek - walka i slam",
+      "name": "Niska oslona",
+      "position": {
+        "x": -13,
+        "y": 0.6,
+        "z": 13
+      },
+      "size": {
+        "x": 4,
+        "y": 1.2,
+        "z": 4
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "02 Srodek - walka i slam",
+      "name": "Niska oslona",
+      "position": {
+        "x": 13,
+        "y": 0.6,
+        "z": -13
+      },
+      "size": {
+        "x": 4,
+        "y": 1.2,
+        "z": 4
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "02 Srodek - walka i slam",
+      "name": "Niska oslona",
+      "position": {
+        "x": 13,
+        "y": 0.6,
+        "z": 13
+      },
+      "size": {
+        "x": 4,
+        "y": 1.2,
+        "z": 4
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "02 Srodek - walka i slam",
+      "name": "Pole slamu",
+      "position": {
+        "x": 0,
+        "y": 0.015,
+        "z": 0
+      },
+      "size": {
+        "x": 18,
+        "y": 0.025,
+        "z": 18
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.32,
+        "g": 0.29,
+        "b": 0.21,
+        "a": 1
+      },
+      "collider": false,
+      "text": ""
+    },
+    {
+      "group": "02 Srodek - walka i slam",
+      "name": "SLAM / COMBAT",
+      "position": {
+        "x": 0,
+        "y": 0.04,
+        "z": 0
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 90,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.95,
+        "g": 0.95,
+        "b": 0.85,
+        "a": 1
+      },
+      "collider": false,
+      "text": "SLAM / COMBAT",
+      "textSize": 0.36
+    },
+    {
+      "group": "03 Podesty 4m i rampy",
+      "name": "Podest boczny 4m",
+      "position": {
+        "x": -35,
+        "y": 3.5,
+        "z": 0
+      },
+      "size": {
+        "x": 14,
+        "y": 1,
+        "z": 34
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.12,
+        "g": 0.7,
+        "b": 0.68,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "03 Podesty 4m i rampy",
+      "name": "Rampa poludniowa",
+      "position": {
+        "x": -35.0,
+        "y": 1.8,
+        "z": -26.0
+      },
+      "size": {
+        "x": 7,
+        "y": 0.4,
+        "z": 18.439088914585774
+      },
+      "rotation": {
+        "x": -12.528807709151511,
+        "y": 0.0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.12,
+        "g": 0.7,
+        "b": 0.68,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "03 Podesty 4m i rampy",
+      "name": "Rampa polnocna",
+      "position": {
+        "x": -35.0,
+        "y": 1.8,
+        "z": 26.0
+      },
+      "size": {
+        "x": 7,
+        "y": 0.4,
+        "z": 18.439088914585774
+      },
+      "rotation": {
+        "x": -12.528807709151511,
+        "y": 180.0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.12,
+        "g": 0.7,
+        "b": 0.68,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "03 Podesty 4m i rampy",
+      "name": "Oslona na podescie",
+      "position": {
+        "x": -39,
+        "y": 4.7,
+        "z": 0
+      },
+      "size": {
+        "x": 2,
+        "y": 1.4,
+        "z": 7
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "03 Podesty 4m i rampy",
+      "name": "Podest boczny 4m",
+      "position": {
+        "x": 35,
+        "y": 3.5,
+        "z": 0
+      },
+      "size": {
+        "x": 14,
+        "y": 1,
+        "z": 34
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.12,
+        "g": 0.7,
+        "b": 0.68,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "03 Podesty 4m i rampy",
+      "name": "Rampa poludniowa",
+      "position": {
+        "x": 35.0,
+        "y": 1.8,
+        "z": -26.0
+      },
+      "size": {
+        "x": 7,
+        "y": 0.4,
+        "z": 18.439088914585774
+      },
+      "rotation": {
+        "x": -12.528807709151511,
+        "y": 0.0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.12,
+        "g": 0.7,
+        "b": 0.68,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "03 Podesty 4m i rampy",
+      "name": "Rampa polnocna",
+      "position": {
+        "x": 35.0,
+        "y": 1.8,
+        "z": 26.0
+      },
+      "size": {
+        "x": 7,
+        "y": 0.4,
+        "z": 18.439088914585774
+      },
+      "rotation": {
+        "x": -12.528807709151511,
+        "y": 180.0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.12,
+        "g": 0.7,
+        "b": 0.68,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "03 Podesty 4m i rampy",
+      "name": "Oslona na podescie",
+      "position": {
+        "x": 39,
+        "y": 4.7,
+        "z": 0
+      },
+      "size": {
+        "x": 2,
+        "y": 1.4,
+        "z": 7
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "04 Gorne trasy 8m - obejscia i zeskoki",
+      "name": "Gorny taras 8m",
+      "position": {
+        "x": 0,
+        "y": 7.5,
+        "z": -34
+      },
+      "size": {
+        "x": 28,
+        "y": 1,
+        "z": 10
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.12,
+        "g": 0.7,
+        "b": 0.68,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "04 Gorne trasy 8m - obejscia i zeskoki",
+      "name": "Podejscie na gorny taras",
+      "position": {
+        "x": -28.0,
+        "y": 3.8,
+        "z": -34.0
+      },
+      "size": {
+        "x": 6,
+        "y": 0.4,
+        "z": 29.120439557122072
+      },
+      "rotation": {
+        "x": -15.945395900922854,
+        "y": 90.0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.12,
+        "g": 0.7,
+        "b": 0.68,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "04 Gorne trasy 8m - obejscia i zeskoki",
+      "name": "Podejscie na gorny taras",
+      "position": {
+        "x": 28.0,
+        "y": 3.8,
+        "z": -34.0
+      },
+      "size": {
+        "x": 6,
+        "y": 0.4,
+        "z": 29.120439557122072
+      },
+      "rotation": {
+        "x": -15.945395900922854,
+        "y": -90.0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.12,
+        "g": 0.7,
+        "b": 0.68,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "04 Gorne trasy 8m - obejscia i zeskoki",
+      "name": "Pomost nad polem walki",
+      "position": {
+        "x": 0,
+        "y": 7.6,
+        "z": -22
+      },
+      "size": {
+        "x": 5,
+        "y": 0.8,
+        "z": 16
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.48,
+        "b": 0.12,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "04 Gorne trasy 8m - obejscia i zeskoki",
+      "name": "SLAM",
+      "position": {
+        "x": 0,
+        "y": 9,
+        "z": -16
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 180,
+        "z": 0
+      },
+      "color": {
+        "r": 0.95,
+        "g": 0.95,
+        "b": 0.85,
+        "a": 1
+      },
+      "collider": false,
+      "text": "SLAM",
+      "textSize": 0.28
+    },
+    {
+      "group": "04 Gorne trasy 8m - obejscia i zeskoki",
+      "name": "Gorny taras 8m",
+      "position": {
+        "x": 0,
+        "y": 7.5,
+        "z": 34
+      },
+      "size": {
+        "x": 28,
+        "y": 1,
+        "z": 10
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.12,
+        "g": 0.7,
+        "b": 0.68,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "04 Gorne trasy 8m - obejscia i zeskoki",
+      "name": "Podejscie na gorny taras",
+      "position": {
+        "x": -28.0,
+        "y": 3.8,
+        "z": 34.0
+      },
+      "size": {
+        "x": 6,
+        "y": 0.4,
+        "z": 29.120439557122072
+      },
+      "rotation": {
+        "x": -15.945395900922854,
+        "y": 90.0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.12,
+        "g": 0.7,
+        "b": 0.68,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "04 Gorne trasy 8m - obejscia i zeskoki",
+      "name": "Podejscie na gorny taras",
+      "position": {
+        "x": 28.0,
+        "y": 3.8,
+        "z": 34.0
+      },
+      "size": {
+        "x": 6,
+        "y": 0.4,
+        "z": 29.120439557122072
+      },
+      "rotation": {
+        "x": -15.945395900922854,
+        "y": -90.0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.12,
+        "g": 0.7,
+        "b": 0.68,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "04 Gorne trasy 8m - obejscia i zeskoki",
+      "name": "Pomost nad polem walki",
+      "position": {
+        "x": 0,
+        "y": 7.6,
+        "z": 22
+      },
+      "size": {
+        "x": 5,
+        "y": 0.8,
+        "z": 16
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.48,
+        "b": 0.12,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "04 Gorne trasy 8m - obejscia i zeskoki",
+      "name": "SLAM",
+      "position": {
+        "x": 0,
+        "y": 9,
+        "z": 16
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.95,
+        "g": 0.95,
+        "b": 0.85,
+        "a": 1
+      },
+      "collider": false,
+      "text": "SLAM",
+      "textSize": 0.28
+    },
+    {
+      "group": "05 Slide - skroty z przeswitem 1.35m",
+      "name": "Dach - przeswit 1.35m",
+      "position": {
+        "x": -20,
+        "y": 1.65,
+        "z": 0
+      },
+      "size": {
+        "x": 7,
+        "y": 0.6,
+        "z": 12
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.48,
+        "b": 0.12,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "05 Slide - skroty z przeswitem 1.35m",
+      "name": "Bok tunelu",
+      "position": {
+        "x": -23.5,
+        "y": 0.675,
+        "z": 0
+      },
+      "size": {
+        "x": 0.5,
+        "y": 1.35,
+        "z": 12
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "05 Slide - skroty z przeswitem 1.35m",
+      "name": "Bok tunelu",
+      "position": {
+        "x": -16.5,
+        "y": 0.675,
+        "z": 0
+      },
+      "size": {
+        "x": 0.5,
+        "y": 1.35,
+        "z": 12
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "05 Slide - skroty z przeswitem 1.35m",
+      "name": "Oznaczenie trasy",
+      "position": {
+        "x": -20,
+        "y": 0.02,
+        "z": 0
+      },
+      "size": {
+        "x": 3,
+        "y": 0.03,
+        "z": 16
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.48,
+        "b": 0.12,
+        "a": 1
+      },
+      "collider": false,
+      "text": ""
+    },
+    {
+      "group": "05 Slide - skroty z przeswitem 1.35m",
+      "name": "SLIDE",
+      "position": {
+        "x": -20,
+        "y": 2.6,
+        "z": -6.1
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 180,
+        "z": 0
+      },
+      "color": {
+        "r": 0.95,
+        "g": 0.95,
+        "b": 0.85,
+        "a": 1
+      },
+      "collider": false,
+      "text": "SLIDE",
+      "textSize": 0.28
+    },
+    {
+      "group": "05 Slide - skroty z przeswitem 1.35m",
+      "name": "SLIDE",
+      "position": {
+        "x": -20,
+        "y": 2.6,
+        "z": 6.1
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.95,
+        "g": 0.95,
+        "b": 0.85,
+        "a": 1
+      },
+      "collider": false,
+      "text": "SLIDE",
+      "textSize": 0.28
+    },
+    {
+      "group": "05 Slide - skroty z przeswitem 1.35m",
+      "name": "Dach - przeswit 1.35m",
+      "position": {
+        "x": 20,
+        "y": 1.65,
+        "z": 0
+      },
+      "size": {
+        "x": 7,
+        "y": 0.6,
+        "z": 12
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.48,
+        "b": 0.12,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "05 Slide - skroty z przeswitem 1.35m",
+      "name": "Bok tunelu",
+      "position": {
+        "x": 16.5,
+        "y": 0.675,
+        "z": 0
+      },
+      "size": {
+        "x": 0.5,
+        "y": 1.35,
+        "z": 12
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "05 Slide - skroty z przeswitem 1.35m",
+      "name": "Bok tunelu",
+      "position": {
+        "x": 23.5,
+        "y": 0.675,
+        "z": 0
+      },
+      "size": {
+        "x": 0.5,
+        "y": 1.35,
+        "z": 12
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "05 Slide - skroty z przeswitem 1.35m",
+      "name": "Oznaczenie trasy",
+      "position": {
+        "x": 20,
+        "y": 0.02,
+        "z": 0
+      },
+      "size": {
+        "x": 3,
+        "y": 0.03,
+        "z": 16
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.48,
+        "b": 0.12,
+        "a": 1
+      },
+      "collider": false,
+      "text": ""
+    },
+    {
+      "group": "05 Slide - skroty z przeswitem 1.35m",
+      "name": "SLIDE",
+      "position": {
+        "x": 20,
+        "y": 2.6,
+        "z": -6.1
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 180,
+        "z": 0
+      },
+      "color": {
+        "r": 0.95,
+        "g": 0.95,
+        "b": 0.85,
+        "a": 1
+      },
+      "collider": false,
+      "text": "SLIDE",
+      "textSize": 0.28
+    },
+    {
+      "group": "05 Slide - skroty z przeswitem 1.35m",
+      "name": "SLIDE",
+      "position": {
+        "x": 20,
+        "y": 2.6,
+        "z": 6.1
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.95,
+        "g": 0.95,
+        "b": 0.85,
+        "a": 1
+      },
+      "collider": false,
+      "text": "SLIDE",
+      "textSize": 0.28
+    },
+    {
+      "group": "06 Wall jump - pary scian",
+      "name": "Sciana do odbicia",
+      "position": {
+        "x": -44.5,
+        "y": 4,
+        "z": -42
+      },
+      "size": {
+        "x": 0.7,
+        "y": 8,
+        "z": 11
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "06 Wall jump - pary scian",
+      "name": "Sciana do odbicia",
+      "position": {
+        "x": -39.5,
+        "y": 4,
+        "z": -42
+      },
+      "size": {
+        "x": 0.7,
+        "y": 8,
+        "z": 11
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "06 Wall jump - pary scian",
+      "name": "Oznaczenie trasy",
+      "position": {
+        "x": -42,
+        "y": 0.025,
+        "z": -42
+      },
+      "size": {
+        "x": 4,
+        "y": 0.04,
+        "z": 11
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.48,
+        "b": 0.12,
+        "a": 1
+      },
+      "collider": false,
+      "text": ""
+    },
+    {
+      "group": "06 Wall jump - pary scian",
+      "name": "WALL JUMP",
+      "position": {
+        "x": -42,
+        "y": 8.7,
+        "z": -42
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 180,
+        "z": 0
+      },
+      "color": {
+        "r": 0.95,
+        "g": 0.95,
+        "b": 0.85,
+        "a": 1
+      },
+      "collider": false,
+      "text": "WALL JUMP",
+      "textSize": 0.28
+    },
+    {
+      "group": "06 Wall jump - pary scian",
+      "name": "Sciana do odbicia",
+      "position": {
+        "x": 39.5,
+        "y": 4,
+        "z": 42
+      },
+      "size": {
+        "x": 0.7,
+        "y": 8,
+        "z": 11
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "06 Wall jump - pary scian",
+      "name": "Sciana do odbicia",
+      "position": {
+        "x": 44.5,
+        "y": 4,
+        "z": 42
+      },
+      "size": {
+        "x": 0.7,
+        "y": 8,
+        "z": 11
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "06 Wall jump - pary scian",
+      "name": "Oznaczenie trasy",
+      "position": {
+        "x": 42,
+        "y": 0.025,
+        "z": 42
+      },
+      "size": {
+        "x": 4,
+        "y": 0.04,
+        "z": 11
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.48,
+        "b": 0.12,
+        "a": 1
+      },
+      "collider": false,
+      "text": ""
+    },
+    {
+      "group": "06 Wall jump - pary scian",
+      "name": "WALL JUMP",
+      "position": {
+        "x": 42,
+        "y": 8.7,
+        "z": 42
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.95,
+        "g": 0.95,
+        "b": 0.85,
+        "a": 1
+      },
+      "collider": false,
+      "text": "WALL JUMP",
+      "textSize": 0.28
+    },
+    {
+      "group": "07 Hak - zolte cele i punkty przelotu",
+      "name": "Podpora haka",
+      "position": {
+        "x": -18,
+        "y": 5.5,
+        "z": 0
+      },
+      "size": {
+        "x": 0.65,
+        "y": 11,
+        "z": 0.65
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "07 Hak - zolte cele i punkty przelotu",
+      "name": "HAK - cel",
+      "position": {
+        "x": -18,
+        "y": 11,
+        "z": 0
+      },
+      "size": {
+        "x": 2,
+        "y": 1.2,
+        "z": 2
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.84,
+        "b": 0.25,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "07 Hak - zolte cele i punkty przelotu",
+      "name": "Q / HAK",
+      "position": {
+        "x": -18,
+        "y": 12.3,
+        "z": 0
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.95,
+        "g": 0.95,
+        "b": 0.85,
+        "a": 1
+      },
+      "collider": false,
+      "text": "Q / HAK",
+      "textSize": 0.28
+    },
+    {
+      "group": "07 Hak - zolte cele i punkty przelotu",
+      "name": "Podpora haka",
+      "position": {
+        "x": 18,
+        "y": 5.5,
+        "z": 0
+      },
+      "size": {
+        "x": 0.65,
+        "y": 11,
+        "z": 0.65
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "07 Hak - zolte cele i punkty przelotu",
+      "name": "HAK - cel",
+      "position": {
+        "x": 18,
+        "y": 11,
+        "z": 0
+      },
+      "size": {
+        "x": 2,
+        "y": 1.2,
+        "z": 2
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.84,
+        "b": 0.25,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "07 Hak - zolte cele i punkty przelotu",
+      "name": "Q / HAK",
+      "position": {
+        "x": 18,
+        "y": 12.3,
+        "z": 0
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.95,
+        "g": 0.95,
+        "b": 0.85,
+        "a": 1
+      },
+      "collider": false,
+      "text": "Q / HAK",
+      "textSize": 0.28
+    },
+    {
+      "group": "07 Hak - zolte cele i punkty przelotu",
+      "name": "Podpora haka",
+      "position": {
+        "x": 0,
+        "y": 6.5,
+        "z": -24
+      },
+      "size": {
+        "x": 0.65,
+        "y": 13,
+        "z": 0.65
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "07 Hak - zolte cele i punkty przelotu",
+      "name": "HAK - cel",
+      "position": {
+        "x": 0,
+        "y": 13,
+        "z": -24
+      },
+      "size": {
+        "x": 2,
+        "y": 1.2,
+        "z": 2
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.84,
+        "b": 0.25,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "07 Hak - zolte cele i punkty przelotu",
+      "name": "Q / HAK",
+      "position": {
+        "x": 0,
+        "y": 14.3,
+        "z": -24
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.95,
+        "g": 0.95,
+        "b": 0.85,
+        "a": 1
+      },
+      "collider": false,
+      "text": "Q / HAK",
+      "textSize": 0.28
+    },
+    {
+      "group": "07 Hak - zolte cele i punkty przelotu",
+      "name": "Podpora haka",
+      "position": {
+        "x": 0,
+        "y": 6.5,
+        "z": 24
+      },
+      "size": {
+        "x": 0.65,
+        "y": 13,
+        "z": 0.65
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.36,
+        "g": 0.4,
+        "b": 0.43,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "07 Hak - zolte cele i punkty przelotu",
+      "name": "HAK - cel",
+      "position": {
+        "x": 0,
+        "y": 13,
+        "z": 24
+      },
+      "size": {
+        "x": 2,
+        "y": 1.2,
+        "z": 2
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.84,
+        "b": 0.25,
+        "a": 1
+      },
+      "collider": true,
+      "text": ""
+    },
+    {
+      "group": "07 Hak - zolte cele i punkty przelotu",
+      "name": "Q / HAK",
+      "position": {
+        "x": 0,
+        "y": 14.3,
+        "z": 24
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.95,
+        "g": 0.95,
+        "b": 0.85,
+        "a": 1
+      },
+      "collider": false,
+      "text": "Q / HAK",
+      "textSize": 0.28
+    },
+    {
+      "group": "08 Start i orientacja",
+      "name": "Pole startowe",
+      "position": {
+        "x": 0,
+        "y": 0.025,
+        "z": -46
+      },
+      "size": {
+        "x": 12,
+        "y": 0.04,
+        "z": 7
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.12,
+        "g": 0.7,
+        "b": 0.68,
+        "a": 1
+      },
+      "collider": false,
+      "text": ""
+    },
+    {
+      "group": "08 Start i orientacja",
+      "name": "MOVEMENT ARENA WASD - RUCH   SHIFT - DASH C / CTRL - SLIDE   SPACE - SKOK Q - HAK   T - PRESJA WROGOW",
+      "position": {
+        "x": 0,
+        "y": 4,
+        "z": -40
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.95,
+        "g": 0.95,
+        "b": 0.85,
+        "a": 1
+      },
+      "collider": false,
+      "text": "MOVEMENT ARENA\nWASD - RUCH   SHIFT - DASH\nC / CTRL - SLIDE   SPACE - SKOK\nQ - HAK   T - PRESJA WROGOW",
+      "textSize": 0.22
+    },
+    {
+      "group": "09 Skrzynia ulepszen",
+      "name": "Skrzynia ulepszen - Rykoszet",
+      "position": {
+        "x": 4,
+        "y": 0.7,
+        "z": -43
+      },
+      "size": {
+        "x": 1.4,
+        "y": 1.4,
+        "z": 1.4
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.65,
+        "g": 0.35,
+        "b": 1,
+        "a": 1
+      },
+      "collider": true,
+      "upgradeChest": true,
+      "text": ""
+    },
+    {
+      "group": "09 Skrzynia ulepszen",
+      "name": "F - SKRZYNIA ULEPSZEN",
+      "position": {
+        "x": 4,
+        "y": 2.3,
+        "z": -43
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.85,
+        "b": 0.35,
+        "a": 1
+      },
+      "collider": false,
+      "text": "F - SKRZYNIA\nLOSOWE ULEPSZENIE",
+      "textSize": 0.16
+    },
+    {
+      "group": "09 Skrzynia ulepszen",
+      "name": "Skrzynia ulepszen 2",
+      "position": {
+        "x": 8,
+        "y": 0.7,
+        "z": -43
+      },
+      "size": {
+        "x": 1.4,
+        "y": 1.4,
+        "z": 1.4
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.65,
+        "g": 0.35,
+        "b": 1,
+        "a": 1
+      },
+      "collider": true,
+      "upgradeChest": true,
+      "text": ""
+    },
+    {
+      "group": "09 Skrzynia ulepszen",
+      "name": "F - SKRZYNIA 2",
+      "position": {
+        "x": 8,
+        "y": 2.3,
+        "z": -43
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.85,
+        "b": 0.35,
+        "a": 1
+      },
+      "collider": false,
+      "text": "F - SKRZYNIA\nLOSOWE ULEPSZENIE",
+      "textSize": 0.16
+    },
+    {
+      "group": "09 Skrzynia ulepszen",
+      "name": "Skrzynia ulepszen 3",
+      "position": {
+        "x": -4,
+        "y": 0.7,
+        "z": -43
+      },
+      "size": {
+        "x": 1.4,
+        "y": 1.4,
+        "z": 1.4
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.65,
+        "g": 0.35,
+        "b": 1,
+        "a": 1
+      },
+      "collider": true,
+      "upgradeChest": true,
+      "text": ""
+    },
+    {
+      "group": "09 Skrzynia ulepszen",
+      "name": "F - SKRZYNIA 3",
+      "position": {
+        "x": -4,
+        "y": 2.3,
+        "z": -43
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.85,
+        "b": 0.35,
+        "a": 1
+      },
+      "collider": false,
+      "text": "F - SKRZYNIA\nLOSOWE ULEPSZENIE",
+      "textSize": 0.16
+    }
+  ]
+}

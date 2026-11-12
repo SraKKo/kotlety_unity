@@ -14,5 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestLevel.unity
     guid: 7fd0dc3eaf4684848b4acc603bd878ef
+  - enabled: 1
+    path: Assets/Scenes/MovementArena.unity
+    guid: f1c016a72db44016b02a9ccdd4591a97
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
