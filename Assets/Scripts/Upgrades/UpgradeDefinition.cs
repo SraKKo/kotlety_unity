@@ -1,6 +1,6 @@
 using UnityEngine;
 namespace RetyKotlety {
-public enum UpgradeEffect { SchabowyRicochet, ChrupiacaPiercing, ChrupiacaBleed, MielonyBounce }
+public enum UpgradeEffect { SchabowyRicochet, ChrupiacaPiercing, ChrupiacaBleed, MielonyBounce, LososOrbit }
 [CreateAssetMenu(menuName="Rety Kotlety/Upgrade",fileName="Upgrade")]
 public class UpgradeDefinition : ScriptableObject {
  public string id="1.1",title="SCHABOWY: RYKOSZET";
@@ -12,8 +12,9 @@ public class UpgradeDefinition : ScriptableObject {
  [Min(.01f)] public float bleedInterval=.25f;
  [Min(.01f)] public float bleedDuration=3;
  [Min(1)] public int groundBounces=2;
- public FoodKind Weapon=>effect==UpgradeEffect.SchabowyRicochet?FoodKind.Schabowy:effect==UpgradeEffect.MielonyBounce?FoodKind.Mielony:FoodKind.Chrupiaca;
- public string CardName=>effect==UpgradeEffect.SchabowyRicochet?"RYKOSZET":effect==UpgradeEffect.ChrupiacaPiercing?"PIERCING":effect==UpgradeEffect.MielonyBounce?"BOUNCE":"KRWAWIENIE";
+ [Min(1)] public int orbitLaps=4;
+ public FoodKind Weapon=>effect==UpgradeEffect.LososOrbit?FoodKind.Losos:effect==UpgradeEffect.SchabowyRicochet?FoodKind.Schabowy:effect==UpgradeEffect.MielonyBounce?FoodKind.Mielony:FoodKind.Chrupiaca;
+ public string CardName=>effect==UpgradeEffect.LososOrbit?"OKRAZENIE":effect==UpgradeEffect.SchabowyRicochet?"RYKOSZET":effect==UpgradeEffect.ChrupiacaPiercing?"PIERCING":effect==UpgradeEffect.MielonyBounce?"BOUNCE":"KRWAWIENIE";
  public Color color=new Color(.65f,.35f,1);
 }
 }

@@ -1,8 +1,8 @@
 using UnityEngine;
 namespace RetyKotlety {
 public class BuildMenu : MonoBehaviour {
- GameSession session;GUIStyle title,heading,body,muted,button;Texture2D pan,schabowy,chrupiaca,mielony;Vector2 scroll;
- void Awake(){session=GetComponent<GameSession>();pan=Resources.Load<Texture2D>("UI/patelnia");schabowy=Resources.Load<Texture2D>("UI/kotlet_schabowy");chrupiaca=Resources.Load<Texture2D>("UI/kotlet_mielony");mielony=Resources.Load<Texture2D>("UI/kotlet_mielony");}
+ GameSession session;GUIStyle title,heading,body,muted,button;Texture2D pan,schabowy,chrupiaca,mielony,losos;Vector2 scroll;
+ void Awake(){session=GetComponent<GameSession>();pan=Resources.Load<Texture2D>("UI/patelnia");schabowy=Resources.Load<Texture2D>("UI/kotlet_schabowy");chrupiaca=Resources.Load<Texture2D>("UI/kotlet_mielony");mielony=Resources.Load<Texture2D>("UI/kotlet_mielony");losos=Resources.Load<Texture2D>("UI/losos");}
  static void Panel(Rect rect,Color color){var previous=GUI.color;GUI.color=color;GUI.DrawTexture(rect,Texture2D.whiteTexture);GUI.color=previous;}
  void Styles(){
   if(title!=null)return;var font=Resources.Load<Font>("UI/PixelAE-Bold");
@@ -13,9 +13,11 @@ public class BuildMenu : MonoBehaviour {
   Panel(rect,selected?new Color(.2f,.17f,.10f):new Color(.10f,.12f,.16f));
   Panel(new Rect(rect.x,rect.y,4,rect.height),selected?new Color(1,.78f,.22f):new Color(.22f,.27f,.34f));
   var old=GUI.color;if(!owned)GUI.color=new Color(.4f,.4f,.4f);
-  if(icon)GUI.DrawTexture(new Rect(rect.x+14,rect.y+8,66,58),icon,ScaleMode.ScaleToFit);GUI.color=old;
-  GUI.Label(new Rect(rect.x+92,rect.y+10,210,25),name,heading);
-  GUI.Label(new Rect(rect.x+92,rect.y+40,222,30),owned?(selected?"W RECE  |  ":"")+detail:"NIEZDOBYTA",muted);
+  // Rows are laid out relative to their height so five weapons fit above the equipment panel.
+  float middle=rect.y+rect.height*.5f;
+  if(icon)GUI.DrawTexture(new Rect(rect.x+14,rect.y+5,66,rect.height-10),icon,ScaleMode.ScaleToFit);GUI.color=old;
+  GUI.Label(new Rect(rect.x+92,middle-25,210,25),name,heading);
+  GUI.Label(new Rect(rect.x+92,middle+3,222,26),owned?(selected?"W RECE  |  ":"")+detail:"NIEZDOBYTA",muted);
  }
  void OnGUI(){
   if(!session||!session.buildOpen||!session.player)return;Styles();var player=session.player;var upgrades=player.GetComponent<PlayerUpgrades>();
@@ -27,12 +29,13 @@ public class BuildMenu : MonoBehaviour {
   GUI.Label(new Rect(120,135,850,30),"Biezace podejscie  /  Gra zatrzymana  /  TAB lub ESC: powrot",muted);
   if(GUI.Button(new Rect(1000,90,155,39),"ZAMKNIJ",button))session.SetBuildOpen(false);
   GUI.Label(new Rect(120,181,340,32),"BRONIE",heading);
-  Weapon(new Rect(120,220,340,70),pan,"PATELNIA","Walka wrecz",true,player.weapon==FoodKind.Pan);
+  Weapon(new Rect(120,220,340,58),pan,"PATELNIA","Walka wrecz",true,player.weapon==FoodKind.Pan);
   string ricochet=upgrades&&upgrades.SchabowyExtraTargets>0?"+"+upgrades.SchabowyExtraTargets+" cele / rykoszet":"Pojedynczy pocisk";
-  Weapon(new Rect(120,300,340,70),schabowy,"SCHABOWY",ricochet,player.hasSchabowy,player.weapon==FoodKind.Schabowy);
+  Weapon(new Rect(120,284,340,58),schabowy,"SCHABOWY",ricochet,player.hasSchabowy,player.weapon==FoodKind.Schabowy);
   string chrupiacaInfo=upgrades&&upgrades.ChrupiacaPiercing?"Piercing":"3 pociski / wachlarz";if(upgrades&&upgrades.ChrupiacaBleedDamage>0)chrupiacaInfo+=" + bleed";
-  Weapon(new Rect(120,380,340,70),chrupiaca,"CHRUPIACA",chrupiacaInfo,player.hasChrupiaca,player.weapon==FoodKind.Chrupiaca);
-  Weapon(new Rect(120,460,340,70),mielony,"MIELONY",upgrades&&upgrades.MielonyGroundBounces>0?"Bounce x"+upgrades.MielonyGroundBounces+" / DoT + slow":"Luk / DoT + slow",player.hasMielony,player.weapon==FoodKind.Mielony);
+  Weapon(new Rect(120,348,340,58),chrupiaca,"CHRUPIACA",chrupiacaInfo,player.hasChrupiaca,player.weapon==FoodKind.Chrupiaca);
+  Weapon(new Rect(120,412,340,58),mielony,"MIELONY",upgrades&&upgrades.MielonyGroundBounces>0?"Bounce x"+upgrades.MielonyGroundBounces+" / DoT + slow":"Luk / DoT + slow",player.hasMielony,player.weapon==FoodKind.Mielony);
+  Weapon(new Rect(120,476,340,58),losos,"LOSOS",LososBoomerang.InFlight?"W locie...":upgrades&&upgrades.LososOrbitLaps>0?"Bumerang / okrazenie x"+upgrades.LososOrbitLaps:"Bumerang / przebija / wraca",player.hasLosos,player.weapon==FoodKind.Losos);
   Panel(new Rect(120,542,340,88),new Color(.085f,.10f,.135f));
   GUI.Label(new Rect(136,550,300,25),"WYPOSAZENIE",heading);
   GUI.Label(new Rect(136,581,310,44),"Jetpack: "+(player.canFly?"TAK (SPACJA)":"niezdobyty")+"\nPaliwo: "+Mathf.RoundToInt(player.fuel)+"  |  Pierogi: "+player.pierogi,body);

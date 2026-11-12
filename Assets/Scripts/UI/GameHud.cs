@@ -49,7 +49,7 @@ public class GameHud : MonoBehaviour {
  }
  public void Refresh(){if(!player||health==null)return;ApplyScale();HealthFill=Mathf.Clamp01(player.health/100);FuelFill=Mathf.Clamp01(player.fuel/100);SetFill(health,HealthFill,Color.white);SetFill(fuel,FuelFill,Color.white);fuelBase.gameObject.SetActive(FuelVisible);fuel.gameObject.SetActive(FuelVisible);healthText.text=Mathf.RoundToInt(player.health).ToString();pierogiText.text="Pierogi: "+player.pierogi;
   for(int i=0;i<dashBars.Length;i++)if(dashBars[i]!=null)SetFill(dashBars[i],player.DashStamina-i,new Color(.2f,.85f,1));
-  if(lastWeapon!=player.weapon){lastWeapon=player.weapon;string name=player.weapon==FoodKind.Schabowy?"kotlet_schabowy":player.weapon==FoodKind.Chrupiaca||player.weapon==FoodKind.Mielony?"kotlet_mielony":"patelnia";SelectedWeaponTexture=Resources.Load<Texture2D>("UI/"+name);if(!SelectedWeaponTexture)SelectedWeaponTexture=Resources.Load<Texture2D>("UI/widelec");icon.texture=SelectedWeaponTexture;icon.renderer.sharedMaterial=GetMaterial(SelectedWeaponTexture);}
+  if(lastWeapon!=player.weapon){lastWeapon=player.weapon;string name=player.weapon==FoodKind.Losos?"losos":player.weapon==FoodKind.Schabowy?"kotlet_schabowy":player.weapon==FoodKind.Chrupiaca||player.weapon==FoodKind.Mielony?"kotlet_mielony":"patelnia";SelectedWeaponTexture=Resources.Load<Texture2D>("UI/"+name);if(!SelectedWeaponTexture)SelectedWeaponTexture=Resources.Load<Texture2D>("UI/widelec");icon.texture=SelectedWeaponTexture;icon.renderer.sharedMaterial=GetMaterial(SelectedWeaponTexture);}
  }
  void LateUpdate(){Refresh();}
  void OnDestroy(){foreach(var mesh in meshes)if(mesh)Destroy(mesh);foreach(var material in materials.Values)if(material)Destroy(material);}

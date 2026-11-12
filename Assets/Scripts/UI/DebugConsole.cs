@@ -20,10 +20,12 @@ public class DebugConsole : MonoBehaviour {
   var parts=command.Trim().Split(new[]{' ','\t'},StringSplitOptions.RemoveEmptyEntries);if(parts.Length==0)return "";
   string verb=parts[0].ToLowerInvariant();
   if(verb=="clear"&&parts.Length==1){lines.Clear();return "";}
-  if(verb=="help"&&parts.Length==1)return "give <id> - nadaj ulepszenie | list - lista ID | clear - wyczysc | § / ~ / Esc - zamknij";
+  if(verb=="help"&&parts.Length==1)return "give <id> - nadaj ulepszenie | give <bron> - nadaj bron (schabowy, chrupiaca, mielony, losos) | list - lista ID | clear - wyczysc | § / ~ / Esc - zamknij";
   if(verb=="list"&&parts.Length==1){var result=new List<string>();foreach(var definition in definitions)result.Add(definition.id+"  "+definition.title);return string.Join("\n",result);}
   if(verb!="give"||parts.Length!=2)return "Nieznana komenda lub argumenty. Wpisz help.";
   if(!session||!session.player)return "Brak aktywnego gracza.";
+  // Weapons can be granted by name, e.g. "give losos".
+  if(!char.IsDigit(parts[1][0])&&Enum.TryParse<FoodKind>(parts[1],true,out var food)){if(food==FoodKind.Pan)return "Patelnie masz zawsze.";session.player.Receive(food);return "Dodano: "+food+".";}
   UpgradeDefinition found=null;foreach(var definition in definitions)if(string.Equals(definition.id,parts[1],StringComparison.OrdinalIgnoreCase)){found=definition;break;}
   if(!found)return "Nieznane ID: "+parts[1]+". Wpisz list.";
   var upgrades=session.player.GetComponent<PlayerUpgrades>();if(!upgrades)upgrades=session.player.gameObject.AddComponent<PlayerUpgrades>();
