@@ -90,7 +90,7 @@ Wcześniejsze sprawdzenia map, animacji i walki są zapisane w katalogu `Validat
 
 Interfejs, efekty cząsteczkowe i oświetlenie są implementacjami Unity. Shader glitch, postprocessing Forward+ i niektóre materiały Godota nie są odwzorowane 1:1. Chrupiaca i przeciwnik strzelający są obsługiwani przez kod, lecz źródłowy poziom 001 nie umieszcza ich w początkowym rozmieszczeniu.
 
-Importer: [oficjalny Unity glTFast](https://docs.unity3d.com/Packages/com.unity.cloud.gltfast@6.20/manual/index.html). Licencja oryginalnych zasobów: `LICENSE.txt`.
+Importer: [oficjalny Unity glTFast](https://docs.unity3d.com/Packages/com.unity.cloud.gltfast@6.20/manual/index.html).
 
 
 

@@ -244,4 +244,4 @@ Używaj osobnej instancji edytora przy zamkniętym projekcie i bez `-quit`: kont
 
 ## Repozytorium
 
-Modele GLB są obsługiwane przez Git LFS. Po klonowaniu pobierz je przez `git lfs pull`. `Library`, `Temp`, `Logs`, `UserSettings` i metadane macOS są lokalne i ignorowane przez Git. Licencja zasobów znajduje się w `LICENSE.txt`.
+Modele GLB są obsługiwane przez Git LFS. Po klonowaniu pobierz je przez `git lfs pull`. `Library`, `Temp`, `Logs`, `UserSettings` i metadane macOS są lokalne i ignorowane przez Git.
