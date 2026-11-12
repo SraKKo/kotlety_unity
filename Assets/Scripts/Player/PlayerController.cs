@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour {
  public Vector3 velocity;
  CharacterController controller; Vector3 moveInput,wallNormal,groundNormal=Vector3.up,hookPoint;
  Quaternion cameraRotation; Enemy hookedEnemy; float pitch,hookCooldown,ropeLength;
+ float shakeAge,shakeDuration,shakeStrength;
  float jetpackAvailableAt;
  float lastWallContact=float.NegativeInfinity; bool sliding,hooked,jumpQueued,slideHeld,flightHeld;
  ArenaMovementMotor motor;bool dashQueued,slidePressedQueued;float eyeHeight,roll,baseFov,landingKick;Vector3 previousPosition,currentPosition;
@@ -102,6 +103,7 @@ public class PlayerController : MonoBehaviour {
    var impact=SlamStats.Resolve(motor.SlamFallDistance);
    SlamCombat.Strike(point,normal,impact);
    Effect.Slam(point,normal,impact);
+   shakeAge=0;shakeDuration=impact.ShakeDuration;shakeStrength=impact.ShakeAmplitude;
    landingKick=Mathf.Lerp(.07f,.16f,impact.Power);
   }
   TryHeight(sliding?crouchingHeight:standingHeight);
@@ -128,6 +130,10 @@ public class PlayerController : MonoBehaviour {
   var target=cameraRest;target.y=eyeHeight-landingKick;
   if((currentPosition-transform.position).sqrMagnitude>4)previousPosition=currentPosition=transform.position;
   if(movement.interpolateCamera){float alpha=Mathf.Clamp01((Time.time-Time.fixedTime)/Time.fixedDeltaTime);target+=transform.InverseTransformVector(Vector3.Lerp(previousPosition,currentPosition,alpha)-transform.position);}
+  if(shakeAge<shakeDuration){
+   float t=shakeAge/Mathf.Max(.001f,shakeDuration);float strength=shakeStrength*(1-t)*(1-t);
+   target+=new Vector3(Mathf.Sin(shakeAge*137),Mathf.Sin(shakeAge*173+.7f),0)*strength;shakeAge+=dt;
+  }
   view.transform.localPosition=target;
   float fast=Mathf.Clamp01((new Vector3(velocity.x,0,velocity.z).magnitude-movement.runSpeed)/Mathf.Max(1,movement.dashSpeed-movement.runSpeed));
   view.fieldOfView=Mathf.Lerp(view.fieldOfView,baseFov+movement.speedFov*fast,response);

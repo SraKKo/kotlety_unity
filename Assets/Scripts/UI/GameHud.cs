@@ -4,6 +4,15 @@ namespace RetyKotlety {
 // The 1280x720 Godot HUD was shown on a Sprite3D: 0.01 units/pixel,
 // 4.14258 units from the weapon camera, turned 15 degrees around Y.
 public class GameHud : MonoBehaviour {
+ public static float HudScale {get=>Mathf.Clamp(PlayerPrefs.GetFloat("hud_scale",.8f),.5f,1.2f);set=>PlayerPrefs.SetFloat("hud_scale",Mathf.Clamp(value,.5f,1.2f));}
+ float appliedScale=-1;
+ void ApplyScale(){
+  float scale=HudScale;if(Mathf.Approximately(scale,appliedScale))return;appliedScale=scale;
+  // Preserve the lower-left point in the angled HUD plane as its contents shrink.
+  var anchor=new Vector3(-6.4f,-3.6f,0);
+  transform.localScale=Vector3.one*scale;
+  transform.localPosition=new Vector3(0,0,4.14258f)+transform.localRotation*(anchor*(1-scale));
+ }
  public PlayerController player;public Texture2D SelectedWeaponTexture {get;private set;}
  public float HealthFill {get;private set;}public float FuelFill {get;private set;}
  public bool FuelVisible=>player&&player.canFly;
@@ -38,7 +47,7 @@ public class GameHud : MonoBehaviour {
   var cross=Image("Oryginalny celownik",Resources.Load<Texture2D>("UI/crosshair"),new Rect(640-height*50,360-height*50,height*100,height*100),10,Color.white,false,crossRoot.transform);cross.gameObject.transform.localPosition=Vector3.zero;
   Refresh();
  }
- public void Refresh(){if(!player||health==null)return;HealthFill=Mathf.Clamp01(player.health/100);FuelFill=Mathf.Clamp01(player.fuel/100);SetFill(health,HealthFill,Color.white);SetFill(fuel,FuelFill,Color.white);fuelBase.gameObject.SetActive(FuelVisible);fuel.gameObject.SetActive(FuelVisible);healthText.text=Mathf.RoundToInt(player.health).ToString();pierogiText.text="Pierogi: "+player.pierogi;
+ public void Refresh(){if(!player||health==null)return;ApplyScale();HealthFill=Mathf.Clamp01(player.health/100);FuelFill=Mathf.Clamp01(player.fuel/100);SetFill(health,HealthFill,Color.white);SetFill(fuel,FuelFill,Color.white);fuelBase.gameObject.SetActive(FuelVisible);fuel.gameObject.SetActive(FuelVisible);healthText.text=Mathf.RoundToInt(player.health).ToString();pierogiText.text="Pierogi: "+player.pierogi;
   for(int i=0;i<dashBars.Length;i++)if(dashBars[i]!=null)SetFill(dashBars[i],player.DashStamina-i,new Color(.2f,.85f,1));
   if(lastWeapon!=player.weapon){lastWeapon=player.weapon;string name=player.weapon==FoodKind.Schabowy?"kotlet_schabowy":player.weapon==FoodKind.Chrupiaca||player.weapon==FoodKind.Mielony?"kotlet_mielony":"patelnia";SelectedWeaponTexture=Resources.Load<Texture2D>("UI/"+name);if(!SelectedWeaponTexture)SelectedWeaponTexture=Resources.Load<Texture2D>("UI/widelec");icon.texture=SelectedWeaponTexture;icon.renderer.sharedMaterial=GetMaterial(SelectedWeaponTexture);}
  }

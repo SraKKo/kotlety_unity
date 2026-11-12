@@ -11,7 +11,7 @@ public static class SlamCombat {
    var enemy=collider.GetComponentInParent<Enemy>();if(!enemy||seen.Contains(enemy)||enemy.health<=0)continue;
    var target=collider.bounds.center;var delta=target-origin;
    if(Physics.Raycast(origin,delta.normalized,delta.magnitude,terrainMask,QueryTriggerInteraction.Ignore))continue;
-   seen.Add(enemy);enemy.Damage(damage,collider.ClosestPoint(origin),normal,false);hits++;
+   seen.Add(enemy);enemy.Damage(damage,collider.ClosestPoint(origin),normal,false);if(enemy.health>0&&impact.LaunchSpeed>0)enemy.Launch(impact.LaunchSpeed);hits++;
   }
   return hits;
  }

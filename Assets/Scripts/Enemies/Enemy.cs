@@ -4,13 +4,16 @@ namespace RetyKotlety {
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour {
  public bool shooting,dummy; public float health=200; public float sightRange=12,attackRange=2;
+ EnemyLaunch launch;
+ public bool IsAirborne=>launch&&launch.Active;
+ public void Launch(float speed){if(health<=0||speed<=0)return;if(!launch)launch=GetComponent<EnemyLaunch>();if(!launch)launch=gameObject.AddComponent<EnemyLaunch>();launch.Begin(speed);}
  float slowMultiplier=1,slowUntil;
  public float SpeedMultiplier=>Time.time<slowUntil?slowMultiplier:1;
  public void ApplySlow(float multiplier,float duration){if(duration<=0)return;if(Time.time>=slowUntil)slowMultiplier=1;slowMultiplier=Mathf.Min(slowMultiplier,Mathf.Clamp(multiplier,.1f,1));slowUntil=Mathf.Max(slowUntil,Time.time+duration);}
  NavMeshAgent agent; float cooldown,pullTimer; Animation legacy;
  void Awake(){agent=GetComponent<NavMeshAgent>();}
  void Start(){if(shooting)RangedSkeletonVisual.Install(this);if(!dummy&&!agent.enabled)agent.enabled=true;agent.speed=shooting?2:6;agent.angularSpeed=360;agent.stoppingDistance=shooting?12:1.8f;agent.updateRotation=false;legacy=shooting?null:WeaponPresentation.FindAnimation(gameObject,"walking");if(shooting){health=120;attackRange=18;}}
- void Update(){var g=GameSession.Instance;if(!g||g.paused||!g.player||dummy)return;agent.speed=(shooting?2:6)*SpeedMultiplier;float dt=Time.deltaTime;cooldown-=dt;pullTimer-=dt;if(pullTimer>0)return;
+ void Update(){var g=GameSession.Instance;if(!g||g.paused||!g.player||dummy||IsAirborne)return;agent.speed=(shooting?2:6)*SpeedMultiplier;float dt=Time.deltaTime;cooldown-=dt;pullTimer-=dt;if(pullTimer>0)return;
   var target=g.player;float distance=Vector3.Distance(transform.position,target.transform.position);
   if(!agent.isOnNavMesh)return;
   if(distance>sightRange){agent.isStopped=true;Animate("idle");return;}
@@ -23,7 +26,7 @@ public class Enemy : MonoBehaviour {
  }
  void Face(Vector3 direction,float dt){direction.y=0;if(direction.sqrMagnitude>.001f){var facing=Quaternion.LookRotation(direction);if(!shooting)facing*=Quaternion.Euler(0,180,0);transform.rotation=Quaternion.Slerp(transform.rotation,facing,dt*7.5f);}}
  void Animate(string key){if(!legacy)return;foreach(AnimationState state in legacy){if(state.name.ToLowerInvariant().Contains(key)&&!legacy.IsPlaying(state.name)){state.wrapMode=key=="idle"||key=="walking"?WrapMode.Loop:WrapMode.Once;legacy.CrossFade(state.name,.15f);break;}}}
- public void Pull(Vector3 target,float distance){pullTimer=.15f;if(agent&&agent.isOnNavMesh){agent.isStopped=true;var pos=Vector3.MoveTowards(transform.position,target,distance);if(NavMesh.SamplePosition(pos,out var hit,3,NavMesh.AllAreas))agent.Warp(hit.position);}}
+ public void Pull(Vector3 target,float distance){if(IsAirborne)return;pullTimer=.15f;if(agent&&agent.isOnNavMesh){agent.isStopped=true;var pos=Vector3.MoveTowards(transform.position,target,distance);if(NavMesh.SamplePosition(pos,out var hit,3,NavMesh.AllAreas))agent.Warp(hit.position);}}
  public void Damage(float amount){Damage(amount,transform.position+Vector3.up,Vector3.up,false);}
  public void Damage(float amount,Vector3 point,Vector3 normal,bool melee){
   if(health<=0||amount<=0)return;float applied=Mathf.Min(health,amount);health-=applied;

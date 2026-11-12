@@ -17,3 +17,9 @@ MonoBehaviour:
   maxRadius: 5
   damagePerMeter: 12
   maxDamage: 90
+  launchThreshold: 3
+  launchSpeed: 6
+  maxLaunchSpeed: 9
+  fullLaunchHeight: 7.5
+  shakeAmplitude: 0.035
+  shakeDuration: 0.18

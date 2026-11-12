@@ -37,7 +37,7 @@ public class GameSession : MonoBehaviour {
   if(!value&&!buildOpen)return;
   buildOpen=value;if(!value)modalClosedFrame=Time.frameCount;SetPause(value);
  }
- public void SetPause(bool value) { paused=value; options=false; Time.timeScale=value?0:1; Cursor.lockState=value?CursorLockMode.None:CursorLockMode.Locked; Cursor.visible=value; }
+ public void SetPause(bool value) { if(options)PlayerPrefs.Save();paused=value; options=false; Time.timeScale=value?0:1; Cursor.lockState=value?CursorLockMode.None:CursorLockMode.Locked; Cursor.visible=value; }
  public void Win() { buildOpen=false;won=true; SetPause(true); }
  public void StartGame() { Time.timeScale=1; SceneManager.LoadScene("Level001"); }
  public void StartMovementArena(){Time.timeScale=1;SceneManager.LoadScene(ArenaLayout.SceneName);}
@@ -62,12 +62,14 @@ public class GameSession : MonoBehaviour {
    if(logo && menuScene) GUI.DrawTexture(new Rect(435,82,410,150),logo,ScaleMode.ScaleToFit);
    else GUI.Label(new Rect(410,90,460,100),won?"Smacznego! Wygrana!":"Pauza",title);
    if(options) {
-    GUI.Label(new Rect(440,240,400,35),"Głośność główna",label); Volume=GUI.HorizontalSlider(new Rect(440,275,400,24),Volume,0,1);
-    GUI.Label(new Rect(440,310,400,35),"Muzyka",label); float mv=GUI.HorizontalSlider(new Rect(440,345,400,24),PlayerPrefs.GetFloat("music",.6f),0,1); PlayerPrefs.SetFloat("music",mv); if(music) music.volume=mv;
-    GUI.Label(new Rect(440,380,400,35),"Efekty dźwiękowe",label); PlayerPrefs.SetFloat("effects",GUI.HorizontalSlider(new Rect(440,415,400,24),PlayerPrefs.GetFloat("effects",1),0,1));
-    GUI.Label(new Rect(440,450,400,35),"Czułość myszy",label); sensitivity=GUI.HorizontalSlider(new Rect(440,485,400,24),sensitivity,.02f,.4f); PlayerPrefs.SetFloat("sensitivity",sensitivity);
-    bool showFps=GUI.Toggle(new Rect(440,525,400,30),FpsCounter.Visible," Pokaz licznik FPS",toggle);if(showFps!=FpsCounter.Visible)FpsCounter.Visible=showFps;
-    if(GUI.Button(new Rect(440,570,400,45),"Powrót",button)) {options=false;PlayerPrefs.Save();}
+    GUI.Label(new Rect(440,240,400,35),"Głośność główna",label); Volume=GUI.HorizontalSlider(new Rect(440,268,400,24),Volume,0,1);
+    GUI.Label(new Rect(440,300,400,30),"Muzyka",label); float mv=GUI.HorizontalSlider(new Rect(440,328,400,24),PlayerPrefs.GetFloat("music",.6f),0,1); PlayerPrefs.SetFloat("music",mv); if(music) music.volume=mv;
+    GUI.Label(new Rect(440,360,400,30),"Efekty dźwiękowe",label); PlayerPrefs.SetFloat("effects",GUI.HorizontalSlider(new Rect(440,388,400,24),PlayerPrefs.GetFloat("effects",1),0,1));
+    GUI.Label(new Rect(440,420,400,30),"Czułość myszy",label); sensitivity=GUI.HorizontalSlider(new Rect(440,448,400,24),sensitivity,.02f,.4f); PlayerPrefs.SetFloat("sensitivity",sensitivity);
+    GUI.Label(new Rect(440,480,400,30),"Skala HUD: "+Mathf.RoundToInt(GameHud.HudScale*100)+"%",label);
+    GameHud.HudScale=Mathf.Round(GUI.HorizontalSlider(new Rect(440,508,400,24),GameHud.HudScale,.5f,1.2f)*20)/20;
+    bool showFps=GUI.Toggle(new Rect(440,535,400,30),FpsCounter.Visible," Pokaz licznik FPS",toggle);if(showFps!=FpsCounter.Visible)FpsCounter.Visible=showFps;
+    if(GUI.Button(new Rect(440,580,400,45),"Powrót",button)) {options=false;PlayerPrefs.Save();}
    } else {
     if(GUI.Button(new Rect(460,menuScene?240:260,360,60),menuScene?"Graj":won?"Zagraj ponownie":"Wznów",button)) {if(menuScene)StartGame();else if(won)RestartLevel();else SetPause(false);}
     if(menuScene&&GUI.Button(new Rect(460,310,360,60),"Poziom testowy",button))StartTestLevel();

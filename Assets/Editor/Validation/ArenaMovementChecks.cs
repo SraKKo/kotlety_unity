@@ -33,6 +33,9 @@ public static class ArenaMovementChecks {
   Check(slam.Resolve(7.5f).Damage==90&&slam.Resolve(100).Damage==90,"Slam damage is capped at ninety");
   Check(slam.Resolve(0).Radius==1&&slam.Resolve(4).Radius>1&&slam.Resolve(4).Radius<5,"Slam radius grows from a one-metre minimum");
   Check(Mathf.Abs(slam.Resolve(7.5f).Radius-5)<.001f&&slam.Resolve(100).Radius==5,"Slam radius reaches five metres and stays capped");
+  Check(slam.Resolve(2.99f).LaunchSpeed==0&&slam.Resolve(3).LaunchSpeed==6,"Only slams from three metres launch enemies");
+  Check(slam.Resolve(7.5f).LaunchSpeed==9&&slam.Resolve(100).LaunchSpeed==9,"Launch force scales and stays capped");
+  Check(slam.Resolve(3).ShakeAmplitude>0&&slam.Resolve(100).ShakeAmplitude<=.035f&&slam.Resolve(3).ShakeDuration==.18f,"Slam shake stays light and short");
   var customSlam=new SlamStats(.5f,.2f,3,20,150);Check(customSlam.Resolve(10).Damage==150&&Mathf.Abs(customSlam.Resolve(10).Radius-2.5f)<.001f,"Independent slam stats support different radius and damage limits");
   m.Step(new ArenaMoveInput(),Ground,dt);Check(!m.SlamLanded,"Slam impact fires only once per landing");
   m=new ArenaMovementMotor(p);m.Step(new ArenaMoveInput{jump=true},Ground,dt);float y=0,peak=0,time=0;while((y>=0||time==0)&&time<2){y+=m.velocity.y*dt;peak=Mathf.Max(peak,y);m.Step(Wish(Vector3.zero),new ArenaMoveContact(),dt);time+=dt;}Check(peak>1.7f&&peak<2.2f&&time<.7f,"Jump has a short responsive arc, not floaty gravity");
