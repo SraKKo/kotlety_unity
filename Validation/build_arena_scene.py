@@ -233,7 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier:
 """)
     # Remove unused TextMesh component slots from GameObject declarations.
-    text=''.join(chunks)
+    text='\n'.join(line.rstrip() for line in ''.join(chunks).splitlines())+'\n'
     for n in nodes:
         if n['item'] and n['item'].get('text'):
             text=text.replace(f"  - component: {{fileID: {n['id']+4}}}\n",'')

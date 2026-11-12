@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16eb4ca87de4706be8648b54b9ed746, type: 3}
+  m_Name: Mielony
+  m_EditorClassIdentifier:
+  launchSpeed: 18
+  upwardBoost: 5
+  gravity: 22
+  fireCooldown: 0.85
+  greaseRadius: 2.5
+  greaseDuration: 5
+  tickInterval: 0.25
+  tickDamage: 5
+  slowMultiplier: 0.8
+  bounceRetention: 0.65
+  minimumBounceSpeed: 6

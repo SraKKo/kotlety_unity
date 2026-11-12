@@ -13,13 +13,13 @@ public class GameSession : MonoBehaviour {
  public AudioClip menuMusic,jumpSound,throwSound,bounceSound,hookSound,healSound;
  public UnityEngine.AI.NavMeshData navigation;
  UnityEngine.AI.NavMeshDataInstance navInstance;
- AudioSource music; GUIStyle title,label,button;
+ AudioSource music; GUIStyle title,label,button,toggle;
  public float sensitivity=0.1146f;
  public static float Volume { get => PlayerPrefs.GetFloat("volume",0.8f); set { PlayerPrefs.SetFloat("volume",value); AudioListener.volume=value; } }
  public void InstallNavigation(){if(navInstance.valid)navInstance.Remove();if(navigation)navInstance=UnityEngine.AI.NavMesh.AddNavMeshData(navigation);}
  void Start(){if(!menuScene&&player)GameHud.Install(player);Cursor.lockState=menuScene?CursorLockMode.None:CursorLockMode.Locked;Cursor.visible=menuScene;if(menuScene&&menuMusic&&!music){music=gameObject.AddComponent<AudioSource>();music.clip=menuMusic;music.loop=true;music.volume=PlayerPrefs.GetFloat("music",.6f);music.Play();}}
  void Awake() {
-  Instance=this;if(!GetComponent<BuildMenu>())gameObject.AddComponent<BuildMenu>();if(!GetComponent<DebugConsole>())gameObject.AddComponent<DebugConsole>(); Time.timeScale=1; AudioListener.volume=Volume;
+  Instance=this;if(!GetComponent<FpsCounter>())gameObject.AddComponent<FpsCounter>();if(!GetComponent<BuildMenu>())gameObject.AddComponent<BuildMenu>();if(!GetComponent<DebugConsole>())gameObject.AddComponent<DebugConsole>(); Time.timeScale=1; AudioListener.volume=Volume;
   sensitivity=PlayerPrefs.GetFloat("sensitivity",0.1146f);
   if(navigation) navInstance=UnityEngine.AI.NavMesh.AddNavMeshData(navigation);
   Cursor.lockState=menuScene?CursorLockMode.None:CursorLockMode.Locked; Cursor.visible=menuScene;
@@ -50,7 +50,8 @@ public class GameSession : MonoBehaviour {
   title=new GUIStyle(GUI.skin.label){fontSize=48,alignment=TextAnchor.MiddleCenter}; title.normal.textColor=new Color(1,.85f,.35f);
   label=new GUIStyle(GUI.skin.label){fontSize=22};
   button=new GUIStyle(GUI.skin.button){fontSize=24};
-  if(interfaceFont){title.font=interfaceFont;label.font=interfaceFont;button.font=interfaceFont;}
+  toggle=new GUIStyle(GUI.skin.toggle){fontSize=20};
+  if(interfaceFont){title.font=interfaceFont;label.font=interfaceFont;button.font=interfaceFont;toggle.font=interfaceFont;}
  }
  void OnGUI() {
   if(upgradeOpen||buildOpen||debugOpen)return;
@@ -61,11 +62,12 @@ public class GameSession : MonoBehaviour {
    if(logo && menuScene) GUI.DrawTexture(new Rect(435,82,410,150),logo,ScaleMode.ScaleToFit);
    else GUI.Label(new Rect(410,90,460,100),won?"Smacznego! Wygrana!":"Pauza",title);
    if(options) {
-    GUI.Label(new Rect(440,240,400,35),"Głośność główna",label); Volume=GUI.HorizontalSlider(new Rect(440,285,400,24),Volume,0,1);
-    GUI.Label(new Rect(440,320,400,35),"Muzyka",label); float mv=GUI.HorizontalSlider(new Rect(440,365,400,24),PlayerPrefs.GetFloat("music",.6f),0,1); PlayerPrefs.SetFloat("music",mv); if(music) music.volume=mv;
-    GUI.Label(new Rect(440,400,400,35),"Efekty dźwiękowe",label); PlayerPrefs.SetFloat("effects",GUI.HorizontalSlider(new Rect(440,445,400,24),PlayerPrefs.GetFloat("effects",1),0,1));
-    GUI.Label(new Rect(440,475,400,35),"Czułość myszy",label); sensitivity=GUI.HorizontalSlider(new Rect(440,520,400,24),sensitivity,.02f,.4f); PlayerPrefs.SetFloat("sensitivity",sensitivity);
-    if(GUI.Button(new Rect(440,565,400,50),"Powrót",button)) {options=false;PlayerPrefs.Save();}
+    GUI.Label(new Rect(440,240,400,35),"Głośność główna",label); Volume=GUI.HorizontalSlider(new Rect(440,275,400,24),Volume,0,1);
+    GUI.Label(new Rect(440,310,400,35),"Muzyka",label); float mv=GUI.HorizontalSlider(new Rect(440,345,400,24),PlayerPrefs.GetFloat("music",.6f),0,1); PlayerPrefs.SetFloat("music",mv); if(music) music.volume=mv;
+    GUI.Label(new Rect(440,380,400,35),"Efekty dźwiękowe",label); PlayerPrefs.SetFloat("effects",GUI.HorizontalSlider(new Rect(440,415,400,24),PlayerPrefs.GetFloat("effects",1),0,1));
+    GUI.Label(new Rect(440,450,400,35),"Czułość myszy",label); sensitivity=GUI.HorizontalSlider(new Rect(440,485,400,24),sensitivity,.02f,.4f); PlayerPrefs.SetFloat("sensitivity",sensitivity);
+    bool showFps=GUI.Toggle(new Rect(440,525,400,30),FpsCounter.Visible," Pokaz licznik FPS",toggle);if(showFps!=FpsCounter.Visible)FpsCounter.Visible=showFps;
+    if(GUI.Button(new Rect(440,570,400,45),"Powrót",button)) {options=false;PlayerPrefs.Save();}
    } else {
     if(GUI.Button(new Rect(460,menuScene?240:260,360,60),menuScene?"Graj":won?"Zagraj ponownie":"Wznów",button)) {if(menuScene)StartGame();else if(won)RestartLevel();else SetPause(false);}
     if(menuScene&&GUI.Button(new Rect(460,310,360,60),"Poziom testowy",button))StartTestLevel();

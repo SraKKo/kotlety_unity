@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a383bf793bb46a98a0239aa6f53fa1f, type: 3}
+  m_Name: MielonyBounce
+  m_EditorClassIdentifier:
+  id: '3.1'
+  title: 'MIELONY: BOUNCE'
+  description: 'Mielony odbija sie 2 razy od ziemi. Kazdy kontakt, takze koncowe ladowanie, zostawia plame tluszczu.'
+  effect: 3
+  extraTargets: 3
+  targetRange: 14
+  color: {r: 1, g: 0.72, b: 0.12, a: 1}
+  bleedDamage: 5
+  bleedInterval: 0.25
+  bleedDuration: 3
+  groundBounces: 2

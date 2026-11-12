@@ -1,8 +1,8 @@
 using UnityEngine;
 namespace RetyKotlety {
 public class BuildMenu : MonoBehaviour {
- GameSession session;GUIStyle title,heading,body,muted,button;Texture2D pan,schabowy,chrupiaca;Vector2 scroll;
- void Awake(){session=GetComponent<GameSession>();pan=Resources.Load<Texture2D>("UI/patelnia");schabowy=Resources.Load<Texture2D>("UI/kotlet_schabowy");chrupiaca=Resources.Load<Texture2D>("UI/kotlet_mielony");}
+ GameSession session;GUIStyle title,heading,body,muted,button;Texture2D pan,schabowy,chrupiaca,mielony;Vector2 scroll;
+ void Awake(){session=GetComponent<GameSession>();pan=Resources.Load<Texture2D>("UI/patelnia");schabowy=Resources.Load<Texture2D>("UI/kotlet_schabowy");chrupiaca=Resources.Load<Texture2D>("UI/kotlet_mielony");mielony=Resources.Load<Texture2D>("UI/kotlet_mielony");}
  static void Panel(Rect rect,Color color){var previous=GUI.color;GUI.color=color;GUI.DrawTexture(rect,Texture2D.whiteTexture);GUI.color=previous;}
  void Styles(){
   if(title!=null)return;var font=Resources.Load<Font>("UI/PixelAE-Bold");
@@ -27,14 +27,15 @@ public class BuildMenu : MonoBehaviour {
   GUI.Label(new Rect(120,135,850,30),"Biezace podejscie  /  Gra zatrzymana  /  TAB lub ESC: powrot",muted);
   if(GUI.Button(new Rect(1000,90,155,39),"ZAMKNIJ",button))session.SetBuildOpen(false);
   GUI.Label(new Rect(120,181,340,32),"BRONIE",heading);
-  Weapon(new Rect(120,220,340,80),pan,"PATELNIA","Walka wrecz",true,player.weapon==FoodKind.Pan);
+  Weapon(new Rect(120,220,340,70),pan,"PATELNIA","Walka wrecz",true,player.weapon==FoodKind.Pan);
   string ricochet=upgrades&&upgrades.SchabowyExtraTargets>0?"+"+upgrades.SchabowyExtraTargets+" cele / rykoszet":"Pojedynczy pocisk";
-  Weapon(new Rect(120,311,340,80),schabowy,"SCHABOWY",ricochet,player.hasSchabowy,player.weapon==FoodKind.Schabowy);
+  Weapon(new Rect(120,300,340,70),schabowy,"SCHABOWY",ricochet,player.hasSchabowy,player.weapon==FoodKind.Schabowy);
   string chrupiacaInfo=upgrades&&upgrades.ChrupiacaPiercing?"Piercing":"3 pociski / wachlarz";if(upgrades&&upgrades.ChrupiacaBleedDamage>0)chrupiacaInfo+=" + bleed";
-  Weapon(new Rect(120,402,340,80),chrupiaca,"CHRUPIACA",chrupiacaInfo,player.hasChrupiaca,player.weapon==FoodKind.Chrupiaca);
-  Panel(new Rect(120,497,340,133),new Color(.085f,.10f,.135f));
-  GUI.Label(new Rect(136,510,300,27),"WYPOSAZENIE",heading);
-  GUI.Label(new Rect(136,545,310,67),"Jetpack: "+(player.canFly?"TAK (G)":"niezdobyty")+"\nPaliwo: "+Mathf.RoundToInt(player.fuel)+"  |  Pierogi: "+player.pierogi,body);
+  Weapon(new Rect(120,380,340,70),chrupiaca,"CHRUPIACA",chrupiacaInfo,player.hasChrupiaca,player.weapon==FoodKind.Chrupiaca);
+  Weapon(new Rect(120,460,340,70),mielony,"MIELONY",upgrades&&upgrades.MielonyGroundBounces>0?"Bounce x"+upgrades.MielonyGroundBounces+" / DoT + slow":"Luk / DoT + slow",player.hasMielony,player.weapon==FoodKind.Mielony);
+  Panel(new Rect(120,542,340,88),new Color(.085f,.10f,.135f));
+  GUI.Label(new Rect(136,550,300,25),"WYPOSAZENIE",heading);
+  GUI.Label(new Rect(136,581,310,44),"Jetpack: "+(player.canFly?"TAK (G)":"niezdobyty")+"\nPaliwo: "+Mathf.RoundToInt(player.fuel)+"  |  Pierogi: "+player.pierogi,body);
   int count=upgrades?upgrades.Acquired.Count:0;
   GUI.Label(new Rect(490,181,650,32),"ULEPSZENIA  /  "+count,heading);
   Panel(new Rect(490,220,665,235),new Color(.075f,.085f,.115f));

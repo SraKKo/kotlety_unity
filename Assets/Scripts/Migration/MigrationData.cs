@@ -14,7 +14,7 @@ namespace RetyKotlety {
 [Serializable] public class ModelBounds {public Vector3 center,size;}
 [Serializable] public class PresentationBounds {public ModelBounds SausageLink;}
 [Serializable] public class PresentationData {public float bodyHeight,bodyRadius,worldFov,weaponFov;public PoseData camera,rightHand,leftHand;public PresentationBounds bounds;}
-public enum FoodKind { Pan, Schabowy, Chrupiaca, Pierog, Jetpack }
+public enum FoodKind { Pan, Schabowy, Chrupiaca, Pierog, Jetpack, Mielony }
 }
 
 

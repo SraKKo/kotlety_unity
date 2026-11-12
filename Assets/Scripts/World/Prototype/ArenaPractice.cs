@@ -5,7 +5,7 @@ namespace RetyKotlety {
 public class ArenaPractice : MonoBehaviour {
  public bool pressure;public int maxEnemies=18;public float spawnInterval=5;
  readonly List<Enemy> enemies=new List<Enemy>();float nextSpawn;int spawned;
- void Start(){var player=GameSession.Instance.player;player.Receive(FoodKind.Schabowy);player.Receive(FoodKind.Chrupiaca);player.Equip(FoodKind.Schabowy);}
+ void Start(){var player=GameSession.Instance.player;player.Receive(FoodKind.Schabowy);player.Receive(FoodKind.Chrupiaca);player.Receive(FoodKind.Mielony);player.Equip(FoodKind.Schabowy);}
  void Update(){var session=GameSession.Instance;if(!session||session.paused)return;
   if(Input.GetKeyDown(KeyCode.T)){pressure=!pressure;nextSpawn=Time.time+1;}
   enemies.RemoveAll(e=>!e);

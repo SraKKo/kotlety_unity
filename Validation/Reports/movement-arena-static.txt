@@ -19,7 +19,7 @@ PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 1000
 PASS Local scene reference resolves: 1011
-PASS Local scene reference resolves: 1801
+PASS Local scene reference resolves: 1821
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
@@ -1858,6 +1858,8 @@ PASS Local scene reference resolves: 1761
 PASS Local scene reference resolves: 1771
 PASS Local scene reference resolves: 1781
 PASS Local scene reference resolves: 1791
+PASS Local scene reference resolves: 1801
+PASS Local scene reference resolves: 1811
 PASS Local scene reference resolves: 1011
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
@@ -2061,28 +2063,68 @@ PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 1801
+PASS Local scene reference resolves: 1802
+PASS Local scene reference resolves: 1803
+PASS Local scene reference resolves: 1804
+PASS Local scene reference resolves: 1805
+PASS Local scene reference resolves: 1806
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 1800
-PASS Local scene reference resolves: 1811
-PASS Local scene reference resolves: 1821
-PASS Local scene reference resolves: 1831
-PASS Local scene reference resolves: 1841
-PASS Local scene reference resolves: 1851
-PASS Local scene reference resolves: 1861
-PASS Local scene reference resolves: 1871
-PASS Local scene reference resolves: 1881
-PASS Local scene reference resolves: 1001
+PASS Local scene reference resolves: 1731
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 1800
+PASS Local scene reference resolves: 2100000
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 1800
+PASS Local scene reference resolves: 10202
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 1800
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 1800
+PASS Local scene reference resolves: 11500000
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 1800
+PASS Local scene reference resolves: 11500000
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 1811
+PASS Local scene reference resolves: 1812
+PASS Local scene reference resolves: 1813
+PASS Local scene reference resolves: 1815
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 1810
-PASS Local scene reference resolves: 1801
+PASS Local scene reference resolves: 1731
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 1810
+PASS Local scene reference resolves: 10302
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 1810
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 1810
+PASS Local scene reference resolves: 11500000
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
@@ -2091,7 +2133,15 @@ PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 1820
-PASS Local scene reference resolves: 1801
+PASS Local scene reference resolves: 1831
+PASS Local scene reference resolves: 1841
+PASS Local scene reference resolves: 1851
+PASS Local scene reference resolves: 1861
+PASS Local scene reference resolves: 1871
+PASS Local scene reference resolves: 1881
+PASS Local scene reference resolves: 1891
+PASS Local scene reference resolves: 1901
+PASS Local scene reference resolves: 1001
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
@@ -2100,7 +2150,7 @@ PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 1830
-PASS Local scene reference resolves: 1801
+PASS Local scene reference resolves: 1821
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
@@ -2109,7 +2159,7 @@ PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 1840
-PASS Local scene reference resolves: 1801
+PASS Local scene reference resolves: 1821
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
@@ -2118,7 +2168,7 @@ PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 1850
-PASS Local scene reference resolves: 1801
+PASS Local scene reference resolves: 1821
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
@@ -2127,7 +2177,7 @@ PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 1860
-PASS Local scene reference resolves: 1801
+PASS Local scene reference resolves: 1821
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
@@ -2136,7 +2186,7 @@ PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 1870
-PASS Local scene reference resolves: 1801
+PASS Local scene reference resolves: 1821
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
@@ -2145,7 +2195,25 @@ PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 0
 PASS Local scene reference resolves: 1880
-PASS Local scene reference resolves: 1801
+PASS Local scene reference resolves: 1821
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 1891
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 1890
+PASS Local scene reference resolves: 1821
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 1901
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 0
+PASS Local scene reference resolves: 1900
+PASS Local scene reference resolves: 1821
 PASS Local scene reference resolves: 1001
 PASS Positive dimensions: Podloze 112 x 112
 PASS Geometry lies inside arena bounds: Podloze 112 x 112
@@ -2354,6 +2422,12 @@ PASS Layout item appears in editable scene: Skrzynia ulepszen 3
 PASS Positive dimensions: F - SKRZYNIA 3
 PASS Geometry lies inside arena bounds: F - SKRZYNIA 3
 PASS Layout item appears in editable scene: F - SKRZYNIA 3
+PASS Positive dimensions: Skrzynia ulepszen 4
+PASS Geometry lies inside arena bounds: Skrzynia ulepszen 4
+PASS Layout item appears in editable scene: Skrzynia ulepszen 4
+PASS Positive dimensions: F - SKRZYNIA 4
+PASS Geometry lies inside arena bounds: F - SKRZYNIA 4
+PASS Layout item appears in editable scene: F - SKRZYNIA 4
 PASS Two slide shortcuts exist
 PASS Slide clearance is 1.35m
 PASS Crouching fits; standing does not

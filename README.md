@@ -127,7 +127,7 @@ Otwórz `Assets/Scenes/MovementArena.unity` i uruchom Play albo wybierz **Arena 
 - Rampy łączą ziemię z wyższymi trasami; pomosty zapewniają miejsca do zeskoków i slamu.
 - Pomarańczowe tunele mają prześwit 1,35 m do testowania slajdu; pary ścian służą do wall jumpów.
 - Żółte cele wysoko nad areną służą do haka; niebieskozielone powierzchnie oznaczają trasy.
-- Gracz dostaje schabowego i chrupiącą od startu. W środku stoją cztery manekiny z dużą pulą HP.
+- Gracz dostaje schabowego, chrupiącą i mielonego od startu. W środku stoją cztery manekiny z dużą pulą HP.
 - Jetpack leży na południowym górnym tarasie, pieróg na wschodnim podeście. Podnoszenie: **F**.
 - **T** włącza lub zatrzymuje dopływ przeciwników (istniejący wrogowie pozostają). Limit: 18 aktywnych, do trzech nowych co 5 sekund; mieszanka melee i strzelających.
 - Slam zadaje **12 obrażeń za metr spadku od aktywacji**, maksymalnie **90** (od 7,5 m). Promień wyliczany jest według `min(maksymalny promień, promień bazowy + przyrost × wysokość spadku)`. Promień wynosi od **1 do 5 m**, z przyrostem `4 / 7,5 m` za metr spadku. Pełne 5 m osiąga po 7,5 m spadku, razem z limitem 90 obrażeń. Wysokość mierzona jest przy stopach, więc kucanie nie zwiększa obrażeń. Każdy wróg dostaje jedno trafienie; przeszkody blokują falę. Lądowaniu towarzyszą złoty pierścień i kwadratowe odłamki; zasięg pierścienia odpowiada promieniowi obrażeń. Fala osiąga pełny promień w 0,12 s i pozostaje widoczna do 0,65 s; skala gracza wynosi 1:1 przy wysokości 2 m. Parametry bazowe są w `Assets/Resources/Combat/Slam.asset`: promień początkowy, przyrost promienia na metr, maksymalny promień, obrażenia na metr i maksymalne obrażenia. Gracz ma własną kopię statystyk; system ulepszeń nie jest jeszcze zaimplementowany.
@@ -141,9 +141,19 @@ Alternatywny generator bez edytora: `python3 Validation/build_arena_scene.py` �
 
 Kontrola statyczna: `python3 Validation/check_arena_layout.py`. Kontrola fizyki i połączeń NavMesh w Unity: **Rety Kotlety → Prototyp → Sprawdz arene movementu**, po pełnym wygenerowaniu sceny. Raport: `Validation/Reports/movement-arena-layout.txt`.
 
+## Mielony - bron prototypowa
+
+Na MovementArena mielony jest dostępny od startu pod **3** i kółkiem myszy. W dłoni i w locie ma placeholder zwykłej brązowej kuli. Używa tymczasowo istniejącej ikony mielonego. **LPM** rzuca pocisk łukiem; po trafieniu w podłoże powstają żółty rozprysk i plama tłuszczu.
+
+Domyślnie plama ma **2,5 m promienia**, trwa **5 s** i zadaje **5 obrażeń co 0,25 s** przeciwnikom wewnątrz. Plama dodatkowo spowalnia ruch o **20%**. Spowolnienie jest odświeżane podczas stania w tłuszczu i wygasa do 0,3 s po wyjściu; nakładające się plamy nie mnożą spowolnienia. Po wyjściu z plamy wróg nie otrzymuje dalszych obrażeń od tej plamy. Ściany i inne podesty blokują jej obrażenia. Przy trafieniu w ścianę lub przeciwnika pocisk szuka podłoża poniżej; bez podłoża kończy się samym rozpryskiem. Osobne plamy zadają obrażenia niezależnie.
+
+Pocisk ma wspólny z pozostałymi broniami obrys, jasną smugę, kwadratowe okruszki i powiększanie modelu z odległością. Upgrade **3.1 — Mielony: Bounce** daje dwa odbicia od podłoża. Pierwsze i drugie uderzenie odbijają pocisk, trzecie kończy jego lot; każde zostawia własną plamę. Trafienie w ścianę lub wroga nadal kończy pocisk i próbuje zostawić plamę na podłożu poniżej.
+
+Parametry lotu, cooldown i działanie plamy: `Assets/Resources/Combat/Mielony.asset`. Pocisk używa kroku fizyki i sprawdzania całej przebytej drogi, a nie tylko kolizji w końcowym punkcie. Pauza zatrzymuje lot i DoT. Ulepszenia schabowego i chrupiącej nie wpływają na mielonego. Kontrole Play Mode: `-executeMethod RetyKotlety.Editor.MielonyChecks.Run` (ticki, wielokrotne collidery, wyjście i powrót do plamy, zasięg, czas życia i lot łukiem).
+
 ## Skrzynie i ulepszenia
 
-Na MovementArena przy starcie stoją trzy skrzynki (x: `-4`, `4`, `8`; y: `0,7`; z: `-43`). Podejdź, wyceluj i naciśnij **F**. Panel otwierania zatrzymuje rozgrywkę i przewija karty przez 3,2 s. Każda skrzynia losuje jedno z jeszcze niezdobytych ulepszeń. Karty pokazują aktualną pulę; zatrzymanie wskazuje faktycznie przyznawaną nagrodę. Trzy skrzynie pozwalają zdobyć wszystkie trzy efekty bez powtórek. Po zakończeniu kliknij **Odbierz ulepszenie** albo naciśnij **Esc**. Skrzynia jest jednorazowa, a ulepszenie obowiązuje do restartu sceny. Przed użyciem pokazuje model zamknięty, a po odebraniu nagrody — otwarty, z mniejszym, pikselowym dymem z małych czarnych kwadratów wydobywających się ze środka. Po 4 sekundach rozgrywki skrzynia znika; resztki dymu łagodnie wygasają. Pauza zatrzymuje ten czas. Modele FBX i tekstury znajdują się w `Assets/Resources/Props/UpgradeChest/Closed` oraz `Open`; materiały są we wspólnym folderze `Materials`. Obie wersje są dopasowywane według podstawy, z zachowaniem kolizji zamkniętego korpusu. Otwarty model zachowuje oryginalne tekstury krawędzi, ścian i wieka. Tylko dno ma czarny materiał, a gęsta warstwa małych kwadratów dymu wydobywa się tuż pod górną krawędzią korpusu i zakrywa wnętrze. Poprzedni błędny model zachowano poza importem Unity w `Documentation/Archive/RejectedChestModel`.
+Na MovementArena przy starcie stoją cztery skrzynki (x: `-8`, `-4`, `4`, `8`; y: `0,7`; z: `-43`). Podejdź, wyceluj i naciśnij **F**. Panel otwierania zatrzymuje rozgrywkę i przewija karty przez 3,2 s. Każda skrzynia losuje jedno z jeszcze niezdobytych ulepszeń. Karty pokazują aktualną pulę; zatrzymanie wskazuje faktycznie przyznawaną nagrodę. Cztery skrzynie pozwalają zdobyć wszystkie cztery efekty bez powtórek. Po zakończeniu kliknij **Odbierz ulepszenie** albo naciśnij **Esc**. Skrzynia jest jednorazowa, a ulepszenie obowiązuje do restartu sceny. Przed użyciem pokazuje model zamknięty, a po odebraniu nagrody — otwarty, z mniejszym, pikselowym dymem z małych czarnych kwadratów wydobywających się ze środka. Po 4 sekundach rozgrywki skrzynia znika; resztki dymu łagodnie wygasają. Pauza zatrzymuje ten czas. Modele FBX i tekstury znajdują się w `Assets/Resources/Props/UpgradeChest/Closed` oraz `Open`; materiały są we wspólnym folderze `Materials`. Obie wersje są dopasowywane według podstawy, z zachowaniem kolizji zamkniętego korpusu. Otwarty model zachowuje oryginalne tekstury krawędzi, ścian i wieka. Tylko dno ma czarny materiał, a gęsta warstwa małych kwadratów dymu wydobywa się tuż pod górną krawędzią korpusu i zakrywa wnętrze. Poprzedni błędny model zachowano poza importem Unity w `Documentation/Archive/RejectedChestModel`.
 
 Po ulepszeniu schabowy trafia początkowego przeciwnika i automatycznie leci do **maksymalnie trzech kolejnych, różnych wrogów**. Każdy następny cel jest najbliższym żywym, widocznym wrogiem w promieniu **14 m od pocisku**. Pocisk koryguje lot w stronę wybranego celu i zachowuje obrażenia. Nie wraca do trafionych wrogów; brak celu lub przeszkoda kończą łańcuch. Chrupiaca i pomidory nie otrzymują tego efektu. Dotychczasowe odbicia schabowego od otoczenia pozostają osobną mechaniką.
 
@@ -151,6 +161,7 @@ Po ulepszeniu schabowy trafia początkowego przeciwnika i automatycznie leci do 
 | --- | --- | --- |
 | `1.1` | Schabowy: Rykoszet | Do trzech dodatkowych, różnych wrogów; zasięg 14 m |
 | `2.1` | Chrupiaca: Piercing | Pociski przebijają wrogów, każdy pocisk trafia danego wroga tylko raz; ściany blokują |
+| `3.1` | Mielony: Bounce | Dwa odbicia od ziemi i plama przy każdym kontakcie: maksymalnie trzy plamy |
 | `2.2` | Chrupiaca: Krwawienie | 5 obrażeń co 0,25 s przez 3 s: 12 ticków, 60 obrażeń. Kolejne trafienia odświeżają czas bez mnożenia stosów i bez opóźniania następnego ticka |
 
 Chrupiaca strzela trzema pociskami w jednym poziomym wachlarzu względem kamery: lewy (-6°), środkowy (0°), prawy (+6°), bez losowego rozrzutu pionowego.
@@ -170,11 +181,12 @@ Test integracyjny w Unity: `-executeMethod RetyKotlety.Editor.UpgradeChecks.Run`
 - `give 1.1` — rykoszet schabowego.
 - `give 2.1` — piercing chrupiącej.
 - `give 2.2` — krwawienie chrupiącej.
+- `give 3.1` — dwa odbicia mielonego od podłoża.
 - `list` — lista dostępnych ID i nazw.
 - `help` — pomoc.
 - `clear` — wyczyszczenie konsoli.
 
-`give` przyznaje upgrade na bieżące podejście i wyposaża powiązaną broń. Powtórne `give` tego samego ID nie stackuje efektu. Build pod Tab pokazuje nagrody otrzymane przez konsolę i skrzynie. ID `1.x` dotyczą schabowego, `2.x` chrupiącej.
+`give` przyznaje upgrade na bieżące podejście i wyposaża powiązaną broń. Powtórne `give` tego samego ID nie stackuje efektu. Build pod Tab pokazuje nagrody otrzymane przez konsolę i skrzynie. ID `1.x` dotyczą schabowego, `2.x` chrupiącej, `3.x` mielonego.
 
 ## Podglad buildu
 
@@ -218,12 +230,16 @@ Polecenia **Rety Kotlety → Przygotuj edytowalne sceny** i **Przygotuj poziom t
 | Lewy Shift | Dash |
 | Lewy Ctrl / C | Ślizg / slam |
 | LPM / PPM | Atak / blok patelnią |
-| V, 1, 2, kółko myszy | Wybór broni |
+| V, 1, 2, 3, kółko myszy | Wybór broni |
 | F / E | Podniesienie przedmiotu / zjedzenie pieroga |
 | Q / R | Wyrzucenie lub zwolnienie haka / skracanie linki |
 | Tab | Otworz / zamknij podglad buildu (pauza) |
 | G | Jetpack po podniesieniu |
 | Esc | Pauza |
+
+## Licznik FPS
+
+Licznik w prawym górnym rogu jest domyślnie włączony. **Opcje → Pokaż licznik FPS** w menu głównym lub podczas pauzy pozwala go wyłączyć i ponownie włączyć. Wybór zapisuje się między uruchomieniami. Wynik jest uśredniany co 0,5 s i działa także podczas pauzy.
 
 ## Sprawdzanie projektu
 

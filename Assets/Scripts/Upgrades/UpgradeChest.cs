@@ -54,7 +54,7 @@ public class UpgradeChest : MonoBehaviour {
    var card=cards[i];if(!card)continue;var icon=card.Weapon==FoodKind.Schabowy?schabowyIcon:chrupiacaIcon;
    var rect=new Rect(x,0,CardWidth,195);Panel(rect,new Color(.105f,.12f,.17f));Panel(new Rect(x,189,CardWidth,6),card.color);
    if(icon)GUI.DrawTexture(new Rect(x+20,24,CardWidth-40,92),icon,ScaleMode.ScaleToFit);
-   GUI.Label(new Rect(x+8,128,CardWidth-16,28),card.Weapon==FoodKind.Schabowy?"SCHABOWY":"CHRUPIACA",body);GUI.Label(new Rect(x+8,157,CardWidth-16,24),card.CardName,small);
+   GUI.Label(new Rect(x+8,128,CardWidth-16,28),card.Weapon.ToString().ToUpperInvariant(),body);GUI.Label(new Rect(x+8,157,CardWidth-16,24),card.CardName,small);
   }
   GUI.EndGroup();Panel(new Rect(638,225,4,222),new Color(1,.8f,.25f));
   if(revealed){GUI.Label(new Rect(200,461,880,34),reward.title,title);GUI.Label(new Rect(240,502,800,46),reward.description,body);if(GUI.Button(new Rect(440,559,400,44),"ODBIERZ ULEPSZENIE",button))Claim();}
