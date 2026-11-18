@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour {
  void Awake(){
   ConfigureSlam();
   if(!GetComponent<PlayerUpgrades>())gameObject.AddComponent<PlayerUpgrades>();
+  if(!GetComponent<MovementUpgradeEffects>())gameObject.AddComponent<MovementUpgradeEffects>();
   controller=GetComponent<CharacterController>();if(!movement)movement=Resources.Load<MovementTuning>("Movement/ArenaMovement");if(!movement)movement=ScriptableObject.CreateInstance<MovementTuning>();motor=new ArenaMovementMotor(movement);
  }
  void OnEnable(){
@@ -101,8 +102,9 @@ public class PlayerController : MonoBehaviour {
   if(motor.SlamLanded){
    var point=transform.position+controller.center-Vector3.up*controller.height*.5f;
    var normal=groundNormal.normalized;
-   var impact=SlamStats.Resolve(motor.SlamFallDistance);
-   SlamCombat.Strike(point,normal,impact);
+   var bonuses=CombatBonuses.FromOwner(gameObject);
+   var impact=SlamStats.Resolve(motor.SlamFallDistance,bonuses.AreaMultiplier);
+   SlamCombat.Strike(point,normal,impact,bonuses);
    Effect.Slam(point,normal,impact);
    shakeAge=0;shakeDuration=impact.ShakeDuration;shakeStrength=impact.ShakeAmplitude;
    landingKick=Mathf.Lerp(.07f,.16f,impact.Power);
@@ -120,6 +122,7 @@ public class PlayerController : MonoBehaviour {
   var flags=controller.Move(velocity*dt);velocity=motor.velocity;
   if((flags&CollisionFlags.Above)!=0&&velocity.y>0)velocity.y=0;
   if((flags&CollisionFlags.Below)!=0&&velocity.y<0)velocity.y=-2;
+  GetComponent<MovementUpgradeEffects>().Step(sliding,controller.isGrounded,motor.DashStarted,transform.position+controller.center-Vector3.up*controller.height*.5f);
   currentPosition=transform.position;
   if(transform.position.y < -50)Damage(1000);
  }
@@ -158,19 +161,50 @@ public class PlayerController : MonoBehaviour {
  static readonly FoodKind[] WeaponOrder={FoodKind.Pan,FoodKind.Schabowy,FoodKind.Chrupiaca,FoodKind.Mielony,FoodKind.Losos};
  void CycleWeapon(int step){int current=System.Array.IndexOf(WeaponOrder,weapon);for(int i=1;i<=WeaponOrder.Length;i++){var next=WeaponOrder[(current+step*i+WeaponOrder.Length*2)%WeaponOrder.Length];if(next==FoodKind.Pan||next==FoodKind.Schabowy&&hasSchabowy||next==FoodKind.Chrupiaca&&hasChrupiaca||next==FoodKind.Mielony&&hasMielony||next==FoodKind.Losos&&hasLosos){Equip(next);return;}}}
  public void Equip(FoodKind kind){weapon=kind;if(weapons)weapons.Equip(kind);else{if(pan)pan.SetActive(kind==FoodKind.Pan);if(schabowy)schabowy.SetActive(kind==FoodKind.Schabowy);if(chrupiaca)chrupiaca.SetActive(kind==FoodKind.Chrupiaca);}}
- public void Receive(FoodKind kind){switch(kind){case FoodKind.Schabowy:hasSchabowy=true;Equip(kind);break;case FoodKind.Mielony:hasMielony=true;Equip(kind);break;case FoodKind.Losos:hasLosos=true;Equip(kind);break;case FoodKind.Chrupiaca:hasChrupiaca=true;Equip(kind);break;case FoodKind.Pierog:pierogi++;break;case FoodKind.Jetpack:canFly=true;fuel=100;break;}}
+ public void Receive(FoodKind kind){switch(kind){case FoodKind.Pan:Equip(kind);break;case FoodKind.Schabowy:hasSchabowy=true;Equip(kind);break;case FoodKind.Mielony:hasMielony=true;Equip(kind);break;case FoodKind.Losos:hasLosos=true;Equip(kind);break;case FoodKind.Chrupiaca:hasChrupiaca=true;Equip(kind);break;case FoodKind.Pierog:pierogi++;break;case FoodKind.Jetpack:canFly=true;fuel=100;break;}}
  void Interact(){pickupHint="";if(Physics.Raycast(view.transform.position,view.transform.forward,out var hit,4,WorldMask,QueryTriggerInteraction.Collide)){var chest=hit.collider.GetComponentInParent<UpgradeChest>();if(chest){pickupHint=chest.CanOpen?"F — Otworz skrzynie ulepszen":chest.opened?"Skrzynia otwarta":"Brak nowych ulepszen";if(chest.CanOpen&&Input.GetKeyDown(KeyCode.F))chest.Open(this);return;}var pickup=hit.collider.GetComponentInParent<Pickup>();if(pickup){pickupHint="F — "+pickup.kind;if(Input.GetKeyDown(KeyCode.F)){Receive(pickup.kind);Destroy(pickup.gameObject);}}}}
  public void Heal(){if(pierogi<=0||health>=100)return;pierogi--;health=Mathf.Min(100,health+20);var g=GameSession.Instance;if(g)g.Sound(g.healSound,transform.position);}
  public void Damage(float amount){health=Mathf.Max(0,health-amount);if(health<=0)SceneManager.LoadScene(SceneManager.GetActiveScene().name);}
+ System.Collections.IEnumerator pendingBurst;
+ void OnDisable(){if(pendingBurst!=null){StopCoroutine(pendingBurst);pendingBurst=null;}}
  void AttackImpact(){
   var game=GameSession.Instance;if(!game||game.paused){jumpQueued=dashQueued=slidePressedQueued=flightHeld=false;motor?.ClearJumpBuffer();return;}
-  if(weapon==FoodKind.Pan){var hits=Physics.OverlapSphere(view.transform.position+view.transform.forward*1.5f,1.5f,WorldMask,QueryTriggerInteraction.Ignore);var seen=new System.Collections.Generic.HashSet<Enemy>();foreach(var c in hits){var e=c.GetComponentInParent<Enemy>();if(e&&seen.Add(e)&&Vector3.Dot(view.transform.forward,(e.transform.position-transform.position).normalized)>0)e.Damage(100+5*velocity.magnitude,c.ClosestPoint(view.transform.position),-view.transform.forward,true);}return;}
-  game.Sound(game.throwSound,transform.position);
-  if(weapon==FoodKind.Mielony){var shot=MielonyProjectile.Spawn(view.transform.position+view.transform.forward*.65f,view.transform.forward,gameObject);var upgrades=GetComponent<PlayerUpgrades>();if(upgrades)upgrades.ConfigureMielony(shot);return;}
-  var origin=view.transform.position+view.transform.forward*.65f;
-  if(weapon==FoodKind.Losos){if(!LososBoomerang.InFlight){var fish=LososBoomerang.Spawn(origin,view.transform.forward,view.transform.right,gameObject,view.transform);var upgrades=GetComponent<PlayerUpgrades>();if(upgrades)upgrades.ConfigureLosos(fish);}return;}
-  if(weapon==FoodKind.Chrupiaca){var shots=Projectile.SpawnVolley(origin,view.transform.forward,view.transform.up,game.chrupiacaModel,gameObject);var upgrades=GetComponent<PlayerUpgrades>();if(upgrades)foreach(var shot in shots)upgrades.ConfigureChrupiaca(shot);}
-  else {var shot=Projectile.Spawn(origin,view.transform.forward,30,50,5,false,game.schabowyModel,gameObject);var upgrades=GetComponent<PlayerUpgrades>();if(upgrades)upgrades.ConfigureSchabowy(shot);}
+  if(weapon==FoodKind.Pan){
+   var hits=Physics.OverlapSphere(view.transform.position+view.transform.forward*1.5f,1.5f,WorldMask,QueryTriggerInteraction.Ignore);
+   var seen=new System.Collections.Generic.HashSet<Enemy>();var bonuses=CombatBonuses.FromOwner(gameObject);var panUpgrades=GetComponent<PlayerUpgrades>();
+   foreach(var c in hits){
+    var e=c.GetComponentInParent<Enemy>();if(!e||e.health<=0||!seen.Add(e)||Vector3.Dot(view.transform.forward,(e.transform.position-transform.position).normalized)<=0)continue;
+    bool airborne=e.IsAirborne;
+    if(panUpgrades&&panUpgrades.PanBowlingStacks>0)e.Bat(view.transform.forward,new PanBowlingStats(panUpgrades.PanBowlingStacks),bonuses);
+    e.Damage(bonuses.Damage(100+5*velocity.magnitude,airborne),c.ClosestPoint(view.transform.position),-view.transform.forward,true);
+   }
+   return;
+  }
+  var upgrades=GetComponent<PlayerUpgrades>();int extra=upgrades?upgrades.ExtraProjectiles:0;int count=1+extra;
+  if(((weapon==FoodKind.Schabowy||weapon==FoodKind.Losos)&&pendingBurst!=null)||(weapon==FoodKind.Losos&&LososBoomerang.InFlight))return;
+  game.Sound(game.throwSound,transform.position);var origin=view.transform.position+view.transform.forward*.65f;
+  if(weapon==FoodKind.Chrupiaca){
+   var shots=Projectile.SpawnVolley(origin,view.transform.forward,view.transform.up,game.chrupiacaModel,gameObject,6,extra);
+   if(upgrades)foreach(var shot in shots)upgrades.ConfigureChrupiaca(shot);return;
+  }
+  if(weapon==FoodKind.Mielony){
+   for(int i=0;i<count;i++){
+    var direction=ProjectileFan.Direction(view.transform.forward,view.transform.up,i,count,ProjectileFan.HalfSpread(count));
+    var shot=MielonyProjectile.Spawn(origin,direction,gameObject);if(upgrades)upgrades.ConfigureMielony(shot);
+   }
+   return;
+  }
+  pendingBurst=FireBurst(weapon,count,upgrades);StartCoroutine(pendingBurst);
+ }
+ System.Collections.IEnumerator FireBurst(FoodKind kind,int count,PlayerUpgrades upgrades){
+  for(int i=0;i<count;i++){
+   if(i>0)yield return new WaitForSeconds(.09f/(upgrades?upgrades.AttackSpeedMultiplier:1));
+   var game=GameSession.Instance;if(!game||!view)break;
+   var direction=view.transform.forward;var origin=view.transform.position+direction*.65f;
+   if(kind==FoodKind.Losos){var fish=LososBoomerang.Spawn(origin,direction,view.transform.right,gameObject,view.transform);if(upgrades)upgrades.ConfigureLosos(fish);}
+   else{var shot=Projectile.Spawn(origin,direction,30,50,5,false,game.schabowyModel,gameObject);if(upgrades)upgrades.ConfigureSchabowy(shot);}
+  }
+  pendingBurst=null;
  }
 }
 }

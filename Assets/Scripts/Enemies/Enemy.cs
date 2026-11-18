@@ -5,6 +5,9 @@ namespace RetyKotlety {
 public class Enemy : MonoBehaviour {
  public bool shooting,dummy; public float health=200; public float sightRange=12,attackRange=2;
  EnemyLaunch launch;
+ public void Bat(Vector3 direction,PanBowlingStats stats,CombatBonuses bonuses){
+  if(health<=0||stats.Speed<=0)return;if(!launch)launch=GetComponent<EnemyLaunch>();if(!launch)launch=gameObject.AddComponent<EnemyLaunch>();launch.Bat(direction,stats,bonuses);
+ }
  public bool IsAirborne=>launch&&launch.Active;
  public void Launch(float speed){if(health<=0||speed<=0)return;if(!launch)launch=GetComponent<EnemyLaunch>();if(!launch)launch=gameObject.AddComponent<EnemyLaunch>();launch.Begin(speed);}
  float slowMultiplier=1,slowUntil;
@@ -13,7 +16,7 @@ public class Enemy : MonoBehaviour {
  NavMeshAgent agent; float cooldown,pullTimer; Animation legacy;
  void Awake(){agent=GetComponent<NavMeshAgent>();}
  void Start(){if(shooting)RangedSkeletonVisual.Install(this);if(!dummy&&!agent.enabled)agent.enabled=true;agent.speed=shooting?2:6;agent.angularSpeed=360;agent.stoppingDistance=shooting?12:1.8f;agent.updateRotation=false;legacy=shooting?null:WeaponPresentation.FindAnimation(gameObject,"walking");if(shooting){health=120;attackRange=18;}}
- void Update(){var g=GameSession.Instance;if(!g||g.paused||!g.player||dummy||IsAirborne)return;agent.speed=(shooting?2:6)*SpeedMultiplier;float dt=Time.deltaTime;cooldown-=dt;pullTimer-=dt;if(pullTimer>0)return;
+ void Update(){var g=GameSession.Instance;if(!g||g.paused||!g.player||health<=0||dummy||IsAirborne)return;agent.speed=(shooting?2:6)*SpeedMultiplier;float dt=Time.deltaTime;cooldown-=dt;pullTimer-=dt;if(pullTimer>0)return;
   var target=g.player;float distance=Vector3.Distance(transform.position,target.transform.position);
   if(!agent.isOnNavMesh)return;
   if(distance>sightRange){agent.isStopped=true;Animate("idle");return;}
@@ -31,7 +34,7 @@ public class Enemy : MonoBehaviour {
  public void Damage(float amount,Vector3 point,Vector3 normal,bool melee){
   if(health<=0||amount<=0)return;float applied=Mathf.Min(health,amount);health-=applied;
   DamageNumber.Show(GetEntityId(),applied,point+Vector3.up*.4f);Effect.Emit(point,normal,melee?ImpactEffect.Pan:ImpactEffect.Food);
-  if(health<=0){Effect.Emit(transform.position+Vector3.up,Vector3.up,ImpactEffect.Death);Destroy(gameObject);}
+  if(health<=0){Effect.Emit(transform.position+Vector3.up,Vector3.up,ImpactEffect.Death);if(!launch||!launch.Batted)Destroy(gameObject);}
  }
 }
 }

@@ -4,20 +4,20 @@ namespace RetyKotlety {
 public class UpgradeChest : MonoBehaviour {
  public UpgradeDefinition reward;public bool opened;
  [Min(.1f)] public float disappearDelay=4f;
- GameSession session;bool displaying,claimed;float openedAt;GUIStyle title,body,small,button;Texture2D schabowyIcon,chrupiacaIcon,lososIcon;UpgradeDefinition[] pool;readonly UpgradeDefinition[] cards=new UpgradeDefinition[24];
+ GameSession session;bool displaying,claimed;float openedAt;GUIStyle title,body,small,button;Texture2D panIcon,schabowyIcon,chrupiacaIcon,lososIcon;UpgradeDefinition[] pool;readonly UpgradeDefinition[] cards=new UpgradeDefinition[24];
  const float RollDuration=3.2f;const int Winner=18;const float CardWidth=176,Gap=12,Step=CardWidth+Gap;
  public bool CanOpen {get{
   if(opened)return false;var player=GameSession.Instance?GameSession.Instance.player:null;var upgrades=player?player.GetComponent<PlayerUpgrades>():null;
-  if(reward)return !upgrades||!upgrades.Has(reward);
-  if(pool!=null)foreach(var definition in pool)if(definition&&(!upgrades||!upgrades.Has(definition)))return true;
+  if(reward)return !upgrades||upgrades.CanAcquire(reward);
+  if(pool!=null)foreach(var definition in pool)if(definition&&(!upgrades||upgrades.CanAcquire(definition)))return true;
   return false;
  }}
- void Awake(){pool=Resources.LoadAll<UpgradeDefinition>("Upgrades");schabowyIcon=Resources.Load<Texture2D>("UI/kotlet_schabowy");chrupiacaIcon=Resources.Load<Texture2D>("UI/kotlet_mielony");lososIcon=Resources.Load<Texture2D>("UI/losos");}
+ void Awake(){panIcon=Resources.Load<Texture2D>("UI/patelnia");pool=Resources.LoadAll<UpgradeDefinition>("Upgrades");schabowyIcon=Resources.Load<Texture2D>("UI/kotlet_schabowy");chrupiacaIcon=Resources.Load<Texture2D>("UI/kotlet_mielony");lososIcon=Resources.Load<Texture2D>("UI/losos");}
 
  public void Open(PlayerController player){
   if(!CanOpen||!player)return;session=GameSession.Instance;if(!session||session.paused||session.upgradeOpen)return;
-  var upgrades=player.GetComponent<PlayerUpgrades>();if(!upgrades)upgrades=player.gameObject.AddComponent<PlayerUpgrades>();var available=new List<UpgradeDefinition>();foreach(var definition in pool)if(definition&&!upgrades.Has(definition))available.Add(definition);
-  if(reward){if(upgrades.Has(reward))return;}else{if(available.Count==0)return;reward=available[Random.Range(0,available.Count)];}
+  var upgrades=player.GetComponent<PlayerUpgrades>();if(!upgrades)upgrades=player.gameObject.AddComponent<PlayerUpgrades>();var available=new List<UpgradeDefinition>();foreach(var definition in pool)if(definition&&upgrades.CanAcquire(definition))available.Add(definition);
+  if(reward){if(!upgrades.CanAcquire(reward))return;}else{if(available.Count==0)return;reward=available[Random.Range(0,available.Count)];}
   if(available.Count==0)available.Add(reward);
   for(int i=0;i<cards.Length;i++)cards[i]=available[Random.Range(0,available.Count)];cards[Winner]=reward;
   opened=true;displaying=true;openedAt=Time.unscaledTime;session.SetPause(true);session.upgradeOpen=true;
@@ -27,7 +27,7 @@ public class UpgradeChest : MonoBehaviour {
   if(claimed||!displaying||!session||!session.player)return;
   var upgrades=session.player.GetComponent<PlayerUpgrades>();if(!upgrades)return;upgrades.Grant(reward);claimed=true;
   // Make the upgrade immediately testable, including outside the prototype arena.
-  session.player.Receive(reward.Weapon);
+  if(!reward.IsGlobal)session.player.Receive(reward.Weapon);
   Close();var visual=GetComponent<UpgradeChestVisual>();if(visual)visual.RefreshState();
   var collider=GetComponent<Collider>();var bounds=collider?collider.bounds:new Bounds(transform.position,Vector3.one);
   float delay=Mathf.Max(.1f,disappearDelay);ChestSmoke.Emit(bounds,delay);Destroy(gameObject,delay);
@@ -45,19 +45,20 @@ public class UpgradeChest : MonoBehaviour {
   GUI.matrix=Matrix4x4.TRS(Vector3.zero,Quaternion.identity,new Vector3(Screen.width/1280f,Screen.height/720f,1));
   Panel(new Rect(0,0,1280,720),new Color(.015f,.02f,.03f,.91f));Panel(new Rect(140,100,1000,520),new Color(.055f,.065f,.09f));
   Panel(new Rect(140,100,1000,4),reward.color);GUI.Label(new Rect(180,126,920,50),"SKRZYNIA ULEPSZEN",title);
-  GUI.Label(new Rect(180,179,920,30),"Losowe ulepszenie - bez powtorek zdobytych nagrod",small);
+  GUI.Label(new Rect(180,179,920,30),"Przedmioty stackuja sie / ulepszenia broni sa jednorazowe",small);
   float elapsed=Time.unscaledTime-openedAt,t=Mathf.Clamp01(elapsed/RollDuration);bool revealed=t>=1;
   float eased=1-Mathf.Pow(1-t,4);float final=Winner*Step+CardWidth*.5f-440;
   GUI.BeginGroup(new Rect(200,235,880,205));
   for(int i=0;i<24;i++){
    float x=i*Step-final*eased;if(x>880||x+CardWidth<0)continue;
-   var card=cards[i];if(!card)continue;var icon=card.Weapon==FoodKind.Schabowy?schabowyIcon:card.Weapon==FoodKind.Losos?lososIcon:chrupiacaIcon;
+   var card=cards[i];if(!card)continue;var icon=card.Weapon==FoodKind.Pan?panIcon:card.Weapon==FoodKind.Schabowy?schabowyIcon:card.Weapon==FoodKind.Losos?lososIcon:chrupiacaIcon;
    var rect=new Rect(x,0,CardWidth,195);Panel(rect,new Color(.105f,.12f,.17f));Panel(new Rect(x,189,CardWidth,6),card.color);
-   if(icon)GUI.DrawTexture(new Rect(x+20,24,CardWidth-40,92),icon,ScaleMode.ScaleToFit);
-   GUI.Label(new Rect(x+8,128,CardWidth-16,28),card.Weapon.ToString().ToUpperInvariant(),body);GUI.Label(new Rect(x+8,157,CardWidth-16,24),card.CardName,small);
+   if(card.IsGlobal){Panel(new Rect(x+57,37,62,62),card.color);GUI.Label(new Rect(x+20,48,CardWidth-40,38),"+",title);}
+   else if(icon)GUI.DrawTexture(new Rect(x+20,24,CardWidth-40,92),icon,ScaleMode.ScaleToFit);
+   GUI.Label(new Rect(x+8,128,CardWidth-16,28),(card.IsGlobal?"PRZEDMIOT":card.Weapon.ToString().ToUpperInvariant()),body);GUI.Label(new Rect(x+8,157,CardWidth-16,24),card.CardName,small);
   }
   GUI.EndGroup();Panel(new Rect(638,225,4,222),new Color(1,.8f,.25f));
-  if(revealed){GUI.Label(new Rect(200,461,880,34),reward.title,title);GUI.Label(new Rect(240,502,800,46),reward.description,body);if(GUI.Button(new Rect(440,559,400,44),"ODBIERZ ULEPSZENIE",button))Claim();}
+  if(revealed){GUI.Label(new Rect(200,461,880,34),reward.title+(reward.stackable?"  x"+(session.player.GetComponent<PlayerUpgrades>().Count(reward)+1):""),title);GUI.Label(new Rect(240,502,800,46),reward.description,body);if(GUI.Button(new Rect(440,559,400,44),"ODBIERZ ULEPSZENIE",button))Claim();}
   else GUI.Label(new Rect(240,493,800,60),"OTWIERANIE...",body);
   GUI.matrix=matrix;GUI.color=color;GUI.depth=depth;
  }

@@ -9,6 +9,8 @@ public class WeaponPresentation : MonoBehaviour {
  public Vector3 lososGripPosition=new Vector3(.08f,.55f,.08f),lososGripEuler=new Vector3(-90,0,0);public float lososLength=1.5f;
  GameObject losos;float lososBuiltLength;
  public float animationSpeed=1.465f;
+ PlayerUpgrades ownerUpgrades;
+ float AttackSpeed {get{if(!ownerUpgrades)ownerUpgrades=GetComponentInParent<PlayerUpgrades>();return ownerUpgrades?ownerUpgrades.AttackSpeedMultiplier:1;}}
  AnimationState state; Action impact; FoodKind weapon; float time,impactTime; bool reverse,holdBlock,foodAttached;
  Vector3 schabowyGrip,chrupiacaGrip,schabowyScale,chrupiacaScale;
  Quaternion schabowyRotation,chrupiacaRotation;
@@ -80,10 +82,10 @@ public class WeaponPresentation : MonoBehaviour {
   return bounds;
  }
  void Idle(){ResetPose();var idle=Clip(weapon==FoodKind.Pan?"melee_idle2":weapon==FoodKind.Chrupiaca?"throw_chrupiaca":"throw_schabowy");if(idle!=null)Sample(idle,0);}
- public bool Attack(Action onImpact){if(IsBusy||weapon==FoodKind.Mielony&&Time.time<nextMielonyAttack||weapon==FoodKind.Losos&&LososBoomerang.InFlight)return false;string name=weapon==FoodKind.Pan?"melee_attack2":weapon==FoodKind.Chrupiaca?"throw_chrupiaca":"throw_schabowy";state=Clip(name);if(state==null){Debug.LogError("Brak animacji "+name,this);return false;}if(weapon==FoodKind.Mielony)nextMielonyAttack=Time.time+(MielonyProjectile.Tuning?MielonyProjectile.Tuning.fireCooldown:.85f);impact=onImpact;impactTime=weapon==FoodKind.Pan?.8194f:weapon==FoodKind.Chrupiaca?.4f:.28f;time=0;reverse=false;holdBlock=false;Sample(state,0);return true;}
+ public bool Attack(Action onImpact){if(IsBusy||weapon==FoodKind.Mielony&&Time.time<nextMielonyAttack||weapon==FoodKind.Losos&&LososBoomerang.InFlight)return false;string name=weapon==FoodKind.Pan?"melee_attack2":weapon==FoodKind.Chrupiaca?"throw_chrupiaca":"throw_schabowy";state=Clip(name);if(state==null){Debug.LogError("Brak animacji "+name,this);return false;}if(weapon==FoodKind.Mielony)nextMielonyAttack=Time.time+(MielonyProjectile.Tuning?MielonyProjectile.Tuning.fireCooldown:.85f)/AttackSpeed;impact=onImpact;impactTime=weapon==FoodKind.Pan?.8194f:weapon==FoodKind.Chrupiaca?.4f:.28f;time=0;reverse=false;holdBlock=false;Sample(state,0);return true;}
  public void SetBlock(bool held){if(weapon!=FoodKind.Pan)return;if(held&&!IsBusy){state=Clip("melee_block");time=0;reverse=false;holdBlock=state!=null;}else if(!held&&holdBlock){holdBlock=false;reverse=true;}}
  void LateUpdate(){if(!animationPlayer)return;animationPlayer.playAutomatically=false;animationPlayer.cullingType=AnimationCullingType.AlwaysAnimate;if(state==null){SetVisible();return;}
-  time+=Time.deltaTime*animationSpeed*(reverse?-1:1);time=Mathf.Clamp(time,0,state.length);Sample(state,time);
+  time+=Time.deltaTime*animationSpeed*(impact!=null||!holdBlock?AttackSpeed:1)*(reverse?-1:1);time=Mathf.Clamp(time,0,state.length);Sample(state,time);
   if(!reverse&&impact!=null&&time>=impactTime){var callback=impact;impact=null;callback();}
   if(!reverse&&time>=state.length&&!holdBlock){if(weapon==FoodKind.Pan){state=null;Idle();}else reverse=true;}
   else if(reverse&&time<=0){state=null;Idle();}

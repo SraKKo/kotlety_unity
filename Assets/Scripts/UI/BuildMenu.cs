@@ -29,18 +29,19 @@ public class BuildMenu : MonoBehaviour {
   GUI.Label(new Rect(120,135,850,30),"Biezace podejscie  /  Gra zatrzymana  /  TAB lub ESC: powrot",muted);
   if(GUI.Button(new Rect(1000,90,155,39),"ZAMKNIJ",button))session.SetBuildOpen(false);
   GUI.Label(new Rect(120,181,340,32),"BRONIE",heading);
-  Weapon(new Rect(120,220,340,58),pan,"PATELNIA","Walka wrecz",true,player.weapon==FoodKind.Pan);
-  string ricochet=upgrades&&upgrades.SchabowyExtraTargets>0?"+"+upgrades.SchabowyExtraTargets+" cele / rykoszet":"Pojedynczy pocisk";
-  Weapon(new Rect(120,284,340,58),schabowy,"SCHABOWY",ricochet,player.hasSchabowy,player.weapon==FoodKind.Schabowy);
-  string chrupiacaInfo=upgrades&&upgrades.ChrupiacaPiercing?"Piercing":"3 pociski / wachlarz";if(upgrades&&upgrades.ChrupiacaBleedDamage>0)chrupiacaInfo+=" + bleed";
+  Weapon(new Rect(120,220,340,58),pan,"PATELNIA",upgrades&&upgrades.PanBowlingStacks>0?"Wystrzal wroga / "+new PanBowlingStats(upgrades.PanBowlingStacks).Damage+" dmg":"Walka wrecz",true,player.weapon==FoodKind.Pan);
+  int extra=upgrades?upgrades.ExtraProjectiles:0;
+  string ricochet=upgrades&&upgrades.SchabowyExtraTargets>0?"rykoszet +"+upgrades.SchabowyExtraTargets:"standard";
+  Weapon(new Rect(120,284,340,58),schabowy,"SCHABOWY",(1+extra)+" poc. / "+ricochet,player.hasSchabowy,player.weapon==FoodKind.Schabowy);
+  string chrupiacaInfo=(3+extra)+" poc. / "+(upgrades&&upgrades.ChrupiacaPiercing?"piercing":"wachlarz");if(upgrades&&upgrades.ChrupiacaBleedDamage>0)chrupiacaInfo+=" + bleed";
   Weapon(new Rect(120,348,340,58),chrupiaca,"CHRUPIACA",chrupiacaInfo,player.hasChrupiaca,player.weapon==FoodKind.Chrupiaca);
-  Weapon(new Rect(120,412,340,58),mielony,"MIELONY",upgrades&&upgrades.MielonyGroundBounces>0?"Bounce x"+upgrades.MielonyGroundBounces+" / DoT + slow":"Luk / DoT + slow",player.hasMielony,player.weapon==FoodKind.Mielony);
-  Weapon(new Rect(120,476,340,58),losos,"LOSOS",LososBoomerang.InFlight?"W locie...":upgrades&&upgrades.LososOrbitLaps>0?"Bumerang / okrazenie x"+upgrades.LososOrbitLaps:"Bumerang / przebija / wraca",player.hasLosos,player.weapon==FoodKind.Losos);
+  Weapon(new Rect(120,412,340,58),mielony,"MIELONY",(1+extra)+" poc. / "+(upgrades&&upgrades.MielonyGroundBounces>0?"bounce x"+upgrades.MielonyGroundBounces:"tluszcz + slow"),player.hasMielony,player.weapon==FoodKind.Mielony);
+  Weapon(new Rect(120,476,340,58),losos,"LOSOS",LososBoomerang.InFlight?LososBoomerang.InFlightCount+" ryb w locie":(1+extra)+" ryb / "+(upgrades&&upgrades.LososOrbitLaps>0?"orbita x"+upgrades.LososOrbitLaps:"bumerang"),player.hasLosos,player.weapon==FoodKind.Losos);
   Panel(new Rect(120,542,340,88),new Color(.085f,.10f,.135f));
   GUI.Label(new Rect(136,550,300,25),"WYPOSAZENIE",heading);
   GUI.Label(new Rect(136,581,310,44),"Jetpack: "+(player.canFly?"TAK (SPACJA)":"niezdobyty")+"\nPaliwo: "+Mathf.RoundToInt(player.fuel)+"  |  Pierogi: "+player.pierogi,body);
   int count=upgrades?upgrades.Acquired.Count:0;
-  GUI.Label(new Rect(490,181,650,32),"ULEPSZENIA  /  "+count,heading);
+  GUI.Label(new Rect(490,181,650,32),"BUILD  /  "+count+" rodzajow / "+(upgrades?upgrades.TotalStacks:0)+" szt.",heading);
   Panel(new Rect(490,220,665,235),new Color(.075f,.085f,.115f));
   if(count==0){GUI.Label(new Rect(520,270,605,90),"Nie masz jeszcze ulepszen.\nOtworz skrzynie, aby rozpoczac skladanie buildu.",body);}
   else {
@@ -48,13 +49,13 @@ public class BuildMenu : MonoBehaviour {
    for(int i=0;i<count;i++){
     var definition=upgrades.Acquired[i];if(!definition)continue;float y=i*118;
     Panel(new Rect(0,y,620,106),new Color(.105f,.12f,.16f));Panel(new Rect(0,y,5,106),definition.color);
-    GUI.Label(new Rect(18,y+10,584,30),definition.title,heading);GUI.Label(new Rect(18,y+46,584,54),definition.description,body);
+    GUI.Label(new Rect(18,y+10,584,30),definition.title+"  x"+upgrades.Count(definition),heading);GUI.Label(new Rect(18,y+46,584,54),definition.description,body);
    }
    GUI.EndScrollView();
   }
-  var slam=player.SlamStats;
-  Panel(new Rect(490,470,665,160),new Color(.085f,.10f,.135f));GUI.Label(new Rect(508,482,620,30),"SLAM / PARAMETRY",heading);
-  GUI.Label(new Rect(508,523,620,90),"Promien: "+slam.BaseRadius.ToString("0.##")+" - "+slam.MaxRadius.ToString("0.##")+" m\nObrazenia: "+slam.DamagePerMeter.ToString("0.##")+" / m spadku  |  Limit: "+slam.MaxDamage.ToString("0.##")+"\nWzrost promienia: "+slam.RadiusPerMeter.ToString("0.##")+" m / m spadku",body);
+  var slam=player.SlamStats;var bonuses=upgrades?upgrades.Bonuses:default;
+  Panel(new Rect(490,470,665,160),new Color(.085f,.10f,.135f));GUI.Label(new Rect(508,482,620,30),"SLAM / BONUSY BUILDU",heading);
+  GUI.Label(new Rect(508,523,620,90),"Promien: "+(slam.BaseRadius*bonuses.AreaMultiplier).ToString("0.##")+" - "+(slam.MaxRadius*bonuses.AreaMultiplier).ToString("0.##")+" m\nObrazenia: "+slam.DamagePerMeter.ToString("0.##")+" / m spadku  |  Limit: "+slam.MaxDamage.ToString("0.##")+"\nObrazenia +"+Mathf.RoundToInt(bonuses.DamageBonus*100)+"% | DoT +"+bonuses.DotBonus.ToString("0.##")+" | Podrzuceni +"+Mathf.RoundToInt(bonuses.AirborneBonus*100)+"%",body);
   GUI.matrix=oldMatrix;GUI.color=oldColor;GUI.depth=oldDepth;
  }
 }
