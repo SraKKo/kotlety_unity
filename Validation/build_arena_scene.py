@@ -23,11 +23,11 @@ def quaternion(euler):
     sx,cx,sy,cy,sz,cz = math.sin(x),math.cos(x),math.sin(y),math.cos(y),math.sin(z),math.cos(z)
     return dict(x=cy*sx*cz+sy*cx*sz,y=sy*cx*cz-cy*sx*sz,z=cy*cx*sz-sy*sx*cz,w=cy*cx*cz+sy*sx*sz)
 
-def build():
-    generated = ROOT/'Assets/Generated/MovementArena'
+def build(scene_name="MovementArena", bootstrap_name="ArenaBootstrap", spawn_points=None):
+    generated = ROOT/('Assets/Generated/'+scene_name)
     generated.mkdir(exist_ok=True)
     meta(generated)
-    layout = json.loads((ROOT/'Assets/Resources/Levels/MovementArena.json').read_text())['items']
+    layout = json.loads((ROOT/('Assets/Resources/Levels/'+scene_name+'.json')).read_text())['items']
     materials = {}
     for item in layout:
         if item['text']:
@@ -80,7 +80,7 @@ Material:
     - _Color: {vec(c)}
 ''')
         materials[key]=guid
-    bootstrap=re.search(r'guid: (\w+)',(ROOT/'Assets/Scripts/World/Prototype/ArenaBootstrap.cs.meta').read_text())[1]
+    bootstrap=re.search(r'guid: (\w+)',(ROOT/('Assets/Scripts/World/Prototype/'+bootstrap_name+'.cs.meta')).read_text())[1]
     sign=re.search(r'guid: (\w+)',(ROOT/'Assets/Scripts/World/Prototype/ArenaSign.cs.meta').read_text())[1]
     chest_visual=re.search(r'guid: (\w+)',(ROOT/'Assets/Scripts/Upgrades/UpgradeChestVisual.cs.meta').read_text())[1]
     chest=re.search(r'guid: (\w+)',(ROOT/'Assets/Scripts/Upgrades/UpgradeChest.cs.meta').read_text())[1]
@@ -91,7 +91,7 @@ Material:
             parent['children'].append(n)
         nodes.append(n)
         return n
-    root=node('Movement Arena',script=bootstrap)
+    root=node(scene_name,script=bootstrap)
     geometry=node('Arena - geometria i trasy',root)
     groups={}
     for item in layout:
@@ -99,7 +99,7 @@ Material:
             groups[item['group']]=node(item['group'],geometry)
         node(item['name'],groups[item['group']],item,script=chest if item.get('upgradeChest') else None)
     markers=node('Punkty startu przeciwnikow - referencja',root)
-    for i,p in enumerate([(-42,0,-40),(42,0,-40),(-42,0,40),(42,0,40),(-42,4,0),(42,4,0),(0,8,34),(0,8,-34)]):
+    for i,p in enumerate(spawn_points if spawn_points is not None else [(-42,0,-40),(42,0,-40),(-42,0,40),(42,0,40),(-42,4,0),(42,4,0),(0,8,34),(0,8,-34)]):
         node(f'Spawn {i+1}',markers,dict(position=dict(zip('xyz',p)),rotation=dict(x=0,y=0,z=0),size=dict(x=1,y=1,z=1),marker=True))
     source=(ROOT/'Assets/Scenes/MainMenu.unity').read_text()
     blocks=re.split(r'(?=--- !u!)',source)
@@ -249,13 +249,13 @@ MonoBehaviour:
         if n['item'] and n['item'].get('text'):
             text=text.replace(f"  - component: {{fileID: {n['id']+4}}}\n",'')
     text+='--- !u!1660057539 &9223372036854775807\nSceneRoots:\n  m_ObjectHideFlags: 0\n  m_Roots:\n  - {fileID: 1001}\n'
-    scene=ROOT/'Assets/Scenes/MovementArena.unity';scene.write_text(text)
+    scene=ROOT/('Assets/Scenes/'+scene_name+'.unity');scene.write_text(text)
     guid=meta(scene)
     settings=ROOT/'ProjectSettings/EditorBuildSettings.asset';content=settings.read_text()
-    if 'Assets/Scenes/MovementArena.unity' not in content:
-        content=content.replace('  m_configObjects:',f'  - enabled: 1\n    path: Assets/Scenes/MovementArena.unity\n    guid: {guid}\n  m_configObjects:')
+    if 'Assets/Scenes/'+scene_name+'.unity' not in content:
+        content=content.replace('  m_configObjects:',f'  - enabled: 1\n    path: Assets/Scenes/{scene_name}.unity\n    guid: {guid}\n  m_configObjects:')
         settings.write_text(content)
-    print(f'Generated MovementArena: {len(layout)} layout items, {len(materials)} materials.')
+    print(f'Generated {scene_name}: {len(layout)} layout items, {len(materials)} materials.')
 
 if __name__=='__main__':
     build()

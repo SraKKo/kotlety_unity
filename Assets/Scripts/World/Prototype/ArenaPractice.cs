@@ -19,6 +19,6 @@ public class ArenaPractice : MonoBehaviour {
    var enemy=Instantiate(source,hit.position,Quaternion.identity).GetComponent<Enemy>();enemy.sightRange=100;enemy.gameObject.SetActive(true);enemies.Add(enemy);
   }
  }
- void OnGUI(){if(!GameSession.Instance||GameSession.Instance.paused)return;GUI.Label(new Rect(18,18,520,48),"MOVEMENT ARENA | T: presja "+(pressure?"WLACZONA":"WYLACZONA")+" | Wrogowie: "+enemies.Count+"\nSandbox tras i walki - bez XP i limitu czasu");}
+ void OnGUI(){if(!GameSession.Instance||GameSession.Instance.paused)return;GUI.Label(new Rect(18,18,520,48),"MOVEMENT ARENA | T: presja "+(pressure?"WLACZONA":"WYLACZONA")+" | Wrogowie: "+enemies.Count+"\nSandbox tras i walki / XP i sklep aktywne");}
 }
 }

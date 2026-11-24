@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a383bf793bb46a98a0239aa6f53fa1f, type: 3}
+  m_Name: PanBowling
+  m_EditorClassIdentifier:
+  id: '0.1'
+  title: 'OD DECHY DO DECHY'
+  description: 'Patelnia wystrzeliwuje wroga w tlum. Kolizja: 60 obrazen, +30 za kolejna sztuke. Predkosc: 16 m/s, +3 m/s za sztuke. Kazdy cel trafiany raz na lot.'
+  effect: 14
+  extraTargets: 3
+  targetRange: 14
+  color: {r: 0.95, g: 0.75, b: 0.2, a: 1}
+  stackable: 1
+  maxStacks: 0
+  increment: 1
+  shortName: OD DECHY DO DECHY
+  icon: {fileID: 2800000, guid: 4dba492a11c9459b8938dc30013059b4, type: 3}

@@ -1,0 +1,1157 @@
+{
+  "items": [
+    {
+      "group": "01 Podloze",
+      "name": "Podloze 64 x 72",
+      "position": {
+        "x": 0,
+        "y": -0.5,
+        "z": 0
+      },
+      "size": {
+        "x": 64,
+        "y": 1,
+        "z": 72
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.7,
+        "g": 0.72,
+        "b": 0.7,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Ground",
+      "upgradeChest": false
+    },
+    {
+      "group": "01 Podloze",
+      "name": "Mur Zachod",
+      "position": {
+        "x": -32.5,
+        "y": 2.5,
+        "z": 0
+      },
+      "size": {
+        "x": 1,
+        "y": 6,
+        "z": 73
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.48,
+        "g": 0.52,
+        "b": 0.6,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "01 Podloze",
+      "name": "Mur Wschod",
+      "position": {
+        "x": 32.5,
+        "y": 2.5,
+        "z": 0
+      },
+      "size": {
+        "x": 1,
+        "y": 6,
+        "z": 73
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.48,
+        "g": 0.52,
+        "b": 0.6,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "01 Podloze",
+      "name": "Mur Polnoc",
+      "position": {
+        "x": 0,
+        "y": 2.5,
+        "z": 36.5
+      },
+      "size": {
+        "x": 64,
+        "y": 6,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.48,
+        "g": 0.52,
+        "b": 0.6,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "01 Podloze",
+      "name": "Mur Poludnie",
+      "position": {
+        "x": 0,
+        "y": 2.5,
+        "z": -36.5
+      },
+      "size": {
+        "x": 64,
+        "y": 6,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.48,
+        "g": 0.52,
+        "b": 0.6,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "02 Start i wyjscie",
+      "name": "Strefa startu",
+      "position": {
+        "x": 0,
+        "y": 0.015,
+        "z": -28
+      },
+      "size": {
+        "x": 18,
+        "y": 0.03,
+        "z": 9
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.22,
+        "g": 0.45,
+        "b": 0.38,
+        "a": 1
+      },
+      "collider": false,
+      "text": "",
+      "surface": null,
+      "upgradeChest": false
+    },
+    {
+      "group": "02 Start i wyjscie",
+      "name": "Wyjscie po 9 falach",
+      "position": {
+        "x": 0,
+        "y": 0.025,
+        "z": 29
+      },
+      "size": {
+        "x": 5,
+        "y": 0.05,
+        "z": 5
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.18,
+        "g": 0.55,
+        "b": 0.85,
+        "a": 1
+      },
+      "collider": false,
+      "text": "",
+      "surface": null,
+      "upgradeChest": false
+    },
+    {
+      "group": "02 Start i wyjscie",
+      "name": "Oslona startu",
+      "position": {
+        "x": -5,
+        "y": 1.0,
+        "z": -19
+      },
+      "size": {
+        "x": 3,
+        "y": 2,
+        "z": 2
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.57,
+        "g": 0.6,
+        "b": 0.64,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "02 Start i wyjscie",
+      "name": "Oslona startu",
+      "position": {
+        "x": 5,
+        "y": 1.0,
+        "z": -19
+      },
+      "size": {
+        "x": 3,
+        "y": 2,
+        "z": 2
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.57,
+        "g": 0.6,
+        "b": 0.64,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "03 Rampy i slam",
+      "name": "Platforma boczna 5 m",
+      "position": {
+        "x": -24,
+        "y": 2.5,
+        "z": 13
+      },
+      "size": {
+        "x": 9,
+        "y": 5,
+        "z": 12
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.67,
+        "g": 0.65,
+        "b": 0.6,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "03 Rampy i slam",
+      "name": "Rampa na platforme",
+      "position": {
+        "x": -24,
+        "y": 2.4,
+        "z": -2
+      },
+      "size": {
+        "x": 7,
+        "y": 0.6,
+        "z": 19
+      },
+      "rotation": {
+        "x": -15,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.67,
+        "g": 0.65,
+        "b": 0.6,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "03 Rampy i slam",
+      "name": "Punkt zaczepienia",
+      "position": {
+        "x": -24,
+        "y": 7,
+        "z": 16
+      },
+      "size": {
+        "x": 1,
+        "y": 4,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.9,
+        "g": 0.5,
+        "b": 0.18,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Metal",
+      "upgradeChest": false
+    },
+    {
+      "group": "06 Instrukcje",
+      "name": "SLAM / HOOK",
+      "position": {
+        "x": -24,
+        "y": 6.8,
+        "z": 18
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 180,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.87,
+        "b": 0.36,
+        "a": 1
+      },
+      "collider": false,
+      "text": "Q: HOOK\nSLAM Z PLATFORMY",
+      "textSize": 0.1
+    },
+    {
+      "group": "03 Rampy i slam",
+      "name": "Platforma boczna 5 m",
+      "position": {
+        "x": 24,
+        "y": 2.5,
+        "z": 13
+      },
+      "size": {
+        "x": 9,
+        "y": 5,
+        "z": 12
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.67,
+        "g": 0.65,
+        "b": 0.6,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "03 Rampy i slam",
+      "name": "Rampa na platforme",
+      "position": {
+        "x": 24,
+        "y": 2.4,
+        "z": -2
+      },
+      "size": {
+        "x": 7,
+        "y": 0.6,
+        "z": 19
+      },
+      "rotation": {
+        "x": -15,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.67,
+        "g": 0.65,
+        "b": 0.6,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "03 Rampy i slam",
+      "name": "Punkt zaczepienia",
+      "position": {
+        "x": 24,
+        "y": 7,
+        "z": 16
+      },
+      "size": {
+        "x": 1,
+        "y": 4,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.9,
+        "g": 0.5,
+        "b": 0.18,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Metal",
+      "upgradeChest": false
+    },
+    {
+      "group": "06 Instrukcje",
+      "name": "SLAM / HOOK",
+      "position": {
+        "x": 24,
+        "y": 6.8,
+        "z": 18
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 180,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.87,
+        "b": 0.36,
+        "a": 1
+      },
+      "collider": false,
+      "text": "Q: HOOK\nSLAM Z PLATFORMY",
+      "textSize": 0.1
+    },
+    {
+      "group": "03 Rampy i slam",
+      "name": "Wieza do hooka",
+      "position": {
+        "x": 0,
+        "y": 4.5,
+        "z": 16
+      },
+      "size": {
+        "x": 4,
+        "y": 9,
+        "z": 4
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.55,
+        "g": 0.61,
+        "b": 0.68,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "04 Slide i dash",
+      "name": "Tunel - lewa sciana",
+      "position": {
+        "x": -10.5,
+        "y": 0.8,
+        "z": -7
+      },
+      "size": {
+        "x": 1,
+        "y": 1.6,
+        "z": 9
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.6,
+        "g": 0.62,
+        "b": 0.65,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "04 Slide i dash",
+      "name": "Tunel - prawa sciana",
+      "position": {
+        "x": -5.5,
+        "y": 0.8,
+        "z": -7
+      },
+      "size": {
+        "x": 1,
+        "y": 1.6,
+        "z": 9
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.6,
+        "g": 0.62,
+        "b": 0.65,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "04 Slide i dash",
+      "name": "Tunel - niski dach",
+      "position": {
+        "x": -8,
+        "y": 1.9,
+        "z": -7
+      },
+      "size": {
+        "x": 6,
+        "y": 1.2,
+        "z": 9
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.72,
+        "g": 0.55,
+        "b": 0.27,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Metal",
+      "upgradeChest": false
+    },
+    {
+      "group": "06 Instrukcje",
+      "name": "SLIDE",
+      "position": {
+        "x": -8,
+        "y": 2.9,
+        "z": -11.7
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 180,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.87,
+        "b": 0.36,
+        "a": 1
+      },
+      "collider": false,
+      "text": "SLIDE",
+      "textSize": 0.12
+    },
+    {
+      "group": "04 Slide i dash",
+      "name": "Tunel - lewa sciana",
+      "position": {
+        "x": 5.5,
+        "y": 0.8,
+        "z": -7
+      },
+      "size": {
+        "x": 1,
+        "y": 1.6,
+        "z": 9
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.6,
+        "g": 0.62,
+        "b": 0.65,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "04 Slide i dash",
+      "name": "Tunel - prawa sciana",
+      "position": {
+        "x": 10.5,
+        "y": 0.8,
+        "z": -7
+      },
+      "size": {
+        "x": 1,
+        "y": 1.6,
+        "z": 9
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.6,
+        "g": 0.62,
+        "b": 0.65,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "04 Slide i dash",
+      "name": "Tunel - niski dach",
+      "position": {
+        "x": 8,
+        "y": 1.9,
+        "z": -7
+      },
+      "size": {
+        "x": 6,
+        "y": 1.2,
+        "z": 9
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.72,
+        "g": 0.55,
+        "b": 0.27,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Metal",
+      "upgradeChest": false
+    },
+    {
+      "group": "06 Instrukcje",
+      "name": "SLIDE",
+      "position": {
+        "x": 8,
+        "y": 2.9,
+        "z": -11.7
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 180,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.87,
+        "b": 0.36,
+        "a": 1
+      },
+      "collider": false,
+      "text": "SLIDE",
+      "textSize": 0.12
+    },
+    {
+      "group": "04 Slide i dash",
+      "name": "Niska przeszkoda",
+      "position": {
+        "x": -10,
+        "y": 0.55,
+        "z": 9
+      },
+      "size": {
+        "x": 2.5,
+        "y": 1.1,
+        "z": 2.5
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.63,
+        "g": 0.6,
+        "b": 0.55,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "04 Slide i dash",
+      "name": "Niska przeszkoda",
+      "position": {
+        "x": 10,
+        "y": 0.55,
+        "z": 9
+      },
+      "size": {
+        "x": 2.5,
+        "y": 1.1,
+        "z": 2.5
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.63,
+        "g": 0.6,
+        "b": 0.55,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "04 Slide i dash",
+      "name": "Niska przeszkoda",
+      "position": {
+        "x": -6,
+        "y": 0.55,
+        "z": 20
+      },
+      "size": {
+        "x": 2.5,
+        "y": 1.1,
+        "z": 2.5
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.63,
+        "g": 0.6,
+        "b": 0.55,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "04 Slide i dash",
+      "name": "Niska przeszkoda",
+      "position": {
+        "x": 6,
+        "y": 0.55,
+        "z": 20
+      },
+      "size": {
+        "x": 2.5,
+        "y": 1.1,
+        "z": 2.5
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.63,
+        "g": 0.6,
+        "b": 0.55,
+        "a": 1
+      },
+      "collider": true,
+      "text": "",
+      "surface": "Concrete",
+      "upgradeChest": false
+    },
+    {
+      "group": "05 Nagrody",
+      "name": "Pole dostawy skrzyn",
+      "position": {
+        "x": 0,
+        "y": 0.02,
+        "z": -16
+      },
+      "size": {
+        "x": 9,
+        "y": 0.04,
+        "z": 3
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.88,
+        "g": 0.59,
+        "b": 0.12,
+        "a": 1
+      },
+      "collider": false,
+      "text": "",
+      "surface": null,
+      "upgradeChest": false
+    },
+    {
+      "group": "06 Instrukcje",
+      "name": "Dostawy",
+      "position": {
+        "x": 0,
+        "y": 1.8,
+        "z": -15
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 180,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.87,
+        "b": 0.36,
+        "a": 1
+      },
+      "collider": false,
+      "text": "SKRZYNIA CO 3 FALE",
+      "textSize": 0.075
+    },
+    {
+      "group": "06 Instrukcje",
+      "name": "Instrukcja startowa",
+      "position": {
+        "x": 0,
+        "y": 4,
+        "z": -16
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 180,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.87,
+        "b": 0.36,
+        "a": 1
+      },
+      "collider": false,
+      "text": "ARENA PROGRESJI\n9 FAL / XP / PUNKTY / SKLEP\nZLOTE KOSTKI: PUNKTY   B: SKLEP PO AWANSIE",
+      "textSize": 0.095
+    },
+    {
+      "group": "06 Instrukcje",
+      "name": "Wyjscie",
+      "position": {
+        "x": 0,
+        "y": 4.2,
+        "z": 34
+      },
+      "size": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "rotation": {
+        "x": 0,
+        "y": 180,
+        "z": 0
+      },
+      "color": {
+        "r": 1,
+        "g": 0.87,
+        "b": 0.36,
+        "a": 1
+      },
+      "collider": false,
+      "text": "POKONAJ 9 FAL\nF: ZAKONCZ RUN",
+      "textSize": 0.12
+    },
+    {
+      "group": "07 Wejscia fal",
+      "name": "Znacznik wejscia 1",
+      "position": {
+        "x": -17,
+        "y": 0.012,
+        "z": -16
+      },
+      "size": {
+        "x": 2,
+        "y": 0.024,
+        "z": 2
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.75,
+        "g": 0.25,
+        "b": 0.17,
+        "a": 1
+      },
+      "collider": false,
+      "text": "",
+      "surface": null,
+      "upgradeChest": false
+    },
+    {
+      "group": "07 Wejscia fal",
+      "name": "Znacznik wejscia 2",
+      "position": {
+        "x": 17,
+        "y": 0.012,
+        "z": -16
+      },
+      "size": {
+        "x": 2,
+        "y": 0.024,
+        "z": 2
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.75,
+        "g": 0.25,
+        "b": 0.17,
+        "a": 1
+      },
+      "collider": false,
+      "text": "",
+      "surface": null,
+      "upgradeChest": false
+    },
+    {
+      "group": "07 Wejscia fal",
+      "name": "Znacznik wejscia 3",
+      "position": {
+        "x": -15,
+        "y": 0.012,
+        "z": 5
+      },
+      "size": {
+        "x": 2,
+        "y": 0.024,
+        "z": 2
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.75,
+        "g": 0.25,
+        "b": 0.17,
+        "a": 1
+      },
+      "collider": false,
+      "text": "",
+      "surface": null,
+      "upgradeChest": false
+    },
+    {
+      "group": "07 Wejscia fal",
+      "name": "Znacznik wejscia 4",
+      "position": {
+        "x": 15,
+        "y": 0.012,
+        "z": 5
+      },
+      "size": {
+        "x": 2,
+        "y": 0.024,
+        "z": 2
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.75,
+        "g": 0.25,
+        "b": 0.17,
+        "a": 1
+      },
+      "collider": false,
+      "text": "",
+      "surface": null,
+      "upgradeChest": false
+    },
+    {
+      "group": "07 Wejscia fal",
+      "name": "Znacznik wejscia 5",
+      "position": {
+        "x": -10,
+        "y": 0.012,
+        "z": 24
+      },
+      "size": {
+        "x": 2,
+        "y": 0.024,
+        "z": 2
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.75,
+        "g": 0.25,
+        "b": 0.17,
+        "a": 1
+      },
+      "collider": false,
+      "text": "",
+      "surface": null,
+      "upgradeChest": false
+    },
+    {
+      "group": "07 Wejscia fal",
+      "name": "Znacznik wejscia 6",
+      "position": {
+        "x": 10,
+        "y": 0.012,
+        "z": 24
+      },
+      "size": {
+        "x": 2,
+        "y": 0.024,
+        "z": 2
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": {
+        "r": 0.75,
+        "g": 0.25,
+        "b": 0.17,
+        "a": 1
+      },
+      "collider": false,
+      "text": "",
+      "surface": null,
+      "upgradeChest": false
+    }
+  ]
+}

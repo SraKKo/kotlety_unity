@@ -1,0 +1,54 @@
+PASS Empty build preserves direct damage
+PASS Empty build preserves DoT
+PASS Five breading stacks add forty percent rather than compounding
+PASS Flat DoT bonus is applied before damage multiplier exactly once; flight bonuses do not affect DoT
+PASS Area stacks add to base radius
+PASS Airborne DoT uses the target's current state
+PASS First unique target receives base damage
+PASS Second unique target gains one Daily Special increment
+PASS Third unique target gains two increments
+PASS Return or orbit hits do not create new unique-target stacks
+PASS Incomplete five-metre segment grants no travel bonus
+PASS Five metres grants one travel increment
+PASS Outbound, orbit and return distances accumulate
+PASS Flight distance cannot move backwards
+PASS Distinct-target and travel bonuses each cap at one hundred percent
+PASS Chef Launch does not affect grounded targets
+PASS Three Chef Launch stacks add thirty percent against launched targets
+PASS Another build remains unaffected
+PASS No pan upgrade means no collision damage
+PASS No pan upgrade means no launch
+PASS First pan stack gives sixty collision damage
+PASS First pan stack gives sixteen metres per second
+PASS Three pan stacks give one hundred twenty collision damage
+PASS Pan launch speed increases by three per extra stack
+PASS Collision damage uses the shared player damage bonus once
+PASS Single projectile stays on the crosshair
+PASS Base Chrupiaca spread remains minus six, zero and plus six degrees
+PASS Even volleys are symmetric
+PASS Extra projectile remains normalized and in the aiming plane: 0
+PASS Extra projectile remains normalized and in the aiming plane: 1
+PASS Extra projectile remains normalized and in the aiming plane: 2
+PASS Extra projectile remains normalized and in the aiming plane: 3
+PASS Extra projectile remains normalized and in the aiming plane: 4
+PASS Extra projectile remains normalized and in the aiming plane: 5
+PASS Extra projectile remains normalized and in the aiming plane: 6
+PASS Large volleys stay inside a seventy-two-degree fan
+PASS Fresh run starts level one with no shop or money
+PASS Melee kill grants ten XP without granting currency directly
+PASS Third melee kill unlocks shop and increases next XP threshold
+PASS Level up does not create currency from uncollected drops
+PASS Large XP rewards carry overflow through multiple levels
+PASS Invalid XP rewards cannot lower progress
+PASS Ranged kill grants fifteen XP
+PASS Insufficient funds cannot create debt
+PASS Invalid purchase amounts leave wallet unchanged
+PASS Successful purchase subtracts its price exactly once
+PASS Negative pickups do not remove currency
+PASS Each owned stack raises price by five points
+PASS Special item base price is respected
+PASS Unspent points survive the next level
+PASS Restarted run has independent progression and wallet
+PASS Large currency rewards cannot overflow the wallet
+PASS Extreme stack prices cannot wrap negative
+Scope: actual bonus, hit-history and progression/economy calculations; owner-component lookup and Unity Play Mode not run.

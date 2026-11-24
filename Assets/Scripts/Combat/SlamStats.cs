@@ -9,10 +9,10 @@ public readonly struct SlamStats {
   MaxRadius=Mathf.Max(0,maxRadius);BaseRadius=Mathf.Clamp(baseRadius,0,MaxRadius);
   RadiusPerMeter=Mathf.Max(0,radiusPerMeter);DamagePerMeter=Mathf.Max(0,damagePerMeter);MaxDamage=Mathf.Max(0,maxDamage);
  }
- public SlamImpact Resolve(float fallHeight){
+ public SlamImpact Resolve(float fallHeight,float areaMultiplier=1){
   float height=Mathf.Max(0,fallHeight);
   float launch=height>=LaunchThreshold?Mathf.Lerp(LaunchSpeed,MaxLaunchSpeed,Mathf.InverseLerp(LaunchThreshold,FullLaunchHeight,height)):0;
-  return new SlamImpact(Mathf.Min(MaxRadius,BaseRadius+height*RadiusPerMeter),Mathf.Min(MaxDamage,height*DamagePerMeter),MaxDamage,launch,ShakeAmplitude,ShakeDuration);
+  return new SlamImpact(Mathf.Min(MaxRadius,BaseRadius+height*RadiusPerMeter)*Mathf.Max(0,areaMultiplier),Mathf.Min(MaxDamage,height*DamagePerMeter),MaxDamage,launch,ShakeAmplitude,ShakeDuration);
  }
  public static SlamStats Default=>new SlamStats(1f,4f/7.5f,5f,12f,90f);
 }

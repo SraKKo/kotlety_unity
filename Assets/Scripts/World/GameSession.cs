@@ -4,7 +4,7 @@ namespace RetyKotlety {
 public class GameSession : MonoBehaviour {
  public static GameSession Instance { get; private set; }
  public bool menuScene, paused, options, won;
- [System.NonSerialized] public bool upgradeOpen,buildOpen,debugOpen;
+ [System.NonSerialized] public bool upgradeOpen,buildOpen,debugOpen,shopOpen;
  [System.NonSerialized] public int modalClosedFrame=-1;
  public PlayerController player;
  public GameObject schabowyModel, chrupiacaModel, tomatoModel, meleePrefab, shootingPrefab;
@@ -19,7 +19,7 @@ public class GameSession : MonoBehaviour {
  public void InstallNavigation(){if(navInstance.valid)navInstance.Remove();if(navigation)navInstance=UnityEngine.AI.NavMesh.AddNavMeshData(navigation);}
  void Start(){if(!menuScene&&player)GameHud.Install(player);Cursor.lockState=menuScene?CursorLockMode.None:CursorLockMode.Locked;Cursor.visible=menuScene;if(menuScene&&menuMusic&&!music){music=gameObject.AddComponent<AudioSource>();music.clip=menuMusic;music.loop=true;music.volume=PlayerPrefs.GetFloat("music",.6f);music.Play();}}
  void Awake() {
-  Instance=this;if(!GetComponent<FpsCounter>())gameObject.AddComponent<FpsCounter>();if(!GetComponent<BuildMenu>())gameObject.AddComponent<BuildMenu>();if(!GetComponent<DebugConsole>())gameObject.AddComponent<DebugConsole>(); Time.timeScale=1; AudioListener.volume=Volume;
+  Instance=this;if(!GetComponent<FpsCounter>())gameObject.AddComponent<FpsCounter>();if(!GetComponent<BuildMenu>())gameObject.AddComponent<BuildMenu>();if(!GetComponent<DebugConsole>())gameObject.AddComponent<DebugConsole>();if(!GetComponent<LevelShop>())gameObject.AddComponent<LevelShop>(); Time.timeScale=1; AudioListener.volume=Volume;
   sensitivity=PlayerPrefs.GetFloat("sensitivity",0.1146f);
   if(navigation) navInstance=UnityEngine.AI.NavMesh.AddNavMeshData(navigation);
   Cursor.lockState=menuScene?CursorLockMode.None:CursorLockMode.Locked; Cursor.visible=menuScene;
@@ -27,19 +27,20 @@ public class GameSession : MonoBehaviour {
  }
  void OnDestroy() { if(navInstance.valid) navInstance.Remove(); Time.timeScale=1; if(Instance==this) Instance=null; }
  void Update() {
-  if(menuScene||won||upgradeOpen||debugOpen||Time.frameCount==modalClosedFrame)return;
+  if(menuScene||won||upgradeOpen||debugOpen||shopOpen||Time.frameCount==modalClosedFrame)return;
   if(buildOpen){if(Input.GetKeyDown(KeyCode.Tab)||Input.GetKeyDown(KeyCode.Escape))SetBuildOpen(false);return;}
   if(Input.GetKeyDown(KeyCode.Tab)&&!paused){SetBuildOpen(true);return;}
   if(Input.GetKeyDown(KeyCode.Escape))SetPause(!paused);
  }
  public void SetBuildOpen(bool value){
-  if(value&&(menuScene||won||upgradeOpen||debugOpen||paused||!player))return;
+  if(value&&(menuScene||won||upgradeOpen||debugOpen||shopOpen||paused||!player))return;
   if(!value&&!buildOpen)return;
   buildOpen=value;if(!value)modalClosedFrame=Time.frameCount;SetPause(value);
  }
  public void SetPause(bool value) { if(options)PlayerPrefs.Save();paused=value; options=false; Time.timeScale=value?0:1; Cursor.lockState=value?CursorLockMode.None:CursorLockMode.Locked; Cursor.visible=value; }
  public void Win() { buildOpen=false;won=true; SetPause(true); }
  public void StartGame() { Time.timeScale=1; SceneManager.LoadScene("Level001"); }
+ public void StartProgressionArena(){Time.timeScale=1;SceneManager.LoadScene(ProgressionArenaBootstrap.SceneName);}
  public void StartMovementArena(){Time.timeScale=1;SceneManager.LoadScene(ArenaLayout.SceneName);}
  public void StartTestLevel(){Time.timeScale=1;SceneManager.LoadScene("TestLevel");}
  public void RestartLevel(){Time.timeScale=1;SceneManager.LoadScene(SceneManager.GetActiveScene().name);}
@@ -54,7 +55,7 @@ public class GameSession : MonoBehaviour {
   if(interfaceFont){title.font=interfaceFont;label.font=interfaceFont;button.font=interfaceFont;toggle.font=interfaceFont;}
  }
  void OnGUI() {
-  if(upgradeOpen||buildOpen||debugOpen)return;
+  if(upgradeOpen||buildOpen||debugOpen||shopOpen)return;
   Styles(); GUI.matrix=Matrix4x4.TRS(Vector3.zero,Quaternion.identity,new Vector3(Screen.width/1280f,Screen.height/720f,1));
   if(menuScene || paused) {
    if(menuScene && background) GUI.DrawTexture(new Rect(0,0,1280,720),background,ScaleMode.ScaleAndCrop);
@@ -76,6 +77,7 @@ public class GameSession : MonoBehaviour {
     if(menuScene&&GUI.Button(new Rect(460,380,360,60),"Arena movementu"))StartMovementArena();
     if(GUI.Button(new Rect(460,menuScene?450:340,360,60),"Opcje",button)) options=true;
     if(!menuScene && GUI.Button(new Rect(460,420,360,60),"Menu główne",button)) MainMenu();
+    if(menuScene&&GUI.Button(new Rect(460,585,360,50),"Arena progresji",button))StartProgressionArena();
     if(GUI.Button(new Rect(460,menuScene?520:500,360,60),"Wyjdź",button)) Application.Quit();
    }
    return;

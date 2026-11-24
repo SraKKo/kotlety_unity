@@ -17,9 +17,9 @@ public static class ArenaLayout {
   }
   return material;
  }
- public static Transform Build(Transform parent){
+ public static Transform Build(Transform parent,string level="MovementArena"){
   var arena=new GameObject("Arena - geometria i trasy");arena.transform.SetParent(parent,false);
-  var layout=JsonUtility.FromJson<Layout>(Resources.Load<TextAsset>("Levels/MovementArena").text);
+  var layout=JsonUtility.FromJson<Layout>(Resources.Load<TextAsset>("Levels/"+level).text);
   var groups=new Dictionary<string,Transform>();
   foreach(var item in layout.items){
    if(!groups.TryGetValue(item.group,out var group)){group=new GameObject(item.group).transform;group.SetParent(arena.transform,false);groups[item.group]=group;}

@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace RetyKotlety {
 public class GreasePatch : MonoBehaviour {
+ CombatBonuses bonuses;
  static Material material;Mesh mesh;Vector3 point,normal;float radius,duration,damage,interval,age,accumulator,slowMultiplier;MeshRenderer visual;MaterialPropertyBlock properties;
  readonly HashSet<EntityId> hit=new HashSet<EntityId>();
  static Material Yellow {get{if(!material)material=new Material(Shader.Find("Sprites/Default")){name="Zolty tluszcz",mainTexture=Texture2D.whiteTexture,color=new Color(1,.73f,.035f,.85f)};return material;}}
- public static GreasePatch Spawn(Vector3 point,Vector3 normal,MielonyTuning profile){
+ public static GreasePatch Spawn(Vector3 point,Vector3 normal,MielonyTuning profile,CombatBonuses bonuses=default){
   var g=new GameObject("Plama tluszczu");g.transform.SetPositionAndRotation(point+normal*.025f,Quaternion.FromToRotation(Vector3.up,normal));
-  var patch=g.AddComponent<GreasePatch>();patch.point=point;patch.normal=normal;patch.radius=Mathf.Max(.1f,profile.greaseRadius);patch.duration=Mathf.Max(.1f,profile.greaseDuration);patch.damage=Mathf.Max(0,profile.tickDamage);patch.interval=Mathf.Max(.01f,profile.tickInterval);
+  var patch=g.AddComponent<GreasePatch>();patch.point=point;patch.normal=normal;patch.radius=Mathf.Max(.1f,profile.greaseRadius)*bonuses.AreaMultiplier;patch.bonuses=bonuses;patch.duration=Mathf.Max(.1f,profile.greaseDuration);patch.damage=Mathf.Max(0,profile.tickDamage);patch.interval=Mathf.Max(.01f,profile.tickInterval);
   patch.slowMultiplier=Mathf.Clamp(profile.slowMultiplier,.1f,1);patch.Build();Splatter(point,normal);return patch;
  }
  void Build(){
@@ -32,7 +33,7 @@ public class GreasePatch : MonoBehaviour {
    var closest=collider.ClosestPoint(origin);var offset=closest-point;float height=Vector3.Dot(offset,normal);
    if(height<-.2f||height>1.8f||Vector3.ProjectOnPlane(offset,normal).sqrMagnitude>radius*radius)continue;
    var delta=collider.bounds.center-origin;if(Physics.Raycast(origin,delta.normalized,delta.magnitude,terrain,QueryTriggerInteraction.Ignore))continue;
-   hit.Add(enemy.GetEntityId());enemy.ApplySlow(slowMultiplier,interval+.05f);enemy.Damage(damage,closest,normal,false);
+   hit.Add(enemy.GetEntityId());enemy.ApplySlow(slowMultiplier,interval+.05f);enemy.Damage(bonuses.Damage(damage,enemy.IsAirborne,true),closest,normal,false);
   }
  }
  public static void Splatter(Vector3 point,Vector3 normal){

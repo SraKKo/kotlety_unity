@@ -9,7 +9,7 @@ public class DebugConsole : MonoBehaviour {
  void Update(){
   if(!session||session.menuScene||session.won)return;
   bool toggle=Input.GetKeyDown(KeyCode.BackQuote)||Input.inputString.Contains("§")||Input.inputString.Contains("~");
-  if(toggle){if(session.debugOpen)Close();else if(!session.paused&&!session.upgradeOpen&&!session.buildOpen)Open();}
+  if(toggle){if(session.debugOpen)Close();else if(!session.paused&&!session.upgradeOpen&&!session.buildOpen&&!session.shopOpen)Open();}
   else if(session.debugOpen&&Input.GetKeyDown(KeyCode.Escape))Close();
  }
  void Open(){session.debugOpen=true;session.SetPause(true);focus=true;input="";}
@@ -20,17 +20,19 @@ public class DebugConsole : MonoBehaviour {
   var parts=command.Trim().Split(new[]{' ','\t'},StringSplitOptions.RemoveEmptyEntries);if(parts.Length==0)return "";
   string verb=parts[0].ToLowerInvariant();
   if(verb=="clear"&&parts.Length==1){lines.Clear();return "";}
-  if(verb=="help"&&parts.Length==1)return "give <id> - nadaj ulepszenie | give <bron> - nadaj bron (schabowy, chrupiaca, mielony, losos) | list - lista ID | clear - wyczysc | § / ~ / Esc - zamknij";
-  if(verb=="list"&&parts.Length==1){var result=new List<string>();foreach(var definition in definitions)result.Add(definition.id+"  "+definition.title);return string.Join("\n",result);}
-  if(verb!="give"||parts.Length!=2)return "Nieznana komenda lub argumenty. Wpisz help.";
+  if(verb=="help"&&parts.Length==1)return "give <id> [liczba] - nadaj ulepszenie | give <bron> - nadaj bron (schabowy, chrupiaca, mielony, losos) | list - lista ID | clear - wyczysc | § / ~ / Esc - zamknij";
+  if(verb=="list"&&parts.Length==1){var result=new List<string>();foreach(var definition in definitions)result.Add(definition.id+"  "+definition.title+(definition.stackable?" [STACK]":""));return string.Join("\n",result);}
+  if(verb!="give"||(parts.Length!=2&&parts.Length!=3))return "Nieznana komenda lub argumenty. Wpisz help.";
   if(!session||!session.player)return "Brak aktywnego gracza.";
+  int amount=1;if(parts.Length==3&&(!int.TryParse(parts[2],out amount)||amount<1||amount>100))return "Liczba musi byc calkowita od 1 do 100.";
   // Weapons can be granted by name, e.g. "give losos".
-  if(!char.IsDigit(parts[1][0])&&Enum.TryParse<FoodKind>(parts[1],true,out var food)){if(food==FoodKind.Pan)return "Patelnie masz zawsze.";session.player.Receive(food);return "Dodano: "+food+".";}
+  if(!char.IsDigit(parts[1][0])&&Enum.TryParse<FoodKind>(parts[1],true,out var food)){if(amount!=1)return "Bron nadajemy pojedynczo, np. give losos.";if(food==FoodKind.Pan)return "Patelnie masz zawsze.";session.player.Receive(food);return "Dodano: "+food+".";}
   UpgradeDefinition found=null;foreach(var definition in definitions)if(string.Equals(definition.id,parts[1],StringComparison.OrdinalIgnoreCase)){found=definition;break;}
   if(!found)return "Nieznane ID: "+parts[1]+". Wpisz list.";
   var upgrades=session.player.GetComponent<PlayerUpgrades>();if(!upgrades)upgrades=session.player.gameObject.AddComponent<PlayerUpgrades>();
-  if(!upgrades.Grant(found))return "Masz juz ulepszenie "+found.id+".";
-  session.player.Receive(found.Weapon);return "Dodano "+found.id+": "+found.title+". Sprawdz build pod Tab.";
+  int granted=0;for(int i=0;i<amount;i++){if(!upgrades.Grant(found))break;granted++;}
+  if(granted==0)return "Masz juz ulepszenie "+found.id+" lub osiagnieto limit.";
+  if(!found.IsGlobal)session.player.Receive(found.Weapon);return "Dodano "+found.id+": "+found.title+" +"+granted+" (razem x"+upgrades.Count(found)+"). Sprawdz build pod Tab.";
  }
  void Submit(){
   string command=input.Trim();if(command.Length==0){focus=true;return;}

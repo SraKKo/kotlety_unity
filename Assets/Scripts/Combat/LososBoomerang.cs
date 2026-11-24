@@ -8,9 +8,13 @@ public class LososBoomerang : MonoBehaviour {
  const float Radius=.25f;
  static LososTuning tuning;static Material material;static Mesh mesh;static bool warned;
  public static LososTuning Tuning {get{if(!tuning)tuning=Resources.Load<LososTuning>("Combat/Losos");if(!tuning)tuning=ScriptableObject.CreateInstance<LososTuning>();return tuning;}}
- public static LososBoomerang Active {get;private set;}
- // Only one salmon exists: while it is in the air the hand is empty and cannot throw again.
+ static readonly HashSet<LososBoomerang> flights=new HashSet<LososBoomerang>();
+ public static LososBoomerang Active {get{foreach(var fish in flights)if(fish)return fish;return null;}}
+ public static int InFlightCount {get{int count=0;foreach(var fish in flights)if(fish)count++;return count;}}
+ // One volley at a time: the hand stays empty until every fish has returned.
  public static bool InFlight=>Active;
+ float flightRate=1;
+ AttackDamage<EntityId> combat;PlayerUpgrades ownerUpgrades;
  GameObject owner;Transform home,spinner;Vector3 direction,side,velocity;float age,travelled,returnAge;bool returning;
  readonly HashSet<EntityId> struck=new HashSet<EntityId>();
  public bool Returning=>returning;
@@ -69,10 +73,11 @@ public class LososBoomerang : MonoBehaviour {
   // Slight bank so the spinning fish reads as a disc from the player's point of view.
   var bank=new GameObject("Przechyl");bank.transform.SetParent(graphics.transform,false);bank.transform.localRotation=Quaternion.Euler(0,0,-20);
   var model=Model(bank.transform,t.modelLength);
-  var boomerang=g.AddComponent<LososBoomerang>();boomerang.owner=owner;boomerang.home=home;boomerang.spinner=model.transform;
+  var boomerang=g.AddComponent<LososBoomerang>();boomerang.owner=owner;boomerang.ownerUpgrades=owner?owner.GetComponent<PlayerUpgrades>():null;boomerang.combat=new AttackDamage<EntityId>(CombatBonuses.FromOwner(owner));boomerang.home=home;boomerang.spinner=model.transform;
   boomerang.direction=forward.normalized;boomerang.side=right.normalized;
-  ProjectileVisual.Attach(g.transform,graphics.transform,true,t.launchSpeed);
-  Active=boomerang;return boomerang;
+  boomerang.flightRate=boomerang.ownerUpgrades?boomerang.ownerUpgrades.ProjectileSpeedMultiplier:1;
+  ProjectileVisual.Attach(g.transform,graphics.transform,true,t.launchSpeed*boomerang.flightRate);
+  flights.Add(boomerang);return boomerang;
  }
  Vector3 HomePoint=>home?home.position-home.up*.25f:owner.transform.position;
  void BeginReturn(Vector3 initial){returning=true;returnAge=0;struck.Clear();velocity=initial+side*Tuning.curve;}
@@ -84,6 +89,8 @@ public class LososBoomerang : MonoBehaviour {
   if(!orbiting)age+=dt;
   // Safety net: the fish always comes back to the hand, even if something goes wrong on the way.
   if(age>=t.maxFlightTime){Destroy(gameObject);return;}
+  // Live dash haste also affects fish already in flight; range, damage and lap count stay fixed.
+  dt*=flightRate*(ownerUpgrades?ownerUpgrades.DashSpeedMultiplier:1);
   if(spinner)spinner.Rotate(0,t.spinSpeed*dt,0,Space.Self);
   if(orbiting){Orbit(dt,t);return;}
   if(!returning){
@@ -109,6 +116,7 @@ public class LososBoomerang : MonoBehaviour {
   // Outbound: everything except the player and first-person layers. Returning: enemies only,
   // so the fish cannot get stuck behind level geometry on its way back.
   int mask=returning?1<<9:~((1<<8)|(1<<11));
+  float distanceStart=combat.Distance;
   var hits=Physics.SphereCastAll(transform.position,Radius,heading,distance,mask,QueryTriggerInteraction.Ignore);
   System.Array.Sort(hits,(a,b)=>a.distance.CompareTo(b.distance));
   foreach(var hit in hits){
@@ -118,11 +126,13 @@ public class LososBoomerang : MonoBehaviour {
    var enemy=hit.collider.GetComponentInParent<Enemy>();
    if(enemy){
     if(enemy.health<=0||!struck.Add(enemy.GetEntityId()))continue;
-    enemy.Damage(t.damage,inside?hit.collider.bounds.center:hit.point,inside?-heading:hit.normal,false);
-    if(!returning&&orbitLaps>0&&enemy.health>0&&IsLastEnemy(enemy,heading,t.range-travelled)){StartOrbit(enemy);return;}
+    combat.SetDistance(distanceStart+hit.distance);
+    enemy.Damage(combat.Hit(t.damage,enemy.GetEntityId(),enemy.IsAirborne),inside?hit.collider.bounds.center:hit.point,inside?-heading:hit.normal,false);
+    if(!returning&&orbitLaps>0&&enemy.health>0&&IsLastEnemy(enemy,heading,t.range-travelled)){transform.position+=heading*hit.distance;travelled+=hit.distance;StartOrbit(enemy);return;}
     continue;
    }
    if(returning||hit.collider.GetComponentInParent<PlayerController>())continue;
+   combat.SetDistance(distanceStart+hit.distance);
    var normal=inside?-heading:hit.normal;
    if(!inside)transform.position=hit.point+hit.normal*(Radius+.02f);
    Effect.Emit(transform.position,normal,ImpactEffect.Bounce);
@@ -130,6 +140,7 @@ public class LososBoomerang : MonoBehaviour {
    BeginReturn(Vector3.Reflect(heading,normal)*t.launchSpeed*.25f);
    return;
   }
+  combat.SetDistance(distanceStart+distance);
   transform.position+=step;
   if(!returning){travelled+=distance;if(travelled>=t.range)BeginReturn(direction*t.launchSpeed*.2f);}
  }
@@ -151,14 +162,14 @@ public class LososBoomerang : MonoBehaviour {
  }
  void Orbit(float dt,LososTuning t){
   if(!orbitTarget||orbitTarget.health<=0){EndOrbit(t);return;}
-  float turn=360/Mathf.Max(.05f,t.orbitLapTime)*dt;orbitAngle+=turn;orbitTurned+=turn;
+  float turn=360/Mathf.Max(.05f,t.orbitLapTime)*dt;combat.AddDistance(Mathf.Max(.3f,orbitDistance)*turn*Mathf.Deg2Rad);orbitAngle+=turn;orbitTurned+=turn;
   // Ease from the point of impact onto the orbit ring at the enemy's mid height.
   orbitDistance=Mathf.MoveTowards(orbitDistance,t.orbitRadius,t.launchSpeed*dt);orbitLift=Mathf.MoveTowards(orbitLift,0,12*dt);
   var centre=OrbitCentre;var outward=Quaternion.Euler(0,orbitAngle,0)*Vector3.forward;
   transform.position=centre+outward*orbitDistance+Vector3.up*orbitLift;
   // One hit per completed lap.
   while(orbiting&&orbitTurned>=360*(lapsDone+1)){
-   lapsDone++;orbitTarget.Damage(t.damage,centre+outward*.3f,outward,false);
+   lapsDone++;orbitTarget.Damage(combat.Hit(t.damage,orbitTarget.GetEntityId(),orbitTarget.IsAirborne),centre+outward*.3f,outward,false);
    if(lapsDone>=orbitLaps||orbitTarget.health<=0)EndOrbit(t);
   }
  }
@@ -172,6 +183,6 @@ public class LososBoomerang : MonoBehaviour {
   // The circled enemy has already taken its hits; do not strike it again on the way back.
   if(target&&target.health>0)struck.Add(target.GetEntityId());
  }
- void OnDestroy(){if(Active==this)Active=null;}
+ void OnDestroy(){flights.Remove(this);}
 }
 }
