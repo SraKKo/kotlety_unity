@@ -14,6 +14,12 @@ public class PointPickup : MonoBehaviour {
   root.GetComponent<Renderer>().sharedMaterial=gold;
   var pickup=root.AddComponent<PointPickup>();pickup.value=value;pickup.rest=root.transform.position;
  }
+ public void Collect(PlayerProgression progression){
+  if(collected)return;
+  collected=true;
+  progression.State.AddPoints(value);
+  Destroy(gameObject);
+ }
  void Update(){
   var session=GameSession.Instance;if(collected||!session||session.paused||!session.player)return;
   var progression=session.player.GetComponent<PlayerProgression>();if(!progression)return;
@@ -21,7 +27,7 @@ public class PointPickup : MonoBehaviour {
   var target=session.player.transform.position;float distance=Vector3.Distance(transform.position,target);
   // A ray check keeps magnet pickups on the player's side of walls/floors.
   bool reachable=distance<5&&!Physics.Linecast(transform.position,target,GroundMask,QueryTriggerInteraction.Ignore);
-  if(reachable){transform.position=Vector3.MoveTowards(transform.position,target,14*Time.deltaTime);rest=transform.position;if(Vector3.Distance(transform.position,target)<.85f){collected=true;progression.State.AddPoints(value);Destroy(gameObject);}}
+  if(reachable){transform.position=Vector3.MoveTowards(transform.position,target,14*Time.deltaTime);rest=transform.position;if(Vector3.Distance(transform.position,target)<.85f)Collect(progression);}
   else {transform.position=new Vector3(rest.x,rest.y+Mathf.Sin(age*3)*.08f,rest.z);}
  }
 }

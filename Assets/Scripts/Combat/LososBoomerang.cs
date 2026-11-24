@@ -13,6 +13,7 @@ public class LososBoomerang : MonoBehaviour {
  public static int InFlightCount {get{int count=0;foreach(var fish in flights)if(fish)count++;return count;}}
  // One volley at a time: the hand stays empty until every fish has returned.
  public static bool InFlight=>Active;
+ float flightRate=1;
  AttackDamage<EntityId> combat;PlayerUpgrades ownerUpgrades;
  GameObject owner;Transform home,spinner;Vector3 direction,side,velocity;float age,travelled,returnAge;bool returning;
  readonly HashSet<EntityId> struck=new HashSet<EntityId>();
@@ -74,7 +75,8 @@ public class LososBoomerang : MonoBehaviour {
   var model=Model(bank.transform,t.modelLength);
   var boomerang=g.AddComponent<LososBoomerang>();boomerang.owner=owner;boomerang.ownerUpgrades=owner?owner.GetComponent<PlayerUpgrades>():null;boomerang.combat=new AttackDamage<EntityId>(CombatBonuses.FromOwner(owner));boomerang.home=home;boomerang.spinner=model.transform;
   boomerang.direction=forward.normalized;boomerang.side=right.normalized;
-  ProjectileVisual.Attach(g.transform,graphics.transform,true,t.launchSpeed);
+  boomerang.flightRate=boomerang.ownerUpgrades?boomerang.ownerUpgrades.ProjectileSpeedMultiplier:1;
+  ProjectileVisual.Attach(g.transform,graphics.transform,true,t.launchSpeed*boomerang.flightRate);
   flights.Add(boomerang);return boomerang;
  }
  Vector3 HomePoint=>home?home.position-home.up*.25f:owner.transform.position;
@@ -88,7 +90,7 @@ public class LososBoomerang : MonoBehaviour {
   // Safety net: the fish always comes back to the hand, even if something goes wrong on the way.
   if(age>=t.maxFlightTime){Destroy(gameObject);return;}
   // Live dash haste also affects fish already in flight; range, damage and lap count stay fixed.
-  dt*=ownerUpgrades?ownerUpgrades.AttackSpeedMultiplier:1;
+  dt*=flightRate*(ownerUpgrades?ownerUpgrades.DashSpeedMultiplier:1);
   if(spinner)spinner.Rotate(0,t.spinSpeed*dt,0,Space.Self);
   if(orbiting){Orbit(dt,t);return;}
   if(!returning){

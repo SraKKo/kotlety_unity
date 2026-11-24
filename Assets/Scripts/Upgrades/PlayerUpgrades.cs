@@ -10,7 +10,15 @@ public class PlayerUpgrades : MonoBehaviour {
  public bool GreasySlide {get;private set;}
  public bool DashHaste {get;private set;}
  float dashHasteUntil;
- public float AttackSpeedMultiplier=>DashHaste&&Time.time<dashHasteUntil?1.35f:1;
+ public float BonusHealth {get;private set;}
+ public float RegenPerSecond {get;private set;}
+ public float ProjectileSpeedMultiplier {get;private set;}=1;
+ public float BaseAttackRate {get;private set;}=1;
+ public float DashSpeedMultiplier=>DashHaste&&Time.time<dashHasteUntil?1.35f:1;
+ public float AttackSpeedMultiplier=>BaseAttackRate*DashSpeedMultiplier;
+ public static float ShotSpeedFor(GameObject owner){
+  return owner && owner.TryGetComponent<PlayerUpgrades>(out var upgrades) ? upgrades.ProjectileSpeedMultiplier : 1;
+ }
  public void OnDash(){if(DashHaste)dashHasteUntil=Time.time+3;}
  public int ExtraProjectiles {get;private set;}
  public int TotalStacks {get;private set;}
@@ -32,6 +40,13 @@ public class PlayerUpgrades : MonoBehaviour {
   switch(definition.effect){case UpgradeEffect.SchabowyRicochet:SchabowyExtraTargets=Mathf.Max(SchabowyExtraTargets,definition.extraTargets);SchabowyTargetRange=Mathf.Max(SchabowyTargetRange,definition.targetRange);break;
    case UpgradeEffect.MielonyBounce:MielonyGroundBounces=Mathf.Max(MielonyGroundBounces,definition.groundBounces);break;
    case UpgradeEffect.LososOrbit:LososOrbitLaps=Mathf.Max(LososOrbitLaps,definition.orbitLaps);break;
+   case UpgradeEffect.MaxHealth:
+    BonusHealth+=definition.increment;
+    if(TryGetComponent<PlayerController>(out var player))player.RestoreHealth(definition.increment);
+    break;
+   case UpgradeEffect.ShotSpeed:ProjectileSpeedMultiplier+=definition.increment;break;
+   case UpgradeEffect.AttackRate:BaseAttackRate+=definition.increment;break;
+   case UpgradeEffect.Regeneration:RegenPerSecond+=definition.increment;break;
    case UpgradeEffect.DoubleBreading:damageBonus+=definition.increment;break;
    case UpgradeEffect.LargePortion:areaBonus+=definition.increment;break;
    case UpgradeEffect.HotGrease:dotBonus+=definition.increment;break;

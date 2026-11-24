@@ -6,6 +6,9 @@ public class PlayerController : MonoBehaviour {
  public Animation armAnimation;
  public Camera view; public Transform hand; public GameObject pan,schabowy,chrupiaca;
  public WeaponPresentation weapons; public HookHand hookHand; public SausageRope rope;
+ PlayerUpgrades stats;
+ public float MaxHealth=>100+(stats?stats.BonusHealth:0);
+ public void RestoreHealth(float amount){if(health>0 && amount>0)health=Mathf.Min(MaxHealth,health+amount);}
  public float health=100,fuel; public int pierogi; public bool canFly,hasSchabowy,hasChrupiaca,hasMielony,hasLosos;
  public FoodKind weapon=FoodKind.Pan; public string pickupHint="";
  [Header("Profil ruchu arenowego")]
@@ -37,13 +40,14 @@ public class PlayerController : MonoBehaviour {
  public bool Blocking=>weapon==FoodKind.Pan && weapons && weapons.Blocking;
  void Awake(){
   ConfigureSlam();
-  if(!GetComponent<PlayerUpgrades>())gameObject.AddComponent<PlayerUpgrades>();
+  if(!TryGetComponent(out stats))stats=gameObject.AddComponent<PlayerUpgrades>();
   if(!GetComponent<PlayerProgression>())gameObject.AddComponent<PlayerProgression>();
   if(!GetComponent<MovementUpgradeEffects>())gameObject.AddComponent<MovementUpgradeEffects>();
   controller=GetComponent<CharacterController>();if(!movement)movement=Resources.Load<MovementTuning>("Movement/ArenaMovement");if(!movement)movement=ScriptableObject.CreateInstance<MovementTuning>();motor=new ArenaMovementMotor(movement);
  }
  void OnEnable(){
   ConfigureSlam();
+  if(!stats)stats=GetComponent<PlayerUpgrades>();
   // Script reloads in the open editor can recreate non-serialized motor state.
   if(!controller)controller=GetComponent<CharacterController>();
   if(!movement)movement=Resources.Load<MovementTuning>("Movement/ArenaMovement");
@@ -55,6 +59,7 @@ public class PlayerController : MonoBehaviour {
  void Start(){speed=movement.runSpeed;jumpForce=movement.jumpSpeed;gravity=movement.gravity;groundAcceleration=movement.groundAcceleration;airAcceleration=movement.airAcceleration;groundFriction=movement.groundBraking;airFriction=movement.airFriction;wallJumpOutwardSpeed=movement.wallOutwardSpeed;wallJumpTangentSpeed=movement.wallTangentSpeed;wallJumpCooldown=movement.wallCooldown;eyeHeight=cameraRest.y;baseFov=view.fieldOfView;previousPosition=currentPosition=transform.position;cameraRotation=Quaternion.Euler(0,view.transform.localEulerAngles.y,0);var game=GameSession.Instance;if(game)game.player=this;Equip(FoodKind.Pan);}
  void Update(){
   var game=GameSession.Instance;if(!game||game.paused){jumpQueued=dashQueued=slidePressedQueued=flightHeld=false;motor?.ClearJumpBuffer();return;}
+  if(stats && stats.RegenPerSecond>0)RestoreHealth(stats.RegenPerSecond*Time.deltaTime);
   transform.Rotate(0,Input.GetAxisRaw("Mouse X")*game.sensitivity*10,0);
   pitch=Mathf.Clamp(pitch-Input.GetAxisRaw("Mouse Y")*game.sensitivity*10,-89,89);
   moveInput=Vector3.ClampMagnitude(new Vector3(Input.GetAxisRaw("Horizontal"),0,Input.GetAxisRaw("Vertical")),1);
@@ -164,7 +169,7 @@ public class PlayerController : MonoBehaviour {
  public void Equip(FoodKind kind){weapon=kind;if(weapons)weapons.Equip(kind);else{if(pan)pan.SetActive(kind==FoodKind.Pan);if(schabowy)schabowy.SetActive(kind==FoodKind.Schabowy);if(chrupiaca)chrupiaca.SetActive(kind==FoodKind.Chrupiaca);}}
  public void Receive(FoodKind kind){switch(kind){case FoodKind.Pan:Equip(kind);break;case FoodKind.Schabowy:hasSchabowy=true;Equip(kind);break;case FoodKind.Mielony:hasMielony=true;Equip(kind);break;case FoodKind.Losos:hasLosos=true;Equip(kind);break;case FoodKind.Chrupiaca:hasChrupiaca=true;Equip(kind);break;case FoodKind.Pierog:pierogi++;break;case FoodKind.Jetpack:canFly=true;fuel=100;break;}}
  void Interact(){pickupHint="";if(Physics.Raycast(view.transform.position,view.transform.forward,out var hit,4,WorldMask,QueryTriggerInteraction.Collide)){var chest=hit.collider.GetComponentInParent<UpgradeChest>();if(chest){pickupHint=chest.CanOpen?"F — Otworz skrzynie ulepszen":chest.opened?"Skrzynia otwarta":"Brak nowych ulepszen";if(chest.CanOpen&&Input.GetKeyDown(KeyCode.F))chest.Open(this);return;}var pickup=hit.collider.GetComponentInParent<Pickup>();if(pickup){pickupHint="F — "+pickup.kind;if(Input.GetKeyDown(KeyCode.F)){Receive(pickup.kind);Destroy(pickup.gameObject);}}}}
- public void Heal(){if(pierogi<=0||health>=100)return;pierogi--;health=Mathf.Min(100,health+20);var g=GameSession.Instance;if(g)g.Sound(g.healSound,transform.position);}
+ public void Heal(){if(pierogi<=0||health>=MaxHealth)return;pierogi--;RestoreHealth(20);var g=GameSession.Instance;if(g)g.Sound(g.healSound,transform.position);}
  public void Damage(float amount){health=Mathf.Max(0,health-amount);if(health<=0)SceneManager.LoadScene(SceneManager.GetActiveScene().name);}
  System.Collections.IEnumerator pendingBurst;
  void OnDisable(){if(pendingBurst!=null){StopCoroutine(pendingBurst);pendingBurst=null;}}

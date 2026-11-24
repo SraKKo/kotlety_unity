@@ -23,3 +23,4 @@ MonoBehaviour:
   maxStacks: 0
   increment: 0.1
   shortName: DUZA PORCJA
+  icon: {fileID: 2800000, guid: 13a175524ceb4ed7902db63f211ae6dd, type: 3}

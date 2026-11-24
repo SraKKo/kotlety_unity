@@ -1,11 +1,12 @@
 using UnityEngine;
 namespace RetyKotlety {
-public enum UpgradeEffect { SchabowyRicochet, ChrupiacaPiercing, ChrupiacaBleed, MielonyBounce, LososOrbit, DoubleBreading, LargePortion, HotGrease, DailySpecial, Takeaway, ChefLaunch, ExtraProjectiles, GreasySlide, DashHaste, PanBowling }
+public enum UpgradeEffect { SchabowyRicochet, ChrupiacaPiercing, ChrupiacaBleed, MielonyBounce, LososOrbit, DoubleBreading, LargePortion, HotGrease, DailySpecial, Takeaway, ChefLaunch, ExtraProjectiles, GreasySlide, DashHaste, PanBowling, MaxHealth, ShotSpeed, AttackRate, Regeneration }
 [CreateAssetMenu(menuName="Rety Kotlety/Upgrade",fileName="Upgrade")]
 public class UpgradeDefinition : ScriptableObject {
  public string id="1.1",title="SCHABOWY: RYKOSZET";
  [TextArea] public string description="Po trafieniu schabowy automatycznie leci do trzech kolejnych, roznych wrogow.";
  public UpgradeEffect effect;
+ public Texture2D icon;
  [Min(1)] public int extraTargets=3;
  [Min(1)] public float targetRange=14;
  [Min(0)] public float bleedDamage=5;

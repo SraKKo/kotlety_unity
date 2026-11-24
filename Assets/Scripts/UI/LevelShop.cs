@@ -37,7 +37,8 @@ public class LevelShop : MonoBehaviour {
    for(int i=0;i<offers.Length;i++){
     var offer=offers[i];float y=i*112;int owned=upgrades.Count(offer),price=progression.Price(offer);bool available=upgrades.CanAcquire(offer);
     Panel(new Rect(0,y,995,103),new Color(.105f,.12f,.16f));Panel(new Rect(0,y,4,103),offer.color);
-    GUI.Label(new Rect(16,y+5,740,28),offer.id+" / "+offer.title+"  x"+owned,body);GUI.Label(new Rect(16,y+34,740,62),offer.description,small);
+    if(offer.icon)GUI.DrawTexture(new Rect(16,y+16,70,70),offer.icon,ScaleMode.ScaleToFit);
+    GUI.Label(new Rect(100,y+5,665,28),offer.id+" / "+offer.title+"  x"+owned,body);GUI.Label(new Rect(100,y+34,665,62),offer.description,small);
     bool enabled=GUI.enabled;GUI.enabled=available&&state.Points>=price;
     if(GUI.Button(new Rect(790,y+22,185,55),available?"KUP / "+price+" PKT":"ZDOBYTE",button))progression.TryBuy(offer);
     GUI.enabled=enabled;

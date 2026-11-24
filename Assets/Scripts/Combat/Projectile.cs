@@ -28,6 +28,7 @@ public class Projectile : MonoBehaviour {
   var g=new GameObject(hostile?"Pomidor":"Kotlet");g.transform.position=pos;g.transform.forward=dir;
   var graphics=new GameObject("Model pocisku");graphics.transform.SetParent(g.transform,false);
   if(visual){var model=Instantiate(visual,graphics.transform);model.transform.localPosition=Vector3.zero;model.transform.localRotation=Quaternion.identity;model.transform.localScale=Vector3.one;foreach(var c in model.GetComponentsInChildren<Collider>())Destroy(c);}else{var m=GameObject.CreatePrimitive(PrimitiveType.Sphere);m.transform.SetParent(graphics.transform,false);m.transform.localScale=Vector3.one*.2f;Destroy(m.GetComponent<Collider>());m.GetComponent<Renderer>().material.color=Color.red;}
+  if(!hostile)speed*=PlayerUpgrades.ShotSpeedFor(owner);
   var p=g.AddComponent<Projectile>();p.direction=dir.normalized;p.speed=speed;p.damage=damage;p.bounces=bounces;p.hostile=hostile;p.owner=owner;if(!hostile)p.combat=new AttackDamage<EntityId>(CombatBonuses.FromOwner(owner));ProjectileVisual.Attach(g.transform,graphics.transform,!hostile,speed);return p;
  }
  public static Projectile[] SpawnVolley(Vector3 position,Vector3 forward,Vector3 up,GameObject visual,GameObject owner,float spread=6f,int extraProjectiles=0){

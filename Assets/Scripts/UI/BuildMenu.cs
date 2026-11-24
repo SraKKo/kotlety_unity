@@ -49,7 +49,8 @@ public class BuildMenu : MonoBehaviour {
    for(int i=0;i<count;i++){
     var definition=upgrades.Acquired[i];if(!definition)continue;float y=i*118;
     Panel(new Rect(0,y,620,106),new Color(.105f,.12f,.16f));Panel(new Rect(0,y,5,106),definition.color);
-    GUI.Label(new Rect(18,y+10,584,30),definition.title+"  x"+upgrades.Count(definition),heading);GUI.Label(new Rect(18,y+46,584,54),definition.description,body);
+    if(definition.icon)GUI.DrawTexture(new Rect(15,y+17,70,70),definition.icon,ScaleMode.ScaleToFit);
+    GUI.Label(new Rect(97,y+8,511,30),definition.title+"  x"+upgrades.Count(definition),heading);GUI.Label(new Rect(97,y+41,511,61),definition.description,body);
    }
    GUI.EndScrollView();
   }

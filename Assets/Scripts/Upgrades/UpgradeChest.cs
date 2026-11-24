@@ -4,7 +4,7 @@ namespace RetyKotlety {
 public class UpgradeChest : MonoBehaviour {
  public UpgradeDefinition reward;public bool opened;
  [Min(.1f)] public float disappearDelay=4f;
- GameSession session;bool displaying,claimed;float openedAt;GUIStyle title,body,small,button;Texture2D panIcon,schabowyIcon,chrupiacaIcon,lososIcon;UpgradeDefinition[] pool;readonly UpgradeDefinition[] cards=new UpgradeDefinition[24];
+ GameSession session;bool displaying,claimed;float openedAt;GUIStyle title,body,small,button;UpgradeDefinition[] pool;readonly UpgradeDefinition[] cards=new UpgradeDefinition[24];
  const float RollDuration=3.2f;const int Winner=18;const float CardWidth=176,Gap=12,Step=CardWidth+Gap;
  public bool CanOpen {get{
   if(opened)return false;var player=GameSession.Instance?GameSession.Instance.player:null;var upgrades=player?player.GetComponent<PlayerUpgrades>():null;
@@ -12,7 +12,8 @@ public class UpgradeChest : MonoBehaviour {
   if(pool!=null)foreach(var definition in pool)if(definition&&definition.IsWeaponUpgrade&&(!upgrades||upgrades.CanAcquire(definition)))return true;
   return false;
  }}
- void Awake(){if(reward&&!reward.IsWeaponUpgrade)reward=null;panIcon=Resources.Load<Texture2D>("UI/patelnia");pool=Resources.LoadAll<UpgradeDefinition>("Upgrades");schabowyIcon=Resources.Load<Texture2D>("UI/kotlet_schabowy");chrupiacaIcon=Resources.Load<Texture2D>("UI/kotlet_mielony");lososIcon=Resources.Load<Texture2D>("UI/losos");}
+ void Awake(){if(reward&&!reward.IsWeaponUpgrade)reward=null;pool=Resources.LoadAll<UpgradeDefinition>("Upgrades");}
+
 
  public void Open(PlayerController player){
   if(!CanOpen||!player)return;session=GameSession.Instance;if(!session||session.paused||session.upgradeOpen)return;
@@ -52,10 +53,9 @@ public class UpgradeChest : MonoBehaviour {
   GUI.BeginGroup(new Rect(200,235,880,205));
   for(int i=0;i<24;i++){
    float x=i*Step-final*eased;if(x>880||x+CardWidth<0)continue;
-   var card=cards[i];if(!card)continue;var icon=card.Weapon==FoodKind.Pan?panIcon:card.Weapon==FoodKind.Schabowy?schabowyIcon:card.Weapon==FoodKind.Losos?lososIcon:chrupiacaIcon;
+   var card=cards[i];if(!card)continue;
    var rect=new Rect(x,0,CardWidth,195);Panel(rect,new Color(.105f,.12f,.17f));Panel(new Rect(x,189,CardWidth,6),card.color);
-   if(card.IsGlobal){Panel(new Rect(x+57,37,62,62),card.color);GUI.Label(new Rect(x+20,48,CardWidth-40,38),"+",title);}
-   else if(icon)GUI.DrawTexture(new Rect(x+20,24,CardWidth-40,92),icon,ScaleMode.ScaleToFit);
+   if(card.icon)GUI.DrawTexture(new Rect(x+20,24,CardWidth-40,92),card.icon,ScaleMode.ScaleToFit);
    GUI.Label(new Rect(x+8,128,CardWidth-16,28),(card.IsGlobal?"PRZEDMIOT":card.Weapon.ToString().ToUpperInvariant()),body);GUI.Label(new Rect(x+8,157,CardWidth-16,24),card.CardName,small);
   }
   GUI.EndGroup();Panel(new Rect(638,225,4,222),new Color(1,.8f,.25f));

@@ -320,11 +320,19 @@ Test kolizji w Unity: `-executeMethod RetyKotlety.Editor.PanBowlingChecks.Run` (
 
 ## Levelowanie, punkty i sklep
 
-Poza hordą na Arenie progresji zabójstwo zwykłego wroga daje 10 XP i wyrzuca złotą kostkę wartą 5 punktów. Wróg dystansowy daje 15 XP i 8 punktów. XP trafia do gracza od razu, natomiast punkty trzeba zebrać — kostki przyciągają się z odległości 5 m, jeżeli nie oddziela ich ściana. Manekiny treningowe nie przyznają nagród. Jedna śmierć przyznaje nagrodę tylko raz, również dla ciał wystrzelonych patelnią.
+Poza hordą na Arenie progresji zabójstwo zwykłego wroga daje 10 XP i wyrzuca złotą kostkę wartą 5 punktów. Wróg dystansowy daje 15 XP i 8 punktów. XP trafia do gracza od razu. Między awansami kostki przyciągają się z odległości 5 m, jeżeli nie oddziela ich ściana. Przy każdym awansie wszystkie pozostałe kostki na planszy trafiają do portfela przed otwarciem sklepu, włącznie z nagrodą za ostatnie zabójstwo. Manekiny treningowe nie przyznają nagród. Jedna śmierć przyznaje nagrodę tylko raz, również dla ciał wystrzelonych patelnią.
 
 Run zaczyna się na poziomie 1. Pierwszy awans wymaga 30 XP, każdy kolejny próg rośnie o 20 XP (30, 50, 70...). Nadwyżka XP przechodzi na następny poziom. Po awansie automatycznie otwiera się sklep i zatrzymuje walkę; jeśli inne menu jest otwarte, sklep poczeka na jego zamknięcie. Od poziomu 2 można ponownie otwierać sklep pod **B**. **B**, **Esc** albo przycisk powrotu zamykają sklep. Można kupić wiele przedmiotów podczas jednej wizyty, a niewydane punkty zachowują się w obrębie runu.
 
-- **Sklep:** wspólne przedmioty `5.1`–`5.7` i jednorazowe ulepszenia movementu `6.1`–`6.2`.
+- **Sklep:** wspólne przedmioty `5.1`–`5.7` i jednorazowe ulepszenia movementu `6.1`–`6.2`. Statystyki podstawowe też kupuje się za punkty. Każdy stack daje ten sam przyrost.
+
+| ID | Statystyka | Na sztukę | Pierwszy zakup |
+|---|---|---|---:|
+| 7.1 | Solidny posiłek | +20 maksymalnego i obecnego HP | 10 |
+| 7.2 | Mocny wyrzut | +15% prędkości pocisków | 10 |
+| 7.3 | Sprawne dłonie | +10% szybkości ataku | 15 |
+| 7.4 | Domowy rosół | +0,5 HP/s regeneracji | 10 |
+
 - **Skrzynie:** wyłącznie ulepszenia broni `0.1`, `1.1`, `2.1`, `2.2`, `3.1`, `4.1`. Patelnia `0.1` nadal stackuje się jako ulepszenie konkretnej broni. Stare skrzynie z przypisanym przedmiotem wspólnym przechodzą na losowanie ulepszenia broni.
 - **Ceny:** bazowo 10 punktów; Dokładka kosztuje bazowo 30, ulepszenia movementu 15. Każda już posiadana sztuka danego przedmiotu podnosi jego cenę o połowę ceny bazowej, zaokrągloną w dół (minimum 5 punktów). Cena bazowa jest konfigurowalna w `UpgradeDefinition.shopBaseCost`.
 

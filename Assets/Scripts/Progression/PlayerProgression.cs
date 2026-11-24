@@ -9,7 +9,11 @@ public class PlayerProgression : MonoBehaviour {
  }
  public void RewardKill(Vector3 position,int xp,int points){
   PointPickup.Spawn(position,points);
-  if(State.RecordKill(xp)>0)LevelNoticePending=true;
+  if(State.RecordKill(xp)==0)return;
+  foreach(var pickup in Object.FindObjectsByType<PointPickup>()){
+   if(pickup.gameObject.scene==gameObject.scene)pickup.Collect(this);
+  }
+  LevelNoticePending=true;
  }
  public void AcknowledgeLevel(){LevelNoticePending=false;}
  public int Price(UpgradeDefinition definition)=>RunProgression.Price(definition.shopBaseCost,GetComponent<PlayerUpgrades>().Count(definition));

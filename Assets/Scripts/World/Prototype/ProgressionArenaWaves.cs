@@ -38,7 +38,7 @@ public class ProgressionArenaWaves : MonoBehaviour {
   if(Wave==waveSizes.Length){Complete=true;return;}
   waiting=true;
   nextWave=Time.time+breakDuration;
-  session.player.health=Mathf.Min(100,session.player.health+15);
+  session.player.RestoreHealth(15);
  }
  void SpawnWave(GameSession session){
   Wave++;

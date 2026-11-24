@@ -24,3 +24,4 @@ MonoBehaviour:
   increment: 1
   shortName: SZYBKA OBSLUGA
   shopBaseCost: 15
+  icon: {fileID: 2800000, guid: f5df80f01e5b4ee2a9a43cd1e418b7c4, type: 3}
