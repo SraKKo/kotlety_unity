@@ -15,5 +15,6 @@ public static class IncrementalBonusChecks {
   var bat=new PanBowlingStats(1);Near(bat.Damage,60,"First pan stack gives sixty collision damage");Near(bat.Speed,16,"First pan stack gives sixteen metres per second");
   var stackedBat=new PanBowlingStats(3);Near(stackedBat.Damage,120,"Three pan stacks give one hundred twenty collision damage");Near(stackedBat.Speed,22,"Pan launch speed increases by three per extra stack");Near(bread.Damage(bat.Damage),84,"Collision damage uses the shared player damage bonus once");
   ProjectileFanChecks.Run();
+  ProgressionChecks.Run();
  }
 }

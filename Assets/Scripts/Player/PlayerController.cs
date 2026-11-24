@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour {
  void Awake(){
   ConfigureSlam();
   if(!GetComponent<PlayerUpgrades>())gameObject.AddComponent<PlayerUpgrades>();
+  if(!GetComponent<PlayerProgression>())gameObject.AddComponent<PlayerProgression>();
   if(!GetComponent<MovementUpgradeEffects>())gameObject.AddComponent<MovementUpgradeEffects>();
   controller=GetComponent<CharacterController>();if(!movement)movement=Resources.Load<MovementTuning>("Movement/ArenaMovement");if(!movement)movement=ScriptableObject.CreateInstance<MovementTuning>();motor=new ArenaMovementMotor(movement);
  }

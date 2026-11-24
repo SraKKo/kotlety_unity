@@ -9,7 +9,7 @@ public class DebugConsole : MonoBehaviour {
  void Update(){
   if(!session||session.menuScene||session.won)return;
   bool toggle=Input.GetKeyDown(KeyCode.BackQuote)||Input.inputString.Contains("§")||Input.inputString.Contains("~");
-  if(toggle){if(session.debugOpen)Close();else if(!session.paused&&!session.upgradeOpen&&!session.buildOpen)Open();}
+  if(toggle){if(session.debugOpen)Close();else if(!session.paused&&!session.upgradeOpen&&!session.buildOpen&&!session.shopOpen)Open();}
   else if(session.debugOpen&&Input.GetKeyDown(KeyCode.Escape))Close();
  }
  void Open(){session.debugOpen=true;session.SetPause(true);focus=true;input="";}

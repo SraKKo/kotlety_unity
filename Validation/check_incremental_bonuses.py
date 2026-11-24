@@ -24,7 +24,7 @@ with tempfile.TemporaryDirectory(prefix='kotlety-incremental-') as directory:
     stub = temp/'OwnerStub.cs'
     stub.write_text('namespace RetyKotlety { public class PlayerUpgrades : UnityEngine.MonoBehaviour { public CombatBonuses Bonuses=>default; } }')
     references = list(shared.glob('*.dll'))+[base/'Managed/UnityEngine/UnityEngine.CoreModule.dll']
-    sources = [ROOT/'Assets/Scripts/Combat/CombatBonuses.cs', ROOT/'Assets/Scripts/Combat/AttackDamage.cs', ROOT/'Validation/IncrementalBonusChecks.cs', ROOT/'Validation/ProjectileFanChecks.cs', ROOT/'Assets/Scripts/Combat/ProjectileFan.cs', ROOT/'Assets/Scripts/Combat/PanBowlingStats.cs', stub]
+    sources = [ROOT/'Assets/Scripts/Combat/CombatBonuses.cs', ROOT/'Assets/Scripts/Combat/AttackDamage.cs', ROOT/'Validation/IncrementalBonusChecks.cs', ROOT/'Validation/ProjectileFanChecks.cs', ROOT/'Assets/Scripts/Combat/ProjectileFan.cs', ROOT/'Assets/Scripts/Combat/PanBowlingStats.cs', ROOT/'Assets/Scripts/Progression/RunProgression.cs', ROOT/'Validation/ProgressionChecks.cs', stub]
     response = temp/'checks.rsp'
     response.write_text('\n'.join(['-nologo','-target:exe','-out:'+str(temp/'Checks.dll')]+['-r:'+str(p) for p in references]+[str(p) for p in sources]))
     subprocess.run([str(runtime/'dotnet'),str(compiler),'@'+str(response)],check=True)
@@ -38,4 +38,4 @@ with tempfile.TemporaryDirectory(prefix='kotlety-incremental-') as directory:
     result.check_returncode()
     reports = ROOT/'Validation/Reports'
     reports.mkdir(exist_ok=True)
-    (reports/'incremental-bonus-math-results.txt').write_text(result.stdout+'Scope: actual bonus and hit-history calculations; owner-component lookup and Unity Play Mode not run.\n')
+    (reports/'incremental-bonus-math-results.txt').write_text(result.stdout+'Scope: actual bonus, hit-history and progression/economy calculations; owner-component lookup and Unity Play Mode not run.\n')

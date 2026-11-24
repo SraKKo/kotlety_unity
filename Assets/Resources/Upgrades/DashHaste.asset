@@ -23,3 +23,4 @@ MonoBehaviour:
   maxStacks: 1
   increment: 1
   shortName: SZYBKA OBSLUGA
+  shopBaseCost: 15

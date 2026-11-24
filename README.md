@@ -153,7 +153,7 @@ Parametry lotu, cooldown i działanie plamy: `Assets/Resources/Combat/Mielony.as
 
 ## Skrzynie i ulepszenia
 
-Na MovementArena przy starcie stoją cztery skrzynki (x: `-8`, `-4`, `4`, `8`; y: `0,7`; z: `-43`). Podejdź, wyceluj i naciśnij **F**. Panel otwierania zatrzymuje rozgrywkę i przewija karty przez 3,2 s. Skrzynia losuje z niezdobytych ulepszeń broni i powtarzalnych przedmiotów. Zdobyte przedmioty stackujące pozostają w puli. Karty pokazują aktualną pulę; zatrzymanie wskazuje faktycznie przyznawaną nagrodę. Ulepszenia mechaniki broni są jednorazowe; przedmiot można otrzymać ponownie i zwiększyć jego licznik sztuk. Po zakończeniu kliknij **Odbierz ulepszenie** albo naciśnij **Esc**. Skrzynia jest jednorazowa, a ulepszenie obowiązuje do restartu sceny. Przed użyciem pokazuje model zamknięty, a po odebraniu nagrody — otwarty, z mniejszym, pikselowym dymem z małych czarnych kwadratów wydobywających się ze środka. Po 4 sekundach rozgrywki skrzynia znika; resztki dymu łagodnie wygasają. Pauza zatrzymuje ten czas. Modele FBX i tekstury znajdują się w `Assets/Resources/Props/UpgradeChest/Closed` oraz `Open`; materiały są we wspólnym folderze `Materials`. Obie wersje są dopasowywane według podstawy, z zachowaniem kolizji zamkniętego korpusu. Otwarty model zachowuje oryginalne tekstury krawędzi, ścian i wieka. Tylko dno ma czarny materiał, a gęsta warstwa małych kwadratów dymu wydobywa się tuż pod górną krawędzią korpusu i zakrywa wnętrze. Poprzedni błędny model zachowano poza importem Unity w `Documentation/Archive/RejectedChestModel`.
+Na MovementArena przy starcie stoją cztery skrzynki (x: `-8`, `-4`, `4`, `8`; y: `0,7`; z: `-43`). Podejdź, wyceluj i naciśnij **F**. Panel otwierania zatrzymuje rozgrywkę i przewija karty przez 3,2 s. Skrzynia losuje wyłącznie ulepszenia broni. Zdobyte ulepszenie patelni pozostaje w puli, ponieważ stackuje się; wspólne przedmioty i movement kupuje się w sklepie. Karty pokazują aktualną pulę; zatrzymanie wskazuje faktycznie przyznawaną nagrodę. Ulepszenia mechaniki broni są jednorazowe z wyjątkiem stackującej patelni. Po zakończeniu kliknij **Odbierz ulepszenie** albo naciśnij **Esc**. Skrzynia jest jednorazowa, a ulepszenie obowiązuje do restartu sceny. Przed użyciem pokazuje model zamknięty, a po odebraniu nagrody — otwarty, z mniejszym, pikselowym dymem z małych czarnych kwadratów wydobywających się ze środka. Po 4 sekundach rozgrywki skrzynia znika; resztki dymu łagodnie wygasają. Pauza zatrzymuje ten czas. Modele FBX i tekstury znajdują się w `Assets/Resources/Props/UpgradeChest/Closed` oraz `Open`; materiały są we wspólnym folderze `Materials`. Obie wersje są dopasowywane według podstawy, z zachowaniem kolizji zamkniętego korpusu. Otwarty model zachowuje oryginalne tekstury krawędzi, ścian i wieka. Tylko dno ma czarny materiał, a gęsta warstwa małych kwadratów dymu wydobywa się tuż pod górną krawędzią korpusu i zakrywa wnętrze. Poprzedni błędny model zachowano poza importem Unity w `Documentation/Archive/RejectedChestModel`.
 
 Po ulepszeniu schabowy trafia początkowego przeciwnika i automatycznie leci do **maksymalnie trzech kolejnych, różnych wrogów**. Każdy następny cel jest najbliższym żywym, widocznym wrogiem w promieniu **14 m od pocisku**. Pocisk koryguje lot w stronę wybranego celu i zachowuje obrażenia. Nie wraca do trafionych wrogów; brak celu lub przeszkoda kończą łańcuch. Chrupiaca i pomidory nie otrzymują tego efektu. Dotychczasowe odbicia schabowego od otoczenia pozostają osobną mechaniką.
 
@@ -188,7 +188,7 @@ Nowe przedmioty są wspólne dla broni i można zbierać je wielokrotnie. Każda
 | `5.6` | Podrzut szefa kuchni | +10% obrażeń przeciw wrogom aktualnie podrzuconym slamem, także obrażeń DoT |
 | `5.7` | Dokładka | +1 pocisk na atak każdej broni dystansowej; stackuje się bez obniżania obrażeń pocisku |
 
-**Dokładka (`5.7`)** jest dostępna w skrzyniach i konsoli. `give 5.7` dodaje jedną sztukę, `give 5.7 3` dodaje trzy. Z jedną sztuką schabowy wystrzeliwuje 2 pociski, chrupiaca 4, mielony 2, a łosoś 2 ryby. Każdy kolejny stack dodaje po jednym pocisku do salwy; patelnia pozostaje bez zmian. Schabowy i łosoś wystrzeliwują pociski kolejno co 0,09 s w aktualnym kierunku celowania. Chrupiaca i mielony zachowują symetryczny poziomy wachlarz z odstępem 6° między sąsiadami do maksymalnej szerokości 72°.
+**Dokładka (`5.7`)** jest dostępna w sklepie po awansie i konsoli. `give 5.7` dodaje jedną sztukę, `give 5.7 3` dodaje trzy. Z jedną sztuką schabowy wystrzeliwuje 2 pociski, chrupiaca 4, mielony 2, a łosoś 2 ryby. Każdy kolejny stack dodaje po jednym pocisku do salwy; patelnia pozostaje bez zmian. Schabowy i łosoś wystrzeliwują pociski kolejno co 0,09 s w aktualnym kierunku celowania. Chrupiaca i mielony zachowują symetryczny poziomy wachlarz z odstępem 6° między sąsiadami do maksymalnej szerokości 72°.
 
 Każdy dodatkowy pocisk zachowuje pełne obrażenia i własne efekty: rykoszet, piercing, bleed, plamy, bounce lub orbitę. Ryby wracają niezależnie, a ręka odblokowuje kolejny rzut dopiero po powrocie całej salwy. Panel buildu pokazuje liczbę pocisków na atak oraz liczbę ryb aktualnie w locie. Test w Unity: `-executeMethod RetyKotlety.Editor.MultishotChecks.Run` (ilość pocisków czterech broni, efekty na każdym pocisku i blokada rzutu do powrotu ostatniej ryby).
 
@@ -214,7 +214,7 @@ Test obliczeń i historii trafień: `python3 Validation/check_incremental_bonuse
 - `help` — pomoc.
 - `clear` — wyczyszczenie konsoli.
 
-`give` przyznaje upgrade na bieżące podejście. Ulepszenie konkretnej broni wyposaża tę broń, a przedmiot wspólny pozostawia bieżącą broń. `give 5.1 5` dodaje pięć sztuk panierki; opcjonalna liczba może wynosić 1–100. Powtórne `give` jednorazowego ulepszenia broni nie stackuje efektu, natomiast przedmioty `5.x` zwiększają swój licznik. Build pod Tab pokazuje nagrody otrzymane przez konsolę i skrzynie. ID `1.x` dotyczą schabowego, `2.x` chrupiącej, `3.x` mielonego, `4.x` łososia, a `5.x` wspólnych przedmiotów stackujących.
+`give` przyznaje upgrade na bieżące podejście. Ulepszenie konkretnej broni wyposaża tę broń, a przedmiot wspólny pozostawia bieżącą broń. `give 5.1 5` dodaje pięć sztuk panierki; opcjonalna liczba może wynosić 1–100. Powtórne `give` jednorazowego ulepszenia broni nie stackuje efektu, natomiast przedmioty `5.x` zwiększają swój licznik. Build pod Tab pokazuje nagrody otrzymane przez konsolę, sklep i skrzynie. ID `1.x` dotyczą schabowego, `2.x` chrupiącej, `3.x` mielonego, `4.x` łososia, a `5.x` wspólnych przedmiotów stackujących.
 
 ## Podglad buildu
 
@@ -229,6 +229,7 @@ Jetpack działa przez **przytrzymanie Spacji w powietrzu** po podniesieniu znajd
 | `Assets/Scripts/Player` | Gracz, hak i kiełbasiana linka |
 | `Assets/Scripts/Movement` | Motor ruchu, obliczenia i profil ustawień |
 | `Assets/Scripts/Combat` | Pociski, rozrzut i prezentacja broni w dłoni |
+| `Assets/Scripts/Progression` | Poziomy, XP, punkty do zebrania i zakupy |
 | `Assets/Scripts/Upgrades` | Definicje ulepszeń, stan gracza, skrzynia i panel otwierania |
 | `Assets/Scripts/Enemies` | Zachowanie przeciwników |
 | `Assets/Scripts/World` | Sesja gry, areny, fale, znajdźki i wyjścia |
@@ -307,7 +308,7 @@ Modele GLB są obsługiwane przez Git LFS. Po klonowaniu pobierz je przez `git l
 - **6.1 — Śliska sprawa:** slide na ziemi rozlewa tłuszcz (promień 0,7 m, czas 3 s, 2 obrażenia co 0,25 s, slow 20%). Plamy powstają co minimum 1,2 m i 0,15 s, korzystają z bonusów do obszaru i DoT.
 - **6.2 — Szybka obsługa:** dash daje +35% szybkości ataku przez 3 s. Kolejny dash odświeża czas; bonus przyspiesza animacje ataku, cooldown mielonego oraz serie schabowego i łososia. Przyspiesza też o 35% lot łososia, powrót i orbitowanie, również dla ryb już w powietrzu. Zasięg, obrażenia i liczba okrążeń pozostają takie same; po wygaśnięciu buffa wraca zwykłe tempo.
 
-Oba ulepszenia są jednorazowe, dostępne w skrzyniach, buildzie pod Tab i przez `give 6.1` / `give 6.2`.
+Oba ulepszenia są jednorazowe, dostępne w sklepie po awansie, buildzie pod Tab i przez `give 6.1` / `give 6.2`.
 
 ## Patelnia: Od dechy do dechy (`0.1`)
 
@@ -316,3 +317,31 @@ Stackujący upgrade w skrzyniach i buildzie pod Tab. `give 0.1` daje jedną sztu
 Efekt działa też po śmiertelnym uderzeniu patelnią: ciało znika po zakończeniu lotu. Ściany zatrzymują lot, a żywy wróg wraca do nawigacji po lądowaniu. Delikatny odrzut trafionych celów nie tworzy kolejnych pocisków ani lawiny obrażeń.
 
 Test kolizji w Unity: `-executeMethod RetyKotlety.Editor.PanBowlingChecks.Run` (jedno trafienie na cel, wiele colliderów, zatrzymanie na ścianie, brak obrażeń przez ścianę, lot po śmiertelnym uderzeniu).
+
+## Levelowanie, punkty i sklep
+
+Poza hordą na Arenie progresji zabójstwo zwykłego wroga daje 10 XP i wyrzuca złotą kostkę wartą 5 punktów. Wróg dystansowy daje 15 XP i 8 punktów. XP trafia do gracza od razu, natomiast punkty trzeba zebrać — kostki przyciągają się z odległości 5 m, jeżeli nie oddziela ich ściana. Manekiny treningowe nie przyznają nagród. Jedna śmierć przyznaje nagrodę tylko raz, również dla ciał wystrzelonych patelnią.
+
+Run zaczyna się na poziomie 1. Pierwszy awans wymaga 30 XP, każdy kolejny próg rośnie o 20 XP (30, 50, 70...). Nadwyżka XP przechodzi na następny poziom. Po awansie automatycznie otwiera się sklep i zatrzymuje walkę; jeśli inne menu jest otwarte, sklep poczeka na jego zamknięcie. Od poziomu 2 można ponownie otwierać sklep pod **B**. **B**, **Esc** albo przycisk powrotu zamykają sklep. Można kupić wiele przedmiotów podczas jednej wizyty, a niewydane punkty zachowują się w obrębie runu.
+
+- **Sklep:** wspólne przedmioty `5.1`–`5.7` i jednorazowe ulepszenia movementu `6.1`–`6.2`.
+- **Skrzynie:** wyłącznie ulepszenia broni `0.1`, `1.1`, `2.1`, `2.2`, `3.1`, `4.1`. Patelnia `0.1` nadal stackuje się jako ulepszenie konkretnej broni. Stare skrzynie z przypisanym przedmiotem wspólnym przechodzą na losowanie ulepszenia broni.
+- **Ceny:** bazowo 10 punktów; Dokładka kosztuje bazowo 30, ulepszenia movementu 15. Każda już posiadana sztuka danego przedmiotu podnosi jego cenę o połowę ceny bazowej, zaokrągloną w dół (minimum 5 punktów). Cena bazowa jest konfigurowalna w `UpgradeDefinition.shopBaseCost`.
+
+HUD pokazuje poziom, postęp XP i portfel. Panel buildu pod Tab nadal zbiera wszystkie nabyte ulepszenia. Po śmierci/restartowaniu sceny poziom, punkty i upgrade'y resetują się.
+
+Weryfikacja obliczeń XP, przenoszenia nadwyżki, cen i portfela: `python3 Validation/check_incremental_bonuses.py`. Test integracyjny w Play Mode: `-executeMethod RetyKotlety.Editor.ProgressionIntegrationChecks.Run` (śmierć, pickup, zakup, blokady menu i pula skrzynek).
+
+## Przykładowy run: ProgressionArena
+
+Uruchom **Arena progresji** z menu głównego albo otwórz `Assets/Scenes/ProgressionArena.unity` i naciśnij Play. Scena ma własną edytowalną geometrię, punkty referencyjne fal i żółte pole dostaw; dotychczasowa `MovementArena` pozostaje osobnym sandboxem.
+
+- Start: wszystkie cztery bronie dystansowe i patelnia, bez darmowych upgrade'ów, XP i punktów. Pierwsza fala rusza po 8 s.
+- Dziewięć fal liczy kolejno **18, 24, 32, 40, 48, 56, 64, 72 i 84** przeciwników. Grupy wchodzą podczas walki, maksymalnie 48 żywych naraz. Po oczyszczeniu fali jest 6 s przerwy i 15 HP leczenia przed następną.
+- Od drugiej fali pomarańczowy **Tłuczek** sygnalizuje uderzenie wokół siebie (1,1 s ostrzeżenia, 4,5 m, 26 obrażeń). Od czwartej fioletowy **Pieprznik** ostrzeliwuje zapamiętane miejsce pod graczem (1,5 s, 3,4 m, 20 obrażeń). Można wybiec z kręgu, schować się za osłoną lub podrzucić elitę podczas przygotowania ataku.
+- Zwykły wróg hordy daje 3 XP i 1 punkt, strzelec 4 XP i 2 punkty, elita 14 XP i 7 punktów. Dziesięć pierwszych zabójstw wystarcza na awans i, po zebraniu kostek, na pierwszy podstawowy zakup. Kolejne sztuki Dokładki kosztują 30, 45 i 60 punktów.
+- Po oczyszczeniu fal **3, 6 i 9** na żółte pole przy starcie trafia po jednej skrzyni z ulepszeniem broni. Odbierz ją pod **F**. Nieodebrane skrzynie pozostają na polu.
+- Dwie rampy prowadzą na platformy na wysokości 5 m. Centralna wieża 9 m służy do hooka i wysokiego slama. Niskie tunele oraz otwarta pętla po obwodzie pozwalają testować slide, tłuszcz i dash.
+- Po dziewiątej fali można spokojnie zebrać resztę punktów i odwiedzić sklep. Podejdź do niebieskiej strefy na końcu areny i naciśnij **F**, aby zakończyć run.
+
+Geometria: `Assets/Resources/Levels/ProgressionArena.json`. Generator tylko tej sceny: `python3 Validation/build_progression_arena.py` (nadpisuje wygenerowaną geometrię ProgressionArena, nie MovementArena). Logika fal i ustawienia: `ProgressionArenaWaves`. Test uruchomienia w Unity: `-executeMethod RetyKotlety.Editor.ProgressionArenaChecks.Run`.

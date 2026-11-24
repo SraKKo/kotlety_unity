@@ -8,15 +8,16 @@ public class UpgradeChest : MonoBehaviour {
  const float RollDuration=3.2f;const int Winner=18;const float CardWidth=176,Gap=12,Step=CardWidth+Gap;
  public bool CanOpen {get{
   if(opened)return false;var player=GameSession.Instance?GameSession.Instance.player:null;var upgrades=player?player.GetComponent<PlayerUpgrades>():null;
-  if(reward)return !upgrades||upgrades.CanAcquire(reward);
-  if(pool!=null)foreach(var definition in pool)if(definition&&(!upgrades||upgrades.CanAcquire(definition)))return true;
+  if(reward&&reward.IsWeaponUpgrade)return !upgrades||upgrades.CanAcquire(reward);
+  if(pool!=null)foreach(var definition in pool)if(definition&&definition.IsWeaponUpgrade&&(!upgrades||upgrades.CanAcquire(definition)))return true;
   return false;
  }}
- void Awake(){panIcon=Resources.Load<Texture2D>("UI/patelnia");pool=Resources.LoadAll<UpgradeDefinition>("Upgrades");schabowyIcon=Resources.Load<Texture2D>("UI/kotlet_schabowy");chrupiacaIcon=Resources.Load<Texture2D>("UI/kotlet_mielony");lososIcon=Resources.Load<Texture2D>("UI/losos");}
+ void Awake(){if(reward&&!reward.IsWeaponUpgrade)reward=null;panIcon=Resources.Load<Texture2D>("UI/patelnia");pool=Resources.LoadAll<UpgradeDefinition>("Upgrades");schabowyIcon=Resources.Load<Texture2D>("UI/kotlet_schabowy");chrupiacaIcon=Resources.Load<Texture2D>("UI/kotlet_mielony");lososIcon=Resources.Load<Texture2D>("UI/losos");}
 
  public void Open(PlayerController player){
   if(!CanOpen||!player)return;session=GameSession.Instance;if(!session||session.paused||session.upgradeOpen)return;
-  var upgrades=player.GetComponent<PlayerUpgrades>();if(!upgrades)upgrades=player.gameObject.AddComponent<PlayerUpgrades>();var available=new List<UpgradeDefinition>();foreach(var definition in pool)if(definition&&upgrades.CanAcquire(definition))available.Add(definition);
+  var upgrades=player.GetComponent<PlayerUpgrades>();if(!upgrades)upgrades=player.gameObject.AddComponent<PlayerUpgrades>();var available=new List<UpgradeDefinition>();foreach(var definition in pool)if(definition&&definition.IsWeaponUpgrade&&upgrades.CanAcquire(definition))available.Add(definition);
+  if(reward&&!reward.IsWeaponUpgrade)reward=null;
   if(reward){if(!upgrades.CanAcquire(reward))return;}else{if(available.Count==0)return;reward=available[Random.Range(0,available.Count)];}
   if(available.Count==0)available.Add(reward);
   for(int i=0;i<cards.Length;i++)cards[i]=available[Random.Range(0,available.Count)];cards[Winner]=reward;
@@ -45,7 +46,7 @@ public class UpgradeChest : MonoBehaviour {
   GUI.matrix=Matrix4x4.TRS(Vector3.zero,Quaternion.identity,new Vector3(Screen.width/1280f,Screen.height/720f,1));
   Panel(new Rect(0,0,1280,720),new Color(.015f,.02f,.03f,.91f));Panel(new Rect(140,100,1000,520),new Color(.055f,.065f,.09f));
   Panel(new Rect(140,100,1000,4),reward.color);GUI.Label(new Rect(180,126,920,50),"SKRZYNIA ULEPSZEN",title);
-  GUI.Label(new Rect(180,179,920,30),"Przedmioty stackuja sie / ulepszenia broni sa jednorazowe",small);
+  GUI.Label(new Rect(180,179,920,30),"Tylko ulepszenia broni / przedmioty kupisz w sklepie po awansie",small);
   float elapsed=Time.unscaledTime-openedAt,t=Mathf.Clamp01(elapsed/RollDuration);bool revealed=t>=1;
   float eased=1-Mathf.Pow(1-t,4);float final=Winner*Step+CardWidth*.5f-440;
   GUI.BeginGroup(new Rect(200,235,880,205));

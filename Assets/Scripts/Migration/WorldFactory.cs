@@ -19,12 +19,13 @@ public static class WorldFactory {
   if(menu){var c=Node("Menu Camera",world);c.AddComponent<Camera>().backgroundColor=new Color(.13f,.08f,.04f);c.AddComponent<AudioListener>();return session;}
   RenderSettings.ambientLight=new Color(.65f,.55f,.46f);RenderSettings.fog=true;RenderSettings.fogColor=new Color(.933f,.796f,.686f);RenderSettings.fogDensity=.0084f;RenderSettings.fogMode=FogMode.Exponential;
   var sun=Node("Słońce",world);sun.transform.rotation=Quaternion.Euler(50,-30,0);var light=sun.AddComponent<Light>();light.type=LightType.Directional;light.intensity=1.2f;light.shadows=LightShadows.Soft;
-  bool prototype=levelName==ArenaLayout.SceneName;
+  bool progression=levelName==ProgressionArenaBootstrap.SceneName;
+  bool prototype=levelName==ArenaLayout.SceneName||progression;
   var dataAsset=Resources.Load<TextAsset>("Converted/"+(levelName=="TestLevel"?"test_level":"level"));if(!dataAsset)throw new System.InvalidOperationException("Brak danych poziomu");
   var data=JsonUtility.FromJson<LevelData>(dataAsset.text);
   if(!prototype)Model(levelName,world);
   var collisionRoot=existingGeometry?existingGeometry.gameObject:Node("Kolizje poziomu",world);
-  if(prototype){if(!existingGeometry)ArenaLayout.Build(collisionRoot.transform);data.player=new PoseData{position=new Vector3(0,1.1f,46),rotation=Quaternion.identity};data.actors=new[]{new ActorData{kind="jetpack",pose=new PoseData{position=new Vector3(0,8.6f,34),rotation=Quaternion.identity}},new ActorData{kind="pierog",pose=new PoseData{position=new Vector3(35,4.6f,0),rotation=Quaternion.identity}}};data.spawners=new SpawnerData[0];}
+  if(prototype){if(!existingGeometry)ArenaLayout.Build(collisionRoot.transform,levelName);data.player=new PoseData{position=progression?new Vector3(0,1.1f,-28):new Vector3(0,1.1f,46),rotation=Quaternion.identity};data.actors=progression?new ActorData[0]:new[]{new ActorData{kind="jetpack",pose=new PoseData{position=new Vector3(0,8.6f,34),rotation=Quaternion.identity}},new ActorData{kind="pierog",pose=new PoseData{position=new Vector3(35,4.6f,0),rotation=Quaternion.identity}}};data.spawners=new SpawnerData[0];}
   else foreach(var cd in data.colliders)CreateCollider(cd,collisionRoot.transform);
   Physics.SyncTransforms();
   var settings=NavMesh.GetSettingsByID(0);settings.agentRadius=.4f;settings.agentHeight=1.8f;settings.agentClimb=.5f;settings.agentSlope=55;
@@ -70,7 +71,7 @@ public static class WorldFactory {
   if(levelName=="Level001"){
   var gate=Node("Brama finałowej areny",world);var gateTrigger=gate.AddComponent<BoxCollider>();gateTrigger.isTrigger=true;gateTrigger.center=new Vector3(-151.514f,3.4458f,57.6475f);gateTrigger.size=new Vector3(32.6387f,7.8916f,28.0164f);var gateLogic=gate.AddComponent<ArenaGate>();gateLogic.barriers=CreateBarriers(world);gateLogic.spawners=finalSpawners.ToArray();
   }
-  if(prototype){
+  if(levelName==ArenaLayout.SceneName){
    root.AddComponent<ArenaPractice>();
    RenderSettings.ambientLight=new Color(.65f,.7f,.76f);RenderSettings.fog=false;RenderSettings.skybox=null;pc.view.backgroundColor=new Color(.12f,.18f,.24f);pc.view.clearFlags=CameraClearFlags.SolidColor;
    var targets=Node("Manekiny - test slamu i broni",world);

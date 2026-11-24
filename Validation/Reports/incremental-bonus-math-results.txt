@@ -34,4 +34,21 @@ PASS Extra projectile remains normalized and in the aiming plane: 4
 PASS Extra projectile remains normalized and in the aiming plane: 5
 PASS Extra projectile remains normalized and in the aiming plane: 6
 PASS Large volleys stay inside a seventy-two-degree fan
-Scope: actual bonus and hit-history calculations; owner-component lookup and Unity Play Mode not run.
+PASS Fresh run starts level one with no shop or money
+PASS Melee kill grants ten XP without granting currency directly
+PASS Third melee kill unlocks shop and increases next XP threshold
+PASS Level up does not create currency from uncollected drops
+PASS Large XP rewards carry overflow through multiple levels
+PASS Invalid XP rewards cannot lower progress
+PASS Ranged kill grants fifteen XP
+PASS Insufficient funds cannot create debt
+PASS Invalid purchase amounts leave wallet unchanged
+PASS Successful purchase subtracts its price exactly once
+PASS Negative pickups do not remove currency
+PASS Each owned stack raises price by five points
+PASS Special item base price is respected
+PASS Unspent points survive the next level
+PASS Restarted run has independent progression and wallet
+PASS Large currency rewards cannot overflow the wallet
+PASS Extreme stack prices cannot wrap negative
+Scope: actual bonus, hit-history and progression/economy calculations; owner-component lookup and Unity Play Mode not run.

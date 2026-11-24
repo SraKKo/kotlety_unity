@@ -17,6 +17,9 @@ public class UpgradeDefinition : ScriptableObject {
  [Min(0)] public int maxStacks;
  [Min(0)] public float increment;
  public string shortName;
+ [Min(1)] public int shopBaseCost=10;
+ public bool IsShopUpgrade=>IsGlobal;
+ public bool IsWeaponUpgrade=>!IsGlobal;
  public bool IsGlobal=>effect>=UpgradeEffect.DoubleBreading&&effect!=UpgradeEffect.PanBowling;
  public FoodKind Weapon=>effect==UpgradeEffect.PanBowling?FoodKind.Pan:effect==UpgradeEffect.LososOrbit?FoodKind.Losos:effect==UpgradeEffect.SchabowyRicochet?FoodKind.Schabowy:effect==UpgradeEffect.MielonyBounce?FoodKind.Mielony:FoodKind.Chrupiaca;
  public string CardName=>effect==UpgradeEffect.PanBowling?"OD DECHY DO DECHY":IsGlobal?(string.IsNullOrEmpty(shortName)?title:shortName):effect==UpgradeEffect.LososOrbit?"OKRAZENIE":effect==UpgradeEffect.SchabowyRicochet?"RYKOSZET":effect==UpgradeEffect.ChrupiacaPiercing?"PIERCING":effect==UpgradeEffect.MielonyBounce?"BOUNCE":"KRWAWIENIE";
