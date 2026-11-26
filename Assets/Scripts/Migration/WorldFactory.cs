@@ -20,12 +20,13 @@ public static class WorldFactory {
   RenderSettings.ambientLight=new Color(.65f,.55f,.46f);RenderSettings.fog=true;RenderSettings.fogColor=new Color(.933f,.796f,.686f);RenderSettings.fogDensity=.0084f;RenderSettings.fogMode=FogMode.Exponential;
   var sun=Node("Słońce",world);sun.transform.rotation=Quaternion.Euler(50,-30,0);var light=sun.AddComponent<Light>();light.type=LightType.Directional;light.intensity=1.2f;light.shadows=LightShadows.Soft;
   bool progression=levelName==ProgressionArenaBootstrap.SceneName;
-  bool prototype=levelName==ArenaLayout.SceneName||progression;
+  bool district=levelName==PostSovietDistrict.SceneName;
+  bool prototype=levelName==ArenaLayout.SceneName||progression||district;
   var dataAsset=Resources.Load<TextAsset>("Converted/"+(levelName=="TestLevel"?"test_level":"level"));if(!dataAsset)throw new System.InvalidOperationException("Brak danych poziomu");
   var data=JsonUtility.FromJson<LevelData>(dataAsset.text);
   if(!prototype)Model(levelName,world);
   var collisionRoot=existingGeometry?existingGeometry.gameObject:Node("Kolizje poziomu",world);
-  if(prototype){if(!existingGeometry)ArenaLayout.Build(collisionRoot.transform,levelName);data.player=new PoseData{position=progression?new Vector3(0,1.1f,-28):new Vector3(0,1.1f,46),rotation=Quaternion.identity};data.actors=progression?new ActorData[0]:new[]{new ActorData{kind="jetpack",pose=new PoseData{position=new Vector3(0,8.6f,34),rotation=Quaternion.identity}},new ActorData{kind="pierog",pose=new PoseData{position=new Vector3(35,4.6f,0),rotation=Quaternion.identity}}};data.spawners=new SpawnerData[0];}
+  if(prototype){if(!existingGeometry)ArenaLayout.Build(collisionRoot.transform,levelName);data.player=new PoseData{position=district?PostSovietDistrict.Spawn:progression?new Vector3(0,1.1f,-28):new Vector3(0,1.1f,46),rotation=Quaternion.identity};data.actors=(progression||district)?new ActorData[0]:new[]{new ActorData{kind="jetpack",pose=new PoseData{position=new Vector3(0,8.6f,34),rotation=Quaternion.identity}},new ActorData{kind="pierog",pose=new PoseData{position=new Vector3(35,4.6f,0),rotation=Quaternion.identity}}};data.spawners=new SpawnerData[0];}
   else foreach(var cd in data.colliders)CreateCollider(cd,collisionRoot.transform);
   Physics.SyncTransforms();
   var settings=NavMesh.GetSettingsByID(0);settings.agentRadius=.4f;settings.agentHeight=1.8f;settings.agentClimb=.5f;settings.agentSlope=55;
@@ -39,11 +40,16 @@ public static class WorldFactory {
   var projectileTemplates=Node("Modele pocisków",world);projectileTemplates.SetActive(false);
   session.schabowyModel=Model("SchabowyProjectile",projectileTemplates.transform);session.chrupiacaModel=Model("ChrupiacaProjectile",projectileTemplates.transform);
   var presentation=JsonUtility.FromJson<PresentationData>(Resources.Load<TextAsset>("Converted/presentation").text);
-  var p=Node("Player",world);p.layer=8;data.player.Apply(p.transform);
-  var cc=p.AddComponent<CharacterController>();cc.height=presentation.bodyHeight;cc.radius=presentation.bodyRadius;cc.center=Vector3.zero;cc.slopeLimit=55;cc.stepOffset=.35f;cc.skinWidth=.03f;
+  var p=Node("Player",world);p.layer=8;
+  // District coordinates are authored in Unity; imported Godot poses mirror Z.
+  if(district)p.transform.position=PostSovietDistrict.Spawn;
+  else data.player.Apply(p.transform);
+  var movement=Resources.Load<MovementTuning>("Movement/ArenaMovement");
+  float bodyHeight=movement?movement.bodyHeight:1.7f,bodyRadius=movement?movement.bodyRadius:.35f;
+  var cc=p.AddComponent<CharacterController>();cc.height=bodyHeight;cc.radius=bodyRadius;cc.center=Vector3.zero;cc.slopeLimit=55;cc.stepOffset=.35f;cc.skinWidth=.03f;
   var camera=Node("Camera",p.transform);camera.tag="MainCamera";presentation.camera.ApplyLocal(camera.transform);
   var view=camera.AddComponent<Camera>();view.fieldOfView=presentation.worldFov;view.nearClipPlane=.05f;view.farClipPlane=600;view.cullingMask=~(1<<11);camera.AddComponent<AudioListener>();
-  var pc=p.AddComponent<PlayerController>();pc.view=view;pc.cameraRest=presentation.camera.Position;pc.standingHeight=presentation.bodyHeight;pc.crouchingHeight=presentation.bodyHeight*.5f;session.player=pc;
+  var pc=p.AddComponent<PlayerController>();pc.view=view;pc.cameraRest=presentation.camera.Position;pc.movement=movement;pc.standingHeight=bodyHeight;pc.crouchingHeight=movement?movement.crouchHeight:.9f;pc.cameraRest.y=(movement?movement.eyeHeight:1.58f)-bodyHeight*.5f;camera.transform.localPosition=pc.cameraRest;session.player=pc;
   var weaponView=Node("Weapon Camera",camera.transform).AddComponent<Camera>();weaponView.fieldOfView=presentation.weaponFov;weaponView.nearClipPlane=.01f;weaponView.farClipPlane=100;weaponView.depth=view.depth+1;weaponView.clearFlags=CameraClearFlags.Depth;weaponView.cullingMask=1<<11;weaponView.allowHDR=view.allowHDR;
   var right=Model("RightHandRig",weaponView.transform);presentation.rightHand.ApplyLocal(right.transform);SetLayer(right,11);pc.hand=right.transform;
   var weapons=right.AddComponent<WeaponPresentation>();weapons.animationPlayer=WeaponPresentation.FindAnimation(right,"melee_attack2");

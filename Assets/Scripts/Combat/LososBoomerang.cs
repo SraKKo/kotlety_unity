@@ -20,6 +20,7 @@ public class LososBoomerang : MonoBehaviour {
  public bool Returning=>returning;
  // Orbit upgrade: the last enemy hit on the way out is circled before the fish returns.
  int orbitLaps,lapsDone;bool orbiting;Enemy orbitTarget;Collider orbitCollider;float orbitAngle,orbitTurned,orbitDistance,orbitLift;
+ Vector3 orbitCentre;
  public bool Orbiting=>orbiting;
  public void SetOrbit(int laps){orbitLaps=Mathf.Max(0,laps);}
 
@@ -127,8 +128,10 @@ public class LososBoomerang : MonoBehaviour {
    if(enemy){
     if(enemy.health<=0||!struck.Add(enemy.GetEntityId()))continue;
     combat.SetDistance(distanceStart+hit.distance);
-    enemy.Damage(combat.Hit(t.damage,enemy.GetEntityId(),enemy.IsAirborne),inside?hit.collider.bounds.center:hit.point,inside?-heading:hit.normal,false);
-    if(!returning&&orbitLaps>0&&enemy.health>0&&IsLastEnemy(enemy,heading,t.range-travelled)){transform.position+=heading*hit.distance;travelled+=hit.distance;StartOrbit(enemy);return;}
+    bool shouldOrbit = !returning && orbitLaps > 0 && IsLastEnemy(enemy,heading,t.range-travelled);
+    var hitCentre = hit.collider.bounds.center;
+    enemy.Damage(combat.Hit(t.damage,enemy.GetEntityId(),enemy.IsAirborne),inside?hitCentre:hit.point,inside?-heading:hit.normal,false);
+    if(shouldOrbit){transform.position+=heading*hit.distance;travelled+=hit.distance;StartOrbit(enemy,hit.collider,hitCentre);return;}
     continue;
    }
    if(returning||hit.collider.GetComponentInParent<PlayerController>())continue;
@@ -154,23 +157,30 @@ public class LososBoomerang : MonoBehaviour {
   }
   return true;
  }
- Vector3 OrbitCentre=>orbitCollider?orbitCollider.bounds.center:orbitTarget.transform.position+Vector3.up;
- void StartOrbit(Enemy enemy){
-  orbiting=true;orbitTarget=enemy;orbitCollider=enemy.GetComponent<Collider>();lapsDone=0;orbitTurned=0;
-  var offset=transform.position-OrbitCentre;orbitLift=offset.y;offset.y=0;
+ void StartOrbit(Enemy enemy,Collider collider,Vector3 centre){
+  orbiting=true;orbitTarget=enemy;orbitCollider=collider;orbitCentre=centre;lapsDone=0;orbitTurned=0;
+  var offset=transform.position-orbitCentre;orbitLift=offset.y;offset.y=0;
   orbitDistance=Mathf.Max(.3f,offset.magnitude);orbitAngle=Mathf.Atan2(offset.x,offset.z)*Mathf.Rad2Deg;
  }
  void Orbit(float dt,LososTuning t){
-  if(!orbitTarget||orbitTarget.health<=0){EndOrbit(t);return;}
+  if(orbitTarget && orbitTarget.health>0) {
+   orbitCentre=orbitCollider?orbitCollider.bounds.center:orbitTarget.transform.position+Vector3.up;
+  } else {
+   // Keep the last living centre even after the target or its collider is removed.
+   orbitTarget=null;
+   orbitCollider=null;
+  }
   float turn=360/Mathf.Max(.05f,t.orbitLapTime)*dt;combat.AddDistance(Mathf.Max(.3f,orbitDistance)*turn*Mathf.Deg2Rad);orbitAngle+=turn;orbitTurned+=turn;
-  // Ease from the point of impact onto the orbit ring at the enemy's mid height.
   orbitDistance=Mathf.MoveTowards(orbitDistance,t.orbitRadius,t.launchSpeed*dt);orbitLift=Mathf.MoveTowards(orbitLift,0,12*dt);
-  var centre=OrbitCentre;var outward=Quaternion.Euler(0,orbitAngle,0)*Vector3.forward;
-  transform.position=centre+outward*orbitDistance+Vector3.up*orbitLift;
-  // One hit per completed lap.
+  var outward=Quaternion.Euler(0,orbitAngle,0)*Vector3.forward;
+  transform.position=orbitCentre+outward*orbitDistance+Vector3.up*orbitLift;
   while(orbiting&&orbitTurned>=360*(lapsDone+1)){
-   lapsDone++;orbitTarget.Damage(combat.Hit(t.damage,orbitTarget.GetEntityId(),orbitTarget.IsAirborne),centre+outward*.3f,outward,false);
-   if(lapsDone>=orbitLaps||orbitTarget.health<=0)EndOrbit(t);
+   lapsDone++;
+   if(orbitTarget && orbitTarget.health>0) {
+    orbitTarget.Damage(combat.Hit(t.damage,orbitTarget.GetEntityId(),orbitTarget.IsAirborne),orbitCentre+outward*.3f,outward,false);
+    if(orbitTarget.health<=0){orbitTarget=null;orbitCollider=null;}
+   }
+   if(lapsDone>=orbitLaps)EndOrbit(t);
   }
  }
  void EndOrbit(LososTuning t){

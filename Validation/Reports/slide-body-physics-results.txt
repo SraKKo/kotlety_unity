@@ -1,0 +1,12 @@
+PASS Existing saved district scene runs with a 1.70m capsule
+PASS Capsule width matches the smaller player profile
+PASS Actual camera eyes settle at 1.58m above the feet
+PASS Holding slide and forward while stationary cannot drive the real controller
+PASS Slide crouches the capsule to 0.90m
+PASS Real flat slide keeps momentum and loses only configured friction
+PASS Flat slide stays in physical contact with the ground
+PASS Standing remains blocked by a low ceiling
+PASS Player stands to the new height when clearance is free
+PASS Real downhill slide gains speed from gravity
+PASS Slide follows the slope without repeatedly becoming airborne
+PASS Uphill controller slide slows against gravity

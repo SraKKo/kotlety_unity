@@ -1,20 +1,27 @@
 using UnityEngine;
 namespace RetyKotlety {
 public class MielonyProjectile : MonoBehaviour {
- static MielonyTuning tuning;static Material material;
+ static MielonyTuning tuning;static Material material;static GameObject model;
  public static MielonyTuning Tuning {get{if(!tuning)tuning=Resources.Load<MielonyTuning>("Combat/Mielony");return tuning;}}
  float flightRate=1;
  Vector3 velocity;GameObject owner;CombatBonuses bonuses;float age;int bouncesRemaining;
  public int GroundBouncesRemaining=>bouncesRemaining;
  public void SetGroundBounces(int count){bouncesRemaining=Mathf.Max(0,count);}
- public static GameObject Sphere(Transform parent){
-  var g=GameObject.CreatePrimitive(PrimitiveType.Sphere);g.name="Mielony - placeholder";g.transform.SetParent(parent,false);
-  var collider=g.GetComponent<Collider>();collider.enabled=false;if(Application.isPlaying)Destroy(collider);else DestroyImmediate(collider);
-  if(!material){material=new Material(Shader.Find("Standard")){name="Mielony placeholder",color=new Color(.68f,.36f,.12f)};material.SetFloat("_Glossiness",.15f);}
-  g.GetComponent<Renderer>().sharedMaterial=material;return g;
+ public static GameObject CreateVisual(Transform parent) {
+  var root = new GameObject("Mielony PSX");
+  root.transform.SetParent(parent,false);
+  if(!model)model = Resources.Load<GameObject>("Weapons/Mielony/MielonyPSX");
+  if(!model) {
+   Debug.LogError("Brak modelu Weapons/Mielony/MielonyPSX");
+   return root;
+  }
+  if(!material)material = new Material(Shader.Find("RetyKotlety/PSXFood")) { name="Mielony - przypieczona panierka" };
+  var instance = Instantiate(model,root.transform,false);
+  foreach(var renderer in instance.GetComponentsInChildren<MeshRenderer>())renderer.sharedMaterial = material;
+  return root;
  }
  public static MielonyProjectile Spawn(Vector3 position,Vector3 forward,GameObject owner){
-  var g=new GameObject("Mielony - rzut lukiem");g.transform.position=position;var graphics=new GameObject("Model pocisku");graphics.transform.SetParent(g.transform,false);var visual=Sphere(graphics.transform);visual.transform.localScale=Vector3.one*.32f;
+  var g=new GameObject("Mielony - rzut lukiem");g.transform.position=position;var graphics=new GameObject("Model pocisku");graphics.transform.SetParent(g.transform,false);var visual=CreateVisual(graphics.transform);visual.transform.localScale=Vector3.one*.32f;
   var projectile=g.AddComponent<MielonyProjectile>();projectile.owner=owner;projectile.bonuses=CombatBonuses.FromOwner(owner);projectile.velocity=forward.normalized*Tuning.launchSpeed+Vector3.up*Tuning.upwardBoost;
   projectile.flightRate=PlayerUpgrades.ShotSpeedFor(owner);
   ProjectileVisual.Attach(g.transform,graphics.transform,true,Tuning.launchSpeed*projectile.flightRate);return projectile;

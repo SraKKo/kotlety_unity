@@ -24,4 +24,4 @@ MonoBehaviour:
   increment: 0.5
   shortName: 'DOMOWY ROSOL'
   shopBaseCost: 10
-  icon: {fileID: 2800000, guid: a3379775c4284449a3f44851e62e80c2, type: 3}
+  icon: {fileID: 2800000, guid: 05a2434c640c4eb5bc98f7a4bb0cce62, type: 3}

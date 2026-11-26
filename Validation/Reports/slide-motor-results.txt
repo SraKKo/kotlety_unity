@@ -1,0 +1,37 @@
+PASS Shared profile loads for already saved scenes
+PASS Ground movement reaches full speed in 0.1 seconds
+PASS Ground release brakes within 0.2 seconds
+PASS Airborne momentum survives without input
+PASS Air steering redirects momentum without deleting speed
+PASS Three dashes consume three charges
+PASS Fourth dash is rejected without negative stamina
+PASS Stamina recovers over time
+PASS Coyote time accepts jump just after a ledge
+PASS Buffered jump triggers on landing
+PASS Holding slide at rest cannot create horizontal speed
+PASS Slide preserves entry momentum with only surface friction
+PASS Slide jump keeps existing horizontal momentum
+PASS Flat slide slows to rest even while holding a movement key
+PASS Downhill gravity accelerates the slide
+PASS Uphill slide loses momentum instead of maintaining a motor speed
+PASS Repeated slide presses cannot multiply speed
+PASS Dash jump carries boost and costs an extra charge
+PASS Wall jump 1 succeeds
+PASS Wall jump 2 succeeds
+PASS Wall jump 3 succeeds
+PASS Airborne wall jump budget is capped at three
+PASS Landing replenishes wall jumps
+PASS Air crouch starts controlled downward slam
+PASS Buffered slam bounce is strong but capped
+PASS Repeated slam press preserves the original drop height
+PASS Zero or negative fall height deals no slam damage
+PASS Slam damage scales at twelve per metre
+PASS Slam damage is capped at ninety
+PASS Slam radius grows from a one-metre minimum
+PASS Slam radius reaches five metres and stays capped
+PASS Only slams from three metres launch enemies
+PASS Launch force scales and stays capped
+PASS Slam shake stays light and short
+PASS Independent slam stats support different radius and damage limits
+PASS Slam impact fires only once per landing
+PASS Jump has a short responsive arc, not floaty gravity

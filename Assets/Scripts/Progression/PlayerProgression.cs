@@ -10,9 +10,6 @@ public class PlayerProgression : MonoBehaviour {
  public void RewardKill(Vector3 position,int xp,int points){
   PointPickup.Spawn(position,points);
   if(State.RecordKill(xp)==0)return;
-  foreach(var pickup in Object.FindObjectsByType<PointPickup>()){
-   if(pickup.gameObject.scene==gameObject.scene)pickup.Collect(this);
-  }
   LevelNoticePending=true;
  }
  public void AcknowledgeLevel(){LevelNoticePending=false;}
@@ -20,6 +17,7 @@ public class PlayerProgression : MonoBehaviour {
  public bool TryBuy(UpgradeDefinition definition){
   var session=GameSession.Instance;
   if(!session||session.player==null||session.player.gameObject!=gameObject||!session.shopOpen||!State.ShopUnlocked||!definition||!definition.IsShopUpgrade)return false;
+  var shop=session.GetComponent<LevelShop>();if(shop&&(!shop.ReadyToTrade||!shop.IsOffered(definition)))return false;
   var upgrades=GetComponent<PlayerUpgrades>();if(!upgrades.CanAcquire(definition))return false;
   int price=Price(definition);if(State.Points<price||!upgrades.Grant(definition))return false;
   return State.TrySpend(price);

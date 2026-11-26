@@ -1,0 +1,19 @@
+PASS Intro still pauses gameplay and gates purchases
+PASS Exactly three distinct cards are offered
+PASS First shop uses only basic upgrades and never chest rewards
+PASS Hidden upgrades cannot be purchased through the API
+PASS Displayed card buys one stack for its quoted price
+PASS Preview updates after a stack purchase
+PASS Leaving keeps all unspent points and resumes gameplay
+PASS Reopening the shop preserves the current cards
+PASS One free reroll is available on the level
+PASS Small-pool reroll guarantees a new card without duplicates
+PASS Reroll is free and cannot be repeated during its animation
+PASS Reopening cannot reset the reroll budget or change cards
+PASS Next level resets the free reroll
+PASS Level three still excludes complex mechanics
+PASS Advanced effects unlock in stages at levels three, four and five
+PASS Later levels admit the complete shop pool
+PASS Large-pool reroll replaces all three cards
+PASS Exhausted pool has no duplicate or already-owned single-use offers
+PASS Empty shop still closes safely

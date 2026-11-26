@@ -1,0 +1,5 @@
+PASS Imported FBX has 204 triangles in one mesh
+PASS Vertex colors survive FBX import
+PASS Metre scale and upright axis are correct
+PASS PSX material compiles and renders in Unity
+PASS Model supports existing hand scale

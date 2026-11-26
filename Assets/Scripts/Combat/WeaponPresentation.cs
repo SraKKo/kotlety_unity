@@ -38,7 +38,7 @@ public class WeaponPresentation : MonoBehaviour {
   AttachFood(chrupiaca,palm,"throw_chrupiaca");
   if(schabowy){schabowyGrip=schabowy.transform.localPosition;schabowyScale=schabowy.transform.localScale;schabowyRotation=schabowy.transform.localRotation;}
   if(chrupiaca){chrupiacaGrip=chrupiaca.transform.localPosition;chrupiacaScale=chrupiaca.transform.localScale;chrupiacaRotation=chrupiaca.transform.localRotation;}
-  mielony=MielonyProjectile.Sphere(palm);mielony.layer=11;mielony.transform.localPosition=new Vector3(.08f,.3f,.08f);mielony.transform.localScale=Vector3.one*.55f;
+  mielony=MielonyProjectile.CreateVisual(palm);foreach(var part in mielony.GetComponentsInChildren<Transform>(true))part.gameObject.layer=11;mielony.transform.localPosition=new Vector3(.08f,.3f,.08f);mielony.transform.localScale=Vector3.one*.55f;
   lososBuiltLength=Mathf.Max(.01f,lososLength);losos=LososBoomerang.Model(palm,lososBuiltLength);foreach(var part in losos.GetComponentsInChildren<Transform>(true))part.gameObject.layer=11;
   foodAttached=true;
  }

@@ -1,0 +1,5 @@
+PASS Manual opening pauses but leaves ground points visible
+PASS Manual opening does not collect after its entire intro
+PASS Closing cannot settle unrelated ground points
+PASS Actual level up still collects all drops during pause
+PASS Level-up collection and reveal still finish while paused

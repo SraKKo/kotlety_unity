@@ -36,7 +36,7 @@ public class GameHud : MonoBehaviour {
   var frame=Resources.Load<Texture2D>("UI/HealthBarEmpty");var fill=Resources.Load<Texture2D>("UI/HealthBarFill");
   Image("Panel",Texture2D.whiteTexture,new Rect(10,375,582,335),0,new Color(.12f,.12f,.12f,.7f));
   health=Image("Wypełnienie życia",fill,new Rect(55,620,fill.width,78),3,Color.white);Image("Ramka życia",frame,new Rect(20,620,485,78),4,Color.white);
-  icon=Image("Wybrana broń",Resources.Load<Texture2D>("UI/kotlet_schabowy"),new Rect(33.75f,279,496.5f,480),2,Color.white);
+  icon=Image("Wybrana broń",Resources.Load<Texture2D>("UI/kotlet_schabowy-v2"),new Rect(33.75f,279,496.5f,480),2,Color.white);
   fuelBase=Image("Jetpack pusty",Resources.Load<Texture2D>("UI/jetpack_keczup_musztarda_dis"),new Rect(512,623,73.5f,73.5f),4,Color.white);
   fuel=Image("Paliwo jetpacka",Resources.Load<Texture2D>("UI/jetpack_keczup_musztarda"),new Rect(512,623,73.5f,73.5f),5,Color.white,true);
   for(int i=0;i<3;i++){Image("Dash tło "+i,Texture2D.whiteTexture,new Rect(105+i*128,701,114,6),4,new Color(.1f,.12f,.15f,.85f));dashBars[i]=Image("Dash "+i,Texture2D.whiteTexture,new Rect(105+i*128,701,114,6),5,new Color(.2f,.85f,1));}
@@ -49,7 +49,7 @@ public class GameHud : MonoBehaviour {
  }
  public void Refresh(){if(!player||health==null)return;ApplyScale();HealthFill=Mathf.Clamp01(player.health/player.MaxHealth);FuelFill=Mathf.Clamp01(player.fuel/100);SetFill(health,HealthFill,Color.white);SetFill(fuel,FuelFill,Color.white);fuelBase.gameObject.SetActive(FuelVisible);fuel.gameObject.SetActive(FuelVisible);healthText.text=Mathf.RoundToInt(player.health).ToString();pierogiText.text="Pierogi: "+player.pierogi;
   for(int i=0;i<dashBars.Length;i++)if(dashBars[i]!=null)SetFill(dashBars[i],player.DashStamina-i,new Color(.2f,.85f,1));
-  if(lastWeapon!=player.weapon){lastWeapon=player.weapon;string name=player.weapon==FoodKind.Losos?"losos":player.weapon==FoodKind.Schabowy?"kotlet_schabowy":player.weapon==FoodKind.Chrupiaca||player.weapon==FoodKind.Mielony?"kotlet_mielony":"patelnia";SelectedWeaponTexture=Resources.Load<Texture2D>("UI/"+name);if(!SelectedWeaponTexture)SelectedWeaponTexture=Resources.Load<Texture2D>("UI/widelec");icon.texture=SelectedWeaponTexture;icon.renderer.sharedMaterial=GetMaterial(SelectedWeaponTexture);}
+  if(lastWeapon!=player.weapon){lastWeapon=player.weapon;string name=player.weapon==FoodKind.Losos?"losos-v2":player.weapon==FoodKind.Schabowy?"kotlet_schabowy-v2":player.weapon==FoodKind.Chrupiaca?"chrupiaca-v2":player.weapon==FoodKind.Mielony?"kotlet_mielony-v2":"patelnia-v2";SelectedWeaponTexture=Resources.Load<Texture2D>("UI/"+name);if(!SelectedWeaponTexture)SelectedWeaponTexture=Resources.Load<Texture2D>("UI/widelec");icon.texture=SelectedWeaponTexture;icon.renderer.sharedMaterial=GetMaterial(SelectedWeaponTexture);}
  }
  void LateUpdate(){Refresh();}
  void OnDestroy(){foreach(var mesh in meshes)if(mesh)Destroy(mesh);foreach(var material in materials.Values)if(material)Destroy(material);}

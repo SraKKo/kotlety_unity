@@ -39,10 +39,7 @@ public sealed class ArenaMovementMotor {
   if(input.dash&&stamina>=1){
    stamina-=1;regenDelay=tuning.staminaDelay;dashRemaining=tuning.dashDuration;dashDirection=wish.sqrMagnitude>.01f?wish.normalized:forward;horizontal=dashDirection*tuning.dashSpeed;velocity.y=0;Slamming=false;Sliding=false;DashStarted=true;
   }
-  if(input.slideHeld&&contact.grounded&&!Sliding&&!Dashing){
-   Sliding=true;float speed=Mathf.Clamp(Mathf.Max(horizontal.magnitude,tuning.slideSpeed),tuning.slideSpeed,tuning.maxMomentum);
-   Vector3 heading=horizontal.magnitude>tuning.slideSpeed+.1f?horizontal.normalized:wish.sqrMagnitude>.01f?wish.normalized:horizontal.sqrMagnitude>.01f?horizontal.normalized:forward;horizontal=heading*speed;
-  }
+  if(input.slideHeld&&contact.grounded&&!Dashing)Sliding=true;
   if(input.slidePressed&&!contact.grounded&&sinceJump>.08f&&!Dashing&&!Slamming){Slamming=true;Sliding=false;slamHeight=contact.height;SlamFallDistance=0;horizontal=Vector3.zero;velocity.y=-tuning.slamSpeed;}
   if(jumpRemaining>0){
    bool floorJump=coyote>0;
@@ -60,11 +57,20 @@ public sealed class ArenaMovementMotor {
   else {
    bool grounded=contact.grounded&&!Jumped;
    if(Sliding){
-    float speed=horizontal.magnitude;if(grounded)speed=Mathf.MoveTowards(speed,tuning.slideSpeed,tuning.slideDrag*dt);
-    if(wish.sqrMagnitude>.01f&&speed>.01f)horizontal=Vector3.RotateTowards(horizontal.normalized,wish.normalized,tuning.slideTurnRate*dt,0)*speed;else horizontal=horizontal.normalized*speed;
-    if(grounded&&contact.groundNormal.y>.1f){var slope=Vector3.ProjectOnPlane(Vector3.down*tuning.gravity,contact.groundNormal);horizontal+=new Vector3(slope.x,0,slope.z)*dt;}
+    if(grounded&&contact.groundNormal.y>.1f){
+     var slope=Vector3.ProjectOnPlane(Vector3.down*tuning.gravity,contact.groundNormal.normalized);
+     horizontal+=new Vector3(slope.x,0,slope.z)*dt;
+     horizontal=Vector3.MoveTowards(horizontal,Vector3.zero,tuning.slideDrag*dt);
+    }
+    float speed=horizontal.magnitude;
+    if(wish.sqrMagnitude>.01f&&speed>.001f){
+     float turn=Vector3.SignedAngle(horizontal,wish,Vector3.up);
+     float limit=tuning.slideTurnRate*Mathf.Rad2Deg*dt;
+     horizontal=Quaternion.AngleAxis(Mathf.Clamp(turn,-limit,limit),Vector3.up)*horizontal;
+    }
    }else if(steerLock<=0){horizontal=MovementMath.ArenaHorizontal(horizontal,wish,tuning.runSpeed,grounded?tuning.groundAcceleration:tuning.airAcceleration,grounded?tuning.groundBraking:tuning.airFriction,grounded,dt);}
    velocity.y=Mathf.Max(-tuning.terminalSpeed,velocity.y-tuning.gravity*dt);
+   if(Sliding&&grounded&&contact.groundNormal.y>.1f)velocity.y=-(horizontal.x*contact.groundNormal.x+horizontal.z*contact.groundNormal.z)/contact.groundNormal.y-2;
    if(!grounded&&contact.wall&&velocity.y<0&&Vector3.Dot(wish,contact.wallNormal)<-.2f){wallWeight+=dt;velocity.y=Mathf.Max(velocity.y,-tuning.wallFallSpeed-wallWeight*12);}
   }
   horizontal=Vector3.ClampMagnitude(horizontal,tuning.maxMomentum);velocity.x=horizontal.x;velocity.z=horizontal.z;

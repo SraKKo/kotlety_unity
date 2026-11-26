@@ -1,0 +1,10 @@
+PASS Factory retains Unity district coordinates without Godot Z conversion
+PASS Newly generated player capsule fits at spawn
+PASS Saved scene starts at the authored bus stop
+PASS Saved standing capsule is outside world geometry
+PASS Actual saved spawn has walkable ground below it
+PASS Play mode starts at bus stop without horizontal depenetration or drift
+PASS Play mode applies the 1.7m body profile
+PASS Player settles on the starting sidewalk
+PASS Settled capsule stays outside walls and props
+PASS Player stands on the intended sidewalk rather than garage geometry

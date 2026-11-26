@@ -1,0 +1,84 @@
+PASS Sculpted terrain has banks over four metres high
+PASS Service ditch forms a real physical depression
+PASS Player and saved navigation are present
+PASS Imported environment and props populate the district
+PASS Starting position has physical ground
+PASS Five authored combat sectors are available
+PASS Start is connected to navigation
+PASS Rooftop crossing has navigation
+PASS Enemy route climbs from street to rooftops
+PASS Sector centre is walkable / Podworko blokow
+PASS Ground route reaches sector / Podworko blokow
+PASS Enemy entry lies on the floor / (-52.00, 0.00, -31.00)
+PASS Enemy entry lies on the floor / (-35.00, 0.00, -49.00)
+PASS Enemy entry lies on the floor / (-15.00, 0.00, -38.00)
+PASS Enemy entry lies on the floor / (-40.00, 0.00, -12.00)
+PASS Enemy entry lies on the floor / (-24.00, 0.00, -20.00)
+PASS Enemy entry lies on the floor / (-55.00, 0.00, -47.00)
+PASS Sector centre is walkable / Garazowisko
+PASS Ground route reaches sector / Garazowisko
+PASS Enemy entry lies on the floor / (-69.00, 0.00, 27.00)
+PASS Enemy entry lies on the floor / (-51.00, 0.00, 32.00)
+PASS Enemy entry lies on the floor / (-71.00, 0.00, 51.00)
+PASS Enemy entry lies on the floor / (-53.00, 0.00, 54.00)
+PASS Enemy entry lies on the floor / (-65.00, 0.00, 48.00)
+PASS Enemy entry lies on the floor / (-48.00, 0.00, 40.00)
+PASS Sector centre is walkable / Targ i kotlownia
+PASS Ground route reaches sector / Targ i kotlownia
+PASS Enemy entry lies on the floor / (0.00, 0.00, 45.00)
+PASS Enemy entry lies on the floor / (28.00, 0.00, 46.00)
+PASS Enemy entry lies on the floor / (20.00, 0.00, 65.00)
+PASS Enemy entry lies on the floor / (2.00, 0.00, 65.00)
+PASS Enemy entry lies on the floor / (13.00, 0.00, 38.00)
+PASS Enemy entry lies on the floor / (31.00, 0.00, 61.00)
+PASS Sector centre is walkable / Zaklad przemyslowy
+PASS Ground route reaches sector / Zaklad przemyslowy
+PASS Enemy entry lies on the floor / (29.00, 0.00, 10.00)
+PASS Enemy entry lies on the floor / (51.00, 0.00, 5.00)
+PASS Enemy entry lies on the floor / (66.00, 0.00, 26.00)
+PASS Enemy entry lies on the floor / (40.00, 0.00, 41.00)
+PASS Enemy entry lies on the floor / (61.00, 0.00, 43.00)
+PASS Enemy entry lies on the floor / (27.00, 0.00, 32.00)
+PASS Sector centre is walkable / Park osiedlowy
+PASS Ground route reaches sector / Park osiedlowy
+PASS Enemy entry lies on the floor / (31.00, 0.03, -46.00)
+PASS Enemy entry lies on the floor / (70.00, 2.05, -45.00)
+PASS Enemy entry lies on the floor / (64.00, 0.01, -25.00)
+PASS Enemy entry lies on the floor / (41.00, 1.85, -23.00)
+PASS Enemy entry lies on the floor / (53.00, 0.00, -56.00)
+PASS Enemy entry lies on the floor / (29.00, 0.12, -34.00)
+PASS Slide shortcut has 1.4m clearance
+PASS High crossing supports the rooftop route
+PASS Environment shader supported / Asfalt
+PASS Environment shader supported / Beton
+PASS Environment shader supported / Cegla
+PASS Environment shader supported / Ziemia i mech
+PASS Environment shader supported / Rdza
+PASS Environment shader supported / Zolte oznaczenia
+PASS Environment shader supported / Niebieska trasa
+PASS Environment shader supported / Wytarte pasy
+PASS Environment shader supported / Papa
+PASS Environment shader supported / Yard_panel_tiles_blue
+PASS Environment shader supported / Yard_window
+PASS Environment shader supported / Yard_metal_grey
+PASS Environment shader supported / Yard_panel_concrete
+PASS Environment shader supported / Yard_door_entrance
+PASS Environment shader supported / Yard_concrete_rough
+PASS Environment shader supported / Yard_metal_blue
+PASS Environment shader supported / Yard_wood_blue
+PASS Environment shader supported / Yard_glass_dark
+PASS Environment shader supported / Yard_brick
+PASS Environment shader supported / Yard_kiosk_body
+PASS Environment shader supported / Yard_sign_pivo
+PASS Environment shader supported / Yard_metal_yellow
+PASS Environment shader supported / Yard_sign_ostanovka
+PASS Environment shader supported / Yard_wood_green
+PASS Environment shader supported / Tree_Tree_Trunk
+PASS Environment shader supported / Tree_Tree_leaves
+PASS Environment shader supported / Tree_Pine_Trunk
+PASS Environment shader supported / Tree_Pine_leaves
+PASS Environment shader supported / Tree_Oak_Trunk
+PASS Environment shader supported / Tree_Oak_leaves
+PASS Environment shader supported / Retro_rekwizyty
+PASS Environment shader supported / Yard_metal_green
+PASS Environment shader supported / Dalekie_bloki

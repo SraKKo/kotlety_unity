@@ -1,0 +1,8 @@
+PASS Retro shader is included in Resources and supported
+PASS Retro shader compiles without shader errors
+PASS Default effect changes the rendered district image
+PASS Pixel grid stays sharp with matching 2x2 pixels at 360p
+PASS Disabling the effect restores the original image
+PASS District installs the effect through its normal game entry point
+PASS Weapon camera and sharp HUD render after the world effect
+PASS Gameplay camera and grounded movement remain active

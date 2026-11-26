@@ -1,0 +1,487 @@
+PASS Saved scene boots the real game session and player
+PASS Player spawns grounded on the physical sidewalk
+PASS All four ranged weapons are available for district combat
+PASS Safe spawn fits an enemy in sector / Podworko blokow / Przeciwnik wręcz
+PASS Safe spawn fits an enemy in sector / Podworko blokow / Strzelający przeciwnik
+PASS Safe spawn fits an enemy in sector / Garazowisko / Przeciwnik wręcz
+PASS Safe spawn fits an enemy in sector / Garazowisko / Strzelający przeciwnik
+PASS Safe spawn fits an enemy in sector / Targ i kotlownia / Przeciwnik wręcz
+PASS Safe spawn fits an enemy in sector / Targ i kotlownia / Strzelający przeciwnik
+PASS Safe spawn fits an enemy in sector / Zaklad przemyslowy / Przeciwnik wręcz
+PASS Safe spawn fits an enemy in sector / Zaklad przemyslowy / Strzelający przeciwnik
+PASS Safe spawn fits an enemy in sector / Park osiedlowy / Przeciwnik wręcz
+PASS Safe spawn fits an enemy in sector / Park osiedlowy / Strzelający przeciwnik
+PASS Entering a district sector starts the actual enemy encounter
+PASS Spawned enemies use the baked district navigation
+PASS District combat and orbit checks leave gameplay running
+PASS Renderer materials persist / Yard_metal_grey
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / grp1
+PASS Renderer materials persist / Belka dzwigara hali
+PASS Renderer materials persist / Yard_concrete_rough
+PASS Renderer materials persist / StreetLamp(Clone)
+PASS Renderer materials persist / Tree_Pine_leaves
+PASS Renderer materials persist / Yard_panel_tiles_blue
+PASS Renderer materials persist / BusStop(Clone)
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Tree_Tree_leaves
+PASS Renderer materials persist / Tree_Pine_Trunk
+PASS Renderer materials persist / Tree_Pine_leaves
+PASS Renderer materials persist / Tree_Tree_Trunk
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / Tree_Tree_leaves
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Niebieskie oznaczenie slizgu
+PASS Renderer materials persist / Beton
+PASS Renderer materials persist / Rdza
+PASS Renderer materials persist / Tree_Pine_Trunk
+PASS Renderer materials persist / Zuzyty krawężnik podworka
+PASS Renderer materials persist / Tree_Pine_leaves
+PASS Renderer materials persist / Plac blokow
+PASS Renderer materials persist / Belka dzwigara hali
+PASS Renderer materials persist / Yard_glass_dark
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Obrys
+PASS Renderer materials persist / Sciana hali
+PASS Renderer materials persist / Tree_Tree_leaves
+PASS Renderer materials persist / Tree_Oak_leaves
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / Tree_Pine_leaves
+PASS Renderer materials persist / Sciezka skweru
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / Niskie oslony / lawki betonowe
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / Yard_wood_blue
+PASS Renderer materials persist / SM_Barrel_02(Clone)
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / GasPipe_Arch(Clone)
+PASS Renderer materials persist / Punkty życia
+PASS Renderer materials persist / Yard_metal_blue
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Mostek nad rowem serwisowym
+PASS Renderer materials persist / TrashContainer(Clone)
+PASS Renderer materials persist / Rampa startowa na kiosk
+PASS Renderer materials persist / Tree_Tree_Trunk
+PASS Renderer materials persist / Wjazd na dach garazy
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Tree_Oak_Trunk
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Dojscie na dach / dolna rampa
+PASS Renderer materials persist / Tree_Pine_leaves
+PASS Renderer materials persist / Dash tło 1
+PASS Renderer materials persist / Swiatlik z niebieska blacha
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Tree_Pine_Trunk
+PASS Renderer materials persist / Chodnik alei
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Zaluzja wentylacji
+PASS Renderer materials persist / Tree_Tree_leaves
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / Rdza
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Yard_wood_blue
+PASS Renderer materials persist / Cylinder_001
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Tree_Pine_Trunk
+PASS Renderer materials persist / Tree_Tree_leaves
+PASS Renderer materials persist / Podesty dostepu do wysokich dachow
+PASS Renderer materials persist / Tree_Tree_leaves
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Cylinder
+PASS Renderer materials persist / Yard_panel_concrete
+PASS Renderer materials persist / Yard_window
+PASS Renderer materials persist / Niskie oslony / lawki betonowe
+PASS Renderer materials persist / StreetLamp(Clone)
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Yard_window
+PASS Renderer materials persist / PullUpBar(Clone)
+PASS Renderer materials persist / Wyspa parkour 01
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / StreetLamp(Clone)
+PASS Renderer materials persist / StreetLamp(Clone)
+PASS Renderer materials persist / Podesty dostepu do wysokich dachow
+PASS Renderer materials persist / Tree_Pine_leaves
+PASS Renderer materials persist / Papa
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Chodnik startowy
+PASS Renderer materials persist / SM_Crate_Wooden_03(Clone)
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / Tree_Pine_leaves
+PASS Renderer materials persist / Niskie oslony / lawki betonowe
+PASS Renderer materials persist / Zaluzja wentylacji
+PASS Renderer materials persist / Belka dzwigara hali
+PASS Renderer materials persist / Podest nawrotu
+PASS Renderer materials persist / Ramka życia
+PASS Renderer materials persist / Belka dzwigara hali
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Yard_wood_blue
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / SM_Crate_Wooden_04(Clone)
+PASS Renderer materials persist / Belka dzwigara hali
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Yard_metal_grey
+PASS Renderer materials persist / SM_Crate_Wooden_04(Clone)
+PASS Renderer materials persist / Tree_Pine_Trunk
+PASS Renderer materials persist / Kiosk(Clone)
+PASS Renderer materials persist / Yard_panel_concrete
+PASS Renderer materials persist / Dash 0
+PASS Renderer materials persist / Dash 1
+PASS Renderer materials persist / Swiatlik z niebieska blacha
+PASS Renderer materials persist / Tree_Pine_Trunk
+PASS Renderer materials persist / Slup hali
+PASS Renderer materials persist / Tree_Oak_leaves
+PASS Renderer materials persist / Piasek
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / Yard_panel_concrete
+PASS Renderer materials persist / Zaluzja wentylacji
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / Niskie oslony / lawki betonowe
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / Tree_Oak_leaves
+PASS Renderer materials persist / Papa
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Tree_Oak_leaves
+PASS Renderer materials persist / Piaskownica
+PASS Renderer materials persist / Tree_Tree_Trunk
+PASS Renderer materials persist / Chodnik alei
+PASS Renderer materials persist / Zjazd z kladki na hale
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / SM_Crate_Wooden_04(Clone)
+PASS Renderer materials persist / Yard_metal_grey
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Tree_Tree_leaves
+PASS Renderer materials persist / Sphere
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Papa budynku technicznego
+PASS Renderer materials persist / Kiosk(Clone)
+PASS Renderer materials persist / Przejscie dla pieszych
+PASS Renderer materials persist / Obrys
+PASS Renderer materials persist / GasPipe_Arch(Clone)
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Przejscie dla pieszych
+PASS Renderer materials persist / Beton
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / Tree_Tree_leaves
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / Cube_002
+PASS Renderer materials persist / Rdza
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Tree_Pine_leaves
+PASS Renderer materials persist / Yard_door_entrance
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / grp1
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / Kiosk(Clone)
+PASS Renderer materials persist / Swiatlik z niebieska blacha
+PASS Renderer materials persist / Yard_metal_grey
+PASS Renderer materials persist / Yard_door_entrance
+PASS Renderer materials persist / Panel
+PASS Renderer materials persist / grp1
+PASS Renderer materials persist / StreetLamp(Clone)
+PASS Renderer materials persist / GasPipe_Arch(Clone)
+PASS Renderer materials persist / Tree_Oak_Trunk
+PASS Renderer materials persist / Yard_panel_concrete
+PASS Renderer materials persist / Tree_Tree_leaves
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / GasPipe_Arch(Clone)
+PASS Renderer materials persist / TrashContainer(Clone)
+PASS Renderer materials persist / Wall jump / prawa sciana
+PASS Renderer materials persist / Yard_panel_tiles_blue
+PASS Renderer materials persist / Ladowanie kiosku
+PASS Renderer materials persist / Przejscie dla pieszych
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / Tree_Oak_Trunk
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / Rdza
+PASS Renderer materials persist / GasPipe_Arch(Clone)
+PASS Renderer materials persist / Kratka wentylacyjna
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / GasPipe_Arch(Clone)
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Yard_wood_blue
+PASS Renderer materials persist / Tunel slide / strop 1.4m
+PASS Renderer materials persist / Tree_Tree_Trunk
+PASS Renderer materials persist / Hala - posadzka
+PASS Renderer materials persist / SM_Cardboard_Box_01(Clone)
+PASS Renderer materials persist / Podpora estakady
+PASS Renderer materials persist / Glowna aleja
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Zaluzja wentylacji
+PASS Renderer materials persist / Yard_metal_grey
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / Papa budynku technicznego
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Yard_glass_dark
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / Swiatlik z niebieska blacha
+PASS Renderer materials persist / StreetLamp(Clone)
+PASS Renderer materials persist / Tree_Pine_leaves
+PASS Renderer materials persist / StreetLamp(Clone)
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Yard_panel_tiles_blue
+PASS Renderer materials persist / Zuzyty krawężnik podworka
+PASS Renderer materials persist / Plac skweru
+PASS Renderer materials persist / Tree_Pine_Trunk
+PASS Renderer materials persist / Zuzyty krawężnik podworka
+PASS Renderer materials persist / SM_Barrel_02(Clone)
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / grp1
+PASS Renderer materials persist / Zaluzja wentylacji
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Swiatlik z niebieska blacha
+PASS Renderer materials persist / grp1
+PASS Renderer materials persist / Slup hali
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Opaska komina
+PASS Renderer materials persist / Yard_glass_dark
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / Tree_Pine_leaves
+PASS Renderer materials persist / Komin / punkt orientacyjny
+PASS Renderer materials persist / Zuzyty krawężnik podworka
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Wall jump / lewa sciana
+PASS Renderer materials persist / SM_Barrel_02(Clone)
+PASS Renderer materials persist / Wyspa parkour 02
+PASS Renderer materials persist / Yard_glass_dark
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / SM_Cardboard_Box_01(Clone)
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Zaluzja wentylacji
+PASS Renderer materials persist / GasPipe_Arch(Clone)
+PASS Renderer materials persist / PanelWall_Entrance(Clone)
+PASS Renderer materials persist / Obrys
+PASS Renderer materials persist / StreetLamp(Clone)
+PASS Renderer materials persist / Przejscie dla pieszych
+PASS Renderer materials persist / Plac zakladu
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Tunel slide / bok
+PASS Renderer materials persist / Sciezka skweru
+PASS Renderer materials persist / Oryginalny celownik
+PASS Renderer materials persist / TrashContainer(Clone)
+PASS Renderer materials persist / Sciana hali
+PASS Renderer materials persist / Tree_Tree_Trunk
+PASS Renderer materials persist / Zaluzja wentylacji
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Dach hali - arena gorna
+PASS Renderer materials persist / Wypełnienie życia
+PASS Renderer materials persist / Opaska komina
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / StreetLamp(Clone)
+PASS Renderer materials persist / Kratka wentylacyjna
+PASS Renderer materials persist / Papa
+PASS Renderer materials persist / SM_Barrel_02(Clone)
+PASS Renderer materials persist / Sphere
+PASS Renderer materials persist / Yard_metal_blue
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Tree_Tree_leaves
+PASS Renderer materials persist / Tree_Pine_Trunk
+PASS Renderer materials persist / Zaluzja wentylacji
+PASS Renderer materials persist / Yard_panel_tiles_blue
+PASS Renderer materials persist / SM_Cardboard_Box_01(Clone)
+PASS Renderer materials persist / Rdza
+PASS Renderer materials persist / Tree_Tree_Trunk
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Liczba
+PASS Renderer materials persist / Obrys
+PASS Renderer materials persist / Tree_Tree_leaves
+PASS Renderer materials persist / Podest rampy
+PASS Renderer materials persist / Tree_Oak_leaves
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Tree_Tree_Trunk
+PASS Renderer materials persist / Yard_wood_blue
+PASS Renderer materials persist / Beton
+PASS Renderer materials persist / SM_Crate_Wooden_03(Clone)
+PASS Renderer materials persist / Tree_Pine_Trunk
+PASS Renderer materials persist / Zuzyty krawężnik podworka
+PASS Renderer materials persist / SM_Crate_Wooden_03(Clone)
+PASS Renderer materials persist / TrashContainer(Clone)
+PASS Renderer materials persist / Cube
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Papa
+PASS Renderer materials persist / Yard_panel_concrete
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Tree_Pine_Trunk
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Slup hali
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Podejscie na antresole
+PASS Renderer materials persist / SM_Crate_Wooden_03(Clone)
+PASS Renderer materials persist / Mur obrzeza
+PASS Renderer materials persist / Zuzyty krawężnik podworka
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Yard_metal_blue
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Yard_window
+PASS Renderer materials persist / Yard_panel_tiles_blue
+PASS Renderer materials persist / Podesty dostepu do wysokich dachow
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / SM_Barrel_02(Clone)
+PASS Renderer materials persist / Kiosk(Clone)
+PASS Renderer materials persist / Beton
+PASS Renderer materials persist / Dash tło 0
+PASS Renderer materials persist / Kladka nad aleja
+PASS Renderer materials persist / TrashContainer(Clone)
+PASS Renderer materials persist / StreetLamp(Clone)
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / Papa
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Tree_Tree_Trunk
+PASS Renderer materials persist / Yard_window
+PASS Renderer materials persist / Yard_door_entrance
+PASS Renderer materials persist / SM_Barrel_02(Clone)
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Yard_glass_dark
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / Liczba
+PASS Renderer materials persist / Cube_001
+PASS Renderer materials persist / Lacznik na przychodnie
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Zuzyty krawężnik podworka
+PASS Renderer materials persist / Tree_Pine_Trunk
+PASS Renderer materials persist / Zaluzja wentylacji
+PASS Renderer materials persist / GasPipe_Arch(Clone)
+PASS Renderer materials persist / SM_Crate_Wooden_03(Clone)
+PASS Renderer materials persist / Niebieskie oznaczenie slizgu
+PASS Renderer materials persist / Yard_door_entrance
+PASS Renderer materials persist / Belka dzwigara hali
+PASS Renderer materials persist / Tree_Tree_Trunk
+PASS Renderer materials persist / CarpetBeater(Clone)
+PASS Renderer materials persist / Przejscie dla pieszych
+PASS Renderer materials persist / PullUpBar(Clone)
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / SM_Cardboard_Box_01(Clone)
+PASS Renderer materials persist / TrashContainer(Clone)
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Przejscie dla pieszych
+PASS Renderer materials persist / Yard_metal_blue
+PASS Renderer materials persist / Papa
+PASS Renderer materials persist / Kiosk(Clone)
+PASS Renderer materials persist / Pierogi
+PASS Renderer materials persist / Kiosk(Clone)
+PASS Renderer materials persist / Yard_metal_blue
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Yard_wood_blue
+PASS Renderer materials persist / Obrys
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Rampa serwisowa hali
+PASS Renderer materials persist / Tree_Pine_Trunk
+PASS Renderer materials persist / Kiosk(Clone)
+PASS Renderer materials persist / Niskie oslony / lawki betonowe
+PASS Renderer materials persist / Tree_Tree_leaves
+PASS Renderer materials persist / Antresola podworka
+PASS Renderer materials persist / Kladka nad przejazdem
+PASS Renderer materials persist / GasPipe_Arch(Clone)
+PASS Renderer materials persist / Mur obrzeza
+PASS Renderer materials persist / Przejscie dla pieszych
+PASS Renderer materials persist / Opaska komina
+PASS Renderer materials persist / Zuzyty krawężnik podworka
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Tree_Oak_Trunk
+PASS Renderer materials persist / Kiosk(Clone)
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Yard_door_entrance
+PASS Renderer materials persist / Yard_window
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Daszek lacznika
+PASS Renderer materials persist / Yard_panel_tiles_blue
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / Tunel slide / bok
+PASS Renderer materials persist / Dash 2
+PASS Renderer materials persist / Yard_window
+PASS Renderer materials persist / Mur obrzeza
+PASS Renderer materials persist / Szczyt szybu / ladowanie
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Dojscie na dach / gorna rampa
+PASS Renderer materials persist / Obrys
+PASS Renderer materials persist / Tree_Tree_Trunk
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / Tree_Pine_leaves
+PASS Renderer materials persist / Tree_Tree_Trunk
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / GasPipe_Arch(Clone)
+PASS Renderer materials persist / Tree_Tree_Trunk
+PASS Renderer materials persist / Yard_metal_blue
+PASS Renderer materials persist / Beton
+PASS Renderer materials persist / Garage(Clone)
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / Sciana hali
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / Yard_glass_dark
+PASS Renderer materials persist / Yard_panel_concrete
+PASS Renderer materials persist / Wybrana broń
+PASS Renderer materials persist / Beton
+PASS Renderer materials persist / Mur obrzeza
+PASS Renderer materials persist / Dash tło 2
+PASS Renderer materials persist / Yard_concrete_rough
+PASS Renderer materials persist / SM_Crate_Wooden_03(Clone)
+PASS Renderer materials persist / Yard_concrete_rough
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / BusStop(Clone)
+PASS Renderer materials persist / Rdza
+PASS Renderer materials persist / Yard_door_entrance
+PASS Renderer materials persist / Swiatlik z niebieska blacha
+PASS Renderer materials persist / Tree_Oak_leaves
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Tree_Oak_leaves
+PASS Renderer materials persist / CarpetBeater(Clone)
+PASS Renderer materials persist / Sciana hali
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Plac garazy
+PASS Renderer materials persist / Zaluzja wentylacji
+PASS Renderer materials persist / PanelWall_Entrance(Clone)
+PASS Renderer materials persist / Tree_Tree_Trunk
+PASS Renderer materials persist / Tree_Oak_Trunk
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Yard_metal_grey
+PASS Renderer materials persist / Slup hali
+PASS Renderer materials persist / Obrys
+PASS Renderer materials persist / Teren / skarpy, pagorki i obnizenie
+PASS Renderer materials persist / Obwodnica polnocna
+PASS Renderer materials persist / Yard_concrete_rough
+PASS Renderer materials persist / Spekana plyta chodnikowa
+PASS Renderer materials persist / Ulica poprzeczna
+PASS Renderer materials persist / Obrys
+PASS Renderer materials persist / schabowy
+PASS Renderer materials persist / Zuzyty krawężnik podworka
+PASS Renderer materials persist / Tree_Tree_leaves
+PASS Renderer materials persist / Tree_Oak_Trunk
+PASS Renderer materials persist / Tree_Oak_Trunk
+PASS Renderer materials persist / GasPipe_Straight(Clone)
+PASS Renderer materials persist / Yard_concrete_rough
+PASS Renderer materials persist / GasPipe_Arch(Clone)
+PASS Renderer materials persist / Pasy drogi
+PASS Renderer materials persist / Bench(Clone)
+PASS Renderer materials persist / Zuzyty krawężnik podworka
+PASS Renderer materials persist / Yard_concrete_rough
+PASS Renderer materials persist / Wytarta os jezdni
+PASS Renderer materials persist / Tree_Pine_leaves
+PASS No runtime errors during saved-scene district checks

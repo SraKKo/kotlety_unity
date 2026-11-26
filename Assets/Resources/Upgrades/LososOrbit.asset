@@ -24,4 +24,4 @@ MonoBehaviour:
   bleedDuration: 3
   groundBounces: 2
   orbitLaps: 4
-  icon: {fileID: 2800000, guid: 1f7e1685d0d544879bd57b255a17876d, type: 3}
+  icon: {fileID: 2800000, guid: 009a514c54d34f239e043cc9ab1801eb, type: 3}

@@ -24,4 +24,4 @@ MonoBehaviour:
   increment: 0.15
   shortName: 'MOCNY WYRZUT'
   shopBaseCost: 10
-  icon: {fileID: 2800000, guid: da701525594d47af9604eec74219410d, type: 3}
+  icon: {fileID: 2800000, guid: 64a5c7b7b8a6472489a99429d2166b1d, type: 3}

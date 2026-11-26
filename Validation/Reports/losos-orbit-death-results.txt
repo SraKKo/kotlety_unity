@@ -1,0 +1,8 @@
+PASS A killing orbit hit does not cancel remaining laps
+PASS Orbit centre stays fixed after the corpse is removed
+PASS Fish keeps moving on its ring around the death location
+PASS Fish completes all four laps before returning
+PASS A lethal outbound hit still starts the upgrade orbit
+PASS Lethal first hit also completes the full lap budget
+PASS Orbit continues following a living moving enemy
+PASS An externally destroyed target leaves its last centre usable

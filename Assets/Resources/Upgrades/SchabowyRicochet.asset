@@ -19,4 +19,4 @@ MonoBehaviour:
   extraTargets: 3
   targetRange: 14
   color: {r: 0.65, g: 0.35, b: 1, a: 1}
-  icon: {fileID: 2800000, guid: 8219bfeb7e2b43c892ecdf28b040719f, type: 3}
+  icon: {fileID: 2800000, guid: 9d64802f6b074f6090cfd7140e5c8d6d, type: 3}

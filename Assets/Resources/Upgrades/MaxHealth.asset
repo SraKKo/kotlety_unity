@@ -24,4 +24,4 @@ MonoBehaviour:
   increment: 20
   shortName: 'SOLIDNY POSILEK'
   shopBaseCost: 10
-  icon: {fileID: 2800000, guid: 641fce277ee4454bba29c867e69c3818, type: 3}
+  icon: {fileID: 2800000, guid: 4060894ef334497a92992f4e4e169afb, type: 3}

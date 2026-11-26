@@ -1,0 +1,12 @@
+PASS Level-up leaves all three pickups visible before animation
+PASS Opening sequence immediately pauses the world
+PASS Trading is blocked during collection
+PASS Animation clock advances while game time stays stopped
+PASS No currency is credited before pickups arrive
+PASS Distant and off-screen points all arrive exactly once during pause
+PASS Transferred pickups are removed
+PASS Shop reveal completes after collection while combat remains paused
+PASS Buying after reveal spends the displayed price
+PASS Closing restores gameplay and time scale
+PASS Interrupting the intro safely settles its outstanding transfer once
+PASS Repeated close cannot duplicate currency

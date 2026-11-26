@@ -23,4 +23,4 @@ MonoBehaviour:
   maxStacks: 0
   increment: 0.04
   shortName: DANIE DNIA
-  icon: {fileID: 2800000, guid: 2dae7c8133a143329706acfdf0cc91b0, type: 3}
+  icon: {fileID: 2800000, guid: 56de73f63dee42ef9058d2c7a42434ed, type: 3}

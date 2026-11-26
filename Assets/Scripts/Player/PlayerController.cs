@@ -22,8 +22,8 @@ public class PlayerController : MonoBehaviour {
  public float speed=20,jumpForce=7.265f,gravity=9.8f;
  [HideInInspector] public float groundAcceleration=20,airAcceleration=5,groundFriction=15,airFriction=1;
  [HideInInspector] public float wallJumpOutwardSpeed=6,wallJumpTangentSpeed=8,wallJumpCooldown=.3f;
- public float standingHeight=2,crouchingHeight=1;
- public Vector3 cameraRest=new Vector3(0,1.091f,-.294f);
+ public float standingHeight=1.7f,crouchingHeight=.9f;
+ public Vector3 cameraRest=new Vector3(0,.73f,-.294f);
  public Vector3 velocity;
  CharacterController controller; Vector3 moveInput,wallNormal,groundNormal=Vector3.up,hookPoint;
  Quaternion cameraRotation; Enemy hookedEnemy; float pitch,hookCooldown,ropeLength;
@@ -56,7 +56,15 @@ public class PlayerController : MonoBehaviour {
   previousPosition=currentPosition=transform.position;
   if(view&&baseFov<=0){baseFov=view.fieldOfView;eyeHeight=cameraRest.y;cameraRotation=Quaternion.Euler(0,view.transform.localEulerAngles.y,0);}
  }
- void Start(){speed=movement.runSpeed;jumpForce=movement.jumpSpeed;gravity=movement.gravity;groundAcceleration=movement.groundAcceleration;airAcceleration=movement.airAcceleration;groundFriction=movement.groundBraking;airFriction=movement.airFriction;wallJumpOutwardSpeed=movement.wallOutwardSpeed;wallJumpTangentSpeed=movement.wallTangentSpeed;wallJumpCooldown=movement.wallCooldown;eyeHeight=cameraRest.y;baseFov=view.fieldOfView;previousPosition=currentPosition=transform.position;cameraRotation=Quaternion.Euler(0,view.transform.localEulerAngles.y,0);var game=GameSession.Instance;if(game)game.player=this;Equip(FoodKind.Pan);}
+ void ConfigureBody(){
+  standingHeight=movement.bodyHeight;
+  crouchingHeight=movement.crouchHeight;
+  controller.radius=movement.bodyRadius;
+  TryHeight(standingHeight);
+  cameraRest.y=movement.eyeHeight-standingHeight*.5f;
+  view.transform.localPosition=cameraRest;
+ }
+ void Start(){ConfigureBody();speed=movement.runSpeed;jumpForce=movement.jumpSpeed;gravity=movement.gravity;groundAcceleration=movement.groundAcceleration;airAcceleration=movement.airAcceleration;groundFriction=movement.groundBraking;airFriction=movement.airFriction;wallJumpOutwardSpeed=movement.wallOutwardSpeed;wallJumpTangentSpeed=movement.wallTangentSpeed;wallJumpCooldown=movement.wallCooldown;eyeHeight=cameraRest.y;baseFov=view.fieldOfView;previousPosition=currentPosition=transform.position;cameraRotation=Quaternion.Euler(0,view.transform.localEulerAngles.y,0);var game=GameSession.Instance;if(game)game.player=this;Equip(FoodKind.Pan);}
  void Update(){
   var game=GameSession.Instance;if(!game||game.paused){jumpQueued=dashQueued=slidePressedQueued=flightHeld=false;motor?.ClearJumpBuffer();return;}
   if(stats && stats.RegenPerSecond>0)RestoreHealth(stats.RegenPerSecond*Time.deltaTime);
@@ -100,7 +108,8 @@ public class PlayerController : MonoBehaviour {
   if(jump&&(hooked||hookedEnemy)){ReleaseHook();velocity.y=Mathf.Max(velocity.y,movement.jumpSpeed*.5f);jump=false;}
   motor.velocity=velocity;
   var input=new ArenaMoveInput{wish=transform.TransformDirection(moveInput),forward=transform.forward,jump=jump,dash=dashQueued,slidePressed=slidePressedQueued,slideHeld=slideHeld};
-  motor.Step(input,new ArenaMoveContact{grounded=controller.isGrounded,wall=freshWall,wallNormal=wallNormal,groundNormal=groundNormal,height=transform.position.y+controller.center.y-controller.height*.5f},dt);
+  bool groundedBeforeMove=controller.isGrounded;
+  motor.Step(input,new ArenaMoveContact{grounded=groundedBeforeMove,wall=freshWall,wallNormal=wallNormal,groundNormal=groundNormal,height=transform.position.y+controller.center.y-controller.height*.5f},dt);
   jumpQueued=dashQueued=slidePressedQueued=false;
   velocity=motor.velocity;sliding=motor.Sliding;
   if(motor.DashStarted||motor.Slamming){if(hooked||hookedEnemy)ReleaseHook();}
@@ -125,7 +134,9 @@ public class PlayerController : MonoBehaviour {
   }
   if(hookedEnemy){hookedEnemy.Pull(transform.position,25*dt);if(Vector3.Distance(transform.position,hookPoint)<2)ReleaseHook();}
   motor.velocity=velocity;
-  var flags=controller.Move(velocity*dt);velocity=motor.velocity;
+  var flags=controller.Move(velocity*dt);
+  if(sliding&&groundedBeforeMove&&!motor.Jumped&&velocity.y<=0)flags|=FollowSlideGround();
+  velocity=motor.velocity;
   if((flags&CollisionFlags.Above)!=0&&velocity.y>0)velocity.y=0;
   if((flags&CollisionFlags.Below)!=0&&velocity.y<0)velocity.y=-2;
   GetComponent<MovementUpgradeEffects>().Step(sliding,controller.isGrounded,motor.DashStarted,transform.position+controller.center-Vector3.up*controller.height*.5f);
@@ -157,6 +168,13 @@ public class PlayerController : MonoBehaviour {
   float old=controller.height;Vector3 feet=transform.position+controller.center-Vector3.up*old*.5f;
   if(height>old){float r=controller.radius*.95f;if(Physics.CheckCapsule(feet+Vector3.up*(controller.radius+.03f),feet+Vector3.up*(height-controller.radius),r,WorldMask,QueryTriggerInteraction.Ignore))return false;}
   controller.height=height;controller.center=Vector3.zero;controller.Move(Vector3.up*(height-old)*.5f);return true;
+ }
+ CollisionFlags FollowSlideGround(){
+  var feet=transform.position+controller.center-Vector3.up*controller.height*.5f;
+  if(!Physics.Raycast(feet+Vector3.up*.2f,Vector3.down,out var hit,.65f,WorldMask&~(1<<9),QueryTriggerInteraction.Ignore)||hit.normal.y<Mathf.Cos(controller.slopeLimit*Mathf.Deg2Rad))return CollisionFlags.None;
+  groundNormal=hit.normal;
+  float drop=Mathf.Clamp(hit.distance-.2f+controller.skinWidth,0,.45f);
+  return drop>0?controller.Move(Vector3.down*drop):CollisionFlags.None;
  }
  void OnControllerColliderHit(ControllerColliderHit hit){
   if(hit.normal.y>.5f)groundNormal=hit.normal;

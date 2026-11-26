@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54b8c00ea9c64da6a836b174d51f3aa2, type: 3}
   m_Name: ArenaMovement
   m_EditorClassIdentifier:
+  bodyHeight: 1.7
+  bodyRadius: 0.35
+  crouchHeight: 0.9
+  eyeHeight: 1.58
   runSpeed: 16.5
   groundAcceleration: 180
   groundBraking: 100
@@ -31,9 +35,8 @@ MonoBehaviour:
   dashKey: 304
   slideKey: 306
   alternateSlideKey: 99
-  slideSpeed: 24
   slideTurnRate: 0.75
-  slideDrag: 8
+  slideDrag: 3
   slamSpeed: 80
   slamBounceMin: 16
   slamBounceMax: 22

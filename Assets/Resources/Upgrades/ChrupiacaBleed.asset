@@ -22,4 +22,4 @@ MonoBehaviour:
   bleedDamage: 5
   bleedInterval: 0.25
   bleedDuration: 3
-  icon: {fileID: 2800000, guid: 2f5f0cdde2bc4887a97ba8633e4b5256, type: 3}
+  icon: {fileID: 2800000, guid: b432645c8e2e430596c69870b566c16f, type: 3}

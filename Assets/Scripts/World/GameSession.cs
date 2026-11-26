@@ -17,7 +17,9 @@ public class GameSession : MonoBehaviour {
  public float sensitivity=0.1146f;
  public static float Volume { get => PlayerPrefs.GetFloat("volume",0.8f); set { PlayerPrefs.SetFloat("volume",value); AudioListener.volume=value; } }
  public void InstallNavigation(){if(navInstance.valid)navInstance.Remove();if(navigation)navInstance=UnityEngine.AI.NavMesh.AddNavMeshData(navigation);}
- void Start(){if(!menuScene&&player)GameHud.Install(player);Cursor.lockState=menuScene?CursorLockMode.None:CursorLockMode.Locked;Cursor.visible=menuScene;if(menuScene&&menuMusic&&!music){music=gameObject.AddComponent<AudioSource>();music.clip=menuMusic;music.loop=true;music.volume=PlayerPrefs.GetFloat("music",.6f);music.Play();}}
+ void Start(){
+  if(!menuScene&&player&&SceneManager.GetActiveScene().name==PostSovietDistrict.SceneName&&!player.view.GetComponent<DistrictRetroEffect>())player.view.gameObject.AddComponent<DistrictRetroEffect>();
+  if(!menuScene&&player)GameHud.Install(player);Cursor.lockState=menuScene?CursorLockMode.None:CursorLockMode.Locked;Cursor.visible=menuScene;if(menuScene&&menuMusic&&!music){music=gameObject.AddComponent<AudioSource>();music.clip=menuMusic;music.loop=true;music.volume=PlayerPrefs.GetFloat("music",.6f);music.Play();}}
  void Awake() {
   Instance=this;if(!GetComponent<FpsCounter>())gameObject.AddComponent<FpsCounter>();if(!GetComponent<BuildMenu>())gameObject.AddComponent<BuildMenu>();if(!GetComponent<DebugConsole>())gameObject.AddComponent<DebugConsole>();if(!GetComponent<LevelShop>())gameObject.AddComponent<LevelShop>(); Time.timeScale=1; AudioListener.volume=Volume;
   sensitivity=PlayerPrefs.GetFloat("sensitivity",0.1146f);
@@ -40,6 +42,7 @@ public class GameSession : MonoBehaviour {
  public void SetPause(bool value) { if(options)PlayerPrefs.Save();paused=value; options=false; Time.timeScale=value?0:1; Cursor.lockState=value?CursorLockMode.None:CursorLockMode.Locked; Cursor.visible=value; }
  public void Win() { buildOpen=false;won=true; SetPause(true); }
  public void StartGame() { Time.timeScale=1; SceneManager.LoadScene("Level001"); }
+ public void StartDistrict(){Time.timeScale=1;SceneManager.LoadScene(PostSovietDistrict.SceneName);}
  public void StartProgressionArena(){Time.timeScale=1;SceneManager.LoadScene(ProgressionArenaBootstrap.SceneName);}
  public void StartMovementArena(){Time.timeScale=1;SceneManager.LoadScene(ArenaLayout.SceneName);}
  public void StartTestLevel(){Time.timeScale=1;SceneManager.LoadScene("TestLevel");}
@@ -59,7 +62,7 @@ public class GameSession : MonoBehaviour {
   Styles(); GUI.matrix=Matrix4x4.TRS(Vector3.zero,Quaternion.identity,new Vector3(Screen.width/1280f,Screen.height/720f,1));
   if(menuScene || paused) {
    if(menuScene && background) GUI.DrawTexture(new Rect(0,0,1280,720),background,ScaleMode.ScaleAndCrop);
-   GUI.Box(new Rect(400,70,480,580),GUIContent.none);
+   GUI.Box(new Rect(400,70,480,menuScene?640:580),GUIContent.none);
    if(logo && menuScene) GUI.DrawTexture(new Rect(435,82,410,150),logo,ScaleMode.ScaleToFit);
    else GUI.Label(new Rect(410,90,460,100),won?"Smacznego! Wygrana!":"Pauza",title);
    if(options) {
@@ -77,6 +80,7 @@ public class GameSession : MonoBehaviour {
     if(menuScene&&GUI.Button(new Rect(460,380,360,60),"Arena movementu"))StartMovementArena();
     if(GUI.Button(new Rect(460,menuScene?450:340,360,60),"Opcje",button)) options=true;
     if(!menuScene && GUI.Button(new Rect(460,420,360,60),"Menu główne",button)) MainMenu();
+    if(menuScene&&GUI.Button(new Rect(460,650,360,45),"Osiedle Zelazna / nowa mapa",button))StartDistrict();
     if(menuScene&&GUI.Button(new Rect(460,585,360,50),"Arena progresji",button))StartProgressionArena();
     if(GUI.Button(new Rect(460,menuScene?520:500,360,60),"Wyjdź",button)) Application.Quit();
    }

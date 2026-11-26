@@ -2,7 +2,7 @@ using UnityEngine;
 namespace RetyKotlety {
 public class BuildMenu : MonoBehaviour {
  GameSession session;GUIStyle title,heading,body,muted,button;Texture2D pan,schabowy,chrupiaca,mielony,losos;Vector2 scroll;
- void Awake(){session=GetComponent<GameSession>();pan=Resources.Load<Texture2D>("UI/patelnia");schabowy=Resources.Load<Texture2D>("UI/kotlet_schabowy");chrupiaca=Resources.Load<Texture2D>("UI/kotlet_mielony");mielony=Resources.Load<Texture2D>("UI/kotlet_mielony");losos=Resources.Load<Texture2D>("UI/losos");}
+ void Awake(){session=GetComponent<GameSession>();pan=Resources.Load<Texture2D>("UI/patelnia-v2");schabowy=Resources.Load<Texture2D>("UI/kotlet_schabowy-v2");chrupiaca=Resources.Load<Texture2D>("UI/chrupiaca-v2");mielony=Resources.Load<Texture2D>("UI/kotlet_mielony-v2");losos=Resources.Load<Texture2D>("UI/losos-v2");}
  static void Panel(Rect rect,Color color){var previous=GUI.color;GUI.color=color;GUI.DrawTexture(rect,Texture2D.whiteTexture);GUI.color=previous;}
  void Styles(){
   if(title!=null)return;var font=Resources.Load<Font>("UI/PixelAE-Bold");

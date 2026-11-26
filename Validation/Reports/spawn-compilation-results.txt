@@ -1,0 +1,3 @@
+PASS Unity 6000.6.8f1 installed assembly compilation
+PASS 63 runtime C# files compiled with zero warnings and errors
+PASS 16 editor C# files compiled with zero warnings and errors (including PostSovietDistrictEditor and DistrictSpawnChecks)

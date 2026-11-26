@@ -21,7 +21,7 @@ public static class CorrectionChecks {
    if(phase==0){if(elapsed<3)return;player=GameSession.Instance.player;
     Check(player!=null,"Player spawned");Check(player.GetComponent<CharacterController>().isGrounded,"Player settles on map collision");
     Check(Mathf.Abs(player.GetComponent<CharacterController>().radius-.5f)<.001f,"Original player radius retained");
-    Check(Mathf.Abs(player.cameraRest.y-1.091f)<.001f,"Original eye height retained");
+    Check(Mathf.Abs(player.cameraRest.y+player.standingHeight*.5f-1.58f)<.001f,"Eye height matches the 1.7m player profile");
     var wc=player.view.transform.Find("Weapon Camera").GetComponent<Camera>();
     Check(Mathf.Abs(wc.fieldOfView-110)<.001f&&wc.cullingMask==(1<<11),"Dedicated weapon camera has original FOV and layer");
     foreach(var key in new[]{"melee_idle2","melee_attack2","melee_block","throw_schabowy","throw_chrupiaca"})Check(WeaponPresentation.FindAnimation(player.hand.gameObject,key)!=null,"Authored clip exists: "+key);
